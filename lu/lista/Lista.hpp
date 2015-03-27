@@ -16,10 +16,40 @@ template <typename T>
      inicializaLista();
   }
 
-  explicit Lista(int tam) {}
-  void adiciona(T dado) {}
-  void adicionaNoInicio(T dado) {}
-  void adicionaNaPosicao(T dado, int posicao) {}
+  explicit Lista(int tam) {
+    maximoDeElementos = tam;
+    inicializaLista();
+  }
+
+  void adiciona(T dado) {
+    if (listaCheia()) {
+      throw "Lista Cheia"
+    }
+    adicionaNaPosicao(dado, fimDaLista); //SE A LISTA ESTIVER VAZIA, VAI
+    //COLOCAR NA POSICAO[-1]
+  }
+
+  void adicionaNoInicio(T dado) {
+    adicionaNaPosicao(dado, 0);
+  }
+
+  void adicionaNaPosicao(T dado, int posicao) {
+    if (listaCheia()) {
+      throw "Lista Cheia";
+    }
+    if (posicao > fimDaLista || posicao < 0) {
+      throw "Erro de Posicao"
+    }
+
+    fimDaLista++;
+    int ultimoDaLista = fimDaLista;
+
+    for (ultimoDaLista; ultimoDaLista > posicao; ultimoDaLista--) {
+      dados[ultimoDaLista] = dados[ultimoDaLista - 1];
+    }
+    dados[posicao] = dado;
+  }
+
   void adicionaEmOrdem(T dado) {}
 
   T retira() {
