@@ -1,4 +1,15 @@
+/* Copyright [2015] <marcelinol>
+ * Lista.hpp
+ */
+
+template <typename T>
+
  class Lista {
+ private:
+   int fimDaLista;
+   int maximoDeElementos;
+   T* dados = new T[maximoDeElementos];
+
   public:
  	Lista()
  	explicit Lista(int tam)
