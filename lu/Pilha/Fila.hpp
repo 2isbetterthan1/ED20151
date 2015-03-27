@@ -1,105 +1,134 @@
 /* Copyright [2015] <marcelinol>
- * Fila.hpp
+ * Lista.hpp
  */
 
 template <typename T>
 
-/**
-* Classe Fila. Uma fila é uma lista linear na qual o primeiro elemento a entrar é o primeiro elemento a sair.
-*/
-  class Fila  {
+  class Lista {
    private:
-    int fimDaFila;
+    int fimDaLista;
     int maximoDeElementos;
     T* dados = new T[maximoDeElementos];
 
    public:
-   /**
-   * Construtor. Construtor de uma Fila
-   */
-    Fila() {
-      maximoDeElementos = 10;
-      inicializaFila();
+    Lista() {
+     maximoDeElementos = 10;
+     inicializaLista();
     }
 
-
-    Fila<T> (int tam) {
+    explicit Lista(int tam) {
       maximoDeElementos = tam;
-      inicializaFila();
+      inicializaLista();
     }
 
-    /**
-    * Função inclui. Insere um elemento no final da fila se ela não estiver cheia.
-    * @param dado Elemento a ser inserido na fila.
-    */
-    void inclui(T dado) {
-      if (filaCheia()) {
-       throw "Fila Cheia";
+    T::operator<(T dado1, T dado2) {
+      return static_cast<int>(dado1) > static_cast<int>(dado2);
+    }
+
+    void adiciona(T dado) {
+      if (listaCheia()) {
+        throw "Lista Cheia";
       }
-      fimDaFila += 1;
-        dados[fimDaFila] = dado;
+      adicionaNaPosicao(dado, fimDaLista);
     }
 
-    /**
-    * Função retira. Retira um elemento do início da fila se ela não estiver
-    * vazia. Itera sobre os demais para fazer a fila andar.
-    * @return elemento retirado do final da fila.
-    */
+    void adicionaNoInicio(T dado) {
+      adicionaNaPosicao(dado, 0);
+    }
+
+    void adicionaNaPosicao(T dado, int posicao) {
+      if (listaCheia()) {
+        throw "Lista Cheia";
+      }
+      if (posicao > fimDaLista || posicao < 0) {
+        throw "Erro de Posicao"
+      }
+
+      fimDaLista++;
+      int ultimoDaLista = fimDaLista;
+
+      for (ultimoDaLista; ultimoDaLista > posicao; ultimoDaLista--) {
+        dados[ultimoDaLista] = dados[ultimoDaLista - 1];
+      }
+      dados[posicao] = dado;
+    }
+
+    void adicionaEmOrdem(T dado) {}
+
     T retira() {
-      if (filaVazia()) {
-       throw "Fila Vazia";
+      return retiraDaPosicao(fimDaLista);
+    }
+
+    T retiraDoInicio() {
+      return retiraDaPosicao(posicao(0));
+    }
+
+    T retiraDaPosicao(int posicao) {
+      if (listaVazia()) {
+        throw "Lista Vazia";
       }
-      T retirado = dados[0];
-      fimDaFila -= 1;
-      for (int i = 0; i < (maximoDeElementos -1); i++) {
-       dados[i] = dados[i+1];
+      T retirado = dados[posicao];
+      int contador = posicao;
+      for (contador; contador < fimDaLista; contador++) {
+        dados[contador] = dados[contador + 1];
       }
+      fimDaLista--;
       return retirado;
     }
 
-    /**
-    * Função ultimo. Lê o valor que está no final da fila se ela não estiver vazia.
-    * @return último valor da fila.
-    */
-    T ultimo() {
-      if (filaVazia()) {
-        throw "Fila Vazia";
+    T retiraEspecifico(T dado) {
+      return retiraDaPosicao(posicao(dado));
+    }
+
+    int posicao(T dado) {
+      int posicao = 0;
+      while (posicao <= fimDaLista && (dado != dados[posicao])) {
+        posicao += 1;
       }
-      return dados[fimDaFila];
-    }
-
-
-    /**
-    * Função getUltimo. Vê qual é o índice do último elemento da fila.
-    * @return valor de elementos na fila - 1.
-    */
-    int getUltimo() {
-      if (filaVazia()) {
-        throw "Fila Vazia";
+      if (posicao > fimDaLista) {
+        throw "Item não encontrado";
+      } else {
+        return posicao;
       }
-      return fimDaFila;
     }
 
-    /**
-    * Função fileCheia. Verifica se a fila está cheia.
-    * @return verdadeiro se a fila estiver cheia, falso se não estiver cheia.
-    */
-    bool filaCheia() {
-      return fimDaFila == maximoDeElementos - 1;
+    bool contem(T dado) {
+      if (listaVazia()) {
+        throw "Lista Vazia";
+      }
+      for (int contador = 0; contador < fimDaLista; contador++) {
+        if (dados[contador] == dado) {
+          return true;
+        }
+      }
+      return false;
     }
 
-    /**
-    * Função filaVazia. Verifica se a fila está vazia.
-    * @return verdadeiro se a fila estiver vazia, falso se não estiver vazia.
-    */
-    bool filaVazia() {
-      return fimDaFila == -1;
+    bool igual(T dado1, T dado2) {
+      return dado1 == dado2;
     }
 
-    /**
-    * Função inicializaFila. Deixa a fila vazia.
-    */
-    void inicializaFila() {
-      fimDaFila = -1;
+    bool maior(T dado1, T dado2) {
+      return dado1 > dado2;
+    }
+
+    bool menor(T dado1, T dado2) {
+      return dado1 < dado2;
+    }
+
+    bool listaCheia() {
+      return fimDaLista == maximoDeElementos;
+    }
+
+    bool listaVazia() {
+      return fimDaLista == -1;
+    }
+
+    void inicializaLista() {
+      fimDaLista = -1;
+    }
+
+    void destroiLista() {
+      fimDaLista = -1;
     }
   };
