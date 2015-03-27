@@ -21,10 +21,6 @@ template <typename T>
       inicializaLista();
     }
 
-    T::operator<(T dado1, T dado2) {
-      return static_cast<int>(dado1) > static_cast<int>(dado2);
-    }
-
     void adiciona(T dado) {
       if (listaCheia()) {
         throw "Lista Cheia";
@@ -41,14 +37,13 @@ template <typename T>
         throw "Lista Cheia";
       }
       if (posicao > fimDaLista || posicao < 0) {
-        throw "Erro de Posicao"
+        throw "Erro de Posicao";
       }
 
       fimDaLista++;
-      int ultimoDaLista = fimDaLista;
 
-      for (ultimoDaLista; ultimoDaLista > posicao; ultimoDaLista--) {
-        dados[ultimoDaLista] = dados[ultimoDaLista - 1];
+      for (int ultimo = fimDaLista; ultimo > posicao; ultimo--) {
+        dados[ultimo] = dados[ultimo - 1];
       }
       dados[posicao] = dado;
     }
@@ -68,8 +63,7 @@ template <typename T>
         throw "Lista Vazia";
       }
       T retirado = dados[posicao];
-      int contador = posicao;
-      for (contador; contador < fimDaLista; contador++) {
+      for (int contador = posicao; contador < fimDaLista; contador++) {
         dados[contador] = dados[contador + 1];
       }
       fimDaLista--;
