@@ -16,16 +16,48 @@ template <typename T>
      inicializaLista();
   }
 
- 	explicit Lista(int tam)
- 	void adiciona(T dado)
- 	void adicionaNoInicio(T dado)
- 	void adicionaNaPosicao(T dado, int posicao)
- 	void adicionaEmOrdem(T dado)
- 	T retira()
- 	T retiraDoInicio()
- 	T retiraDaPosicao(int posicao)
- 	T retiraEspecifico(T dado)
- 	int posicao(T dado)
+  explicit Lista(int tam) {}
+  void adiciona(T dado) {}
+  void adicionaNoInicio(T dado) {}
+  void adicionaNaPosicao(T dado, int posicao) {}
+  void adicionaEmOrdem(T dado) {}
+
+  T retira() {
+    return retiraDaPosicao(fimDaLista);
+  }
+
+  T retiraDoInicio() {
+    return retiraDaPosicao(posicao(0));
+  }
+
+  T retiraDaPosicao(int posicao) {
+    if (listaVazia()) {
+      throw "Lista Vazia";
+    }
+    T retirado = dados[posicao];
+    int contador = posicao;
+    for (contador; contador < fimDaLista; contador++) {
+      dados[contador] = dados[contador + 1];
+    }
+    fimDaLista--;
+    return retirado;
+  }
+
+  T retiraEspecifico(T dado) {
+    return retiraDaPosicao(posicao(dado));
+  }
+
+  int posicao(T dado) {
+   int posicao = 0;
+   while (posicao <= fimDaLista && (dado != dados[posicao])) {
+     posicao += 1;
+   }
+   if(posicao > fimDaLista) {
+     throw "Item não encontrado";
+   } else {
+     return posicao;
+   }
+  }
 
   bool contem(T dado) {
    if (listaVazia()) {
