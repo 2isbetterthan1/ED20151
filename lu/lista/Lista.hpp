@@ -21,6 +21,11 @@ template <typename T>
       inicializaLista();
     }
 
+    T::operator<(T a, T b) {
+      //return static_cast<int>(a) > static_cast<int>(b) ? a : b;
+      return a;
+    }
+
     void adiciona(T dado) {
       if (listaCheia()) {
         throw "Lista Cheia";
