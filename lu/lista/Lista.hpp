@@ -21,55 +21,62 @@ template <typename T>
       inicializaLista();
     }
 
-    T::operator<(T a, T b) {
-      //return static_cast<int>(a) > static_cast<int>(b) ? a : b;
-      return a;
-    }
-
     void adiciona(T dado) {
       if (listaCheia()) {
         throw "Lista Cheia";
       }
-      adicionaNaPosicao(dado, fimDaLista);
+      fimDaLista++;
+      dados[fimDaLista] = dado;
     }
 
     void adicionaNoInicio(T dado) {
       adicionaNaPosicao(dado, 0);
     }
 
-    void adicionaNaPosicao(T dado, int posicao) {
+    void adicionaNaPosicao(T dado, int destino) {
       if (listaCheia()) {
         throw "Lista Cheia";
       }
-      if (posicao > fimDaLista || posicao < 0) {
+      if (destino > fimDaLista + 1 || destino < 0) {
         throw "Erro de Posicao";
       }
 
       fimDaLista++;
+      int posicao = fimDaLista;
 
-      for (int ultimo = fimDaLista; ultimo > posicao; ultimo--) {
-        dados[ultimo] = dados[ultimo - 1];
+      while (posicao > destino) {
+        dados[posicao] = dados[posicao -1];
+        posicao--;
       }
-      dados[posicao] = dado;
+      dados[destino] = dado;
     }
 
-    void adicionaEmOrdem(T dado) {}
+    void adicionaEmOrdem(T dado) {
+      if (listaCheia()) {
+        throw "Lista Cheia";
+      }
+      int posicao = 0;
+      while (posicao <= fimDaLista && maior(dado, dados[posicao])) {
+        posicao++;
+      }
+      adicionaNaPosicao(dado, posicao);
+    }
 
     T retira() {
       return retiraDaPosicao(fimDaLista);
     }
 
     T retiraDoInicio() {
-      return retiraDaPosicao(posicao(0));
+      return retiraDaPosicao(0);
     }
 
-    T retiraDaPosicao(int posicao) {
+    T retiraDaPosicao(int destino) {
       if (listaVazia()) {
         throw "Lista Vazia";
       }
-      T retirado = dados[posicao];
-      for (int contador = posicao; contador < fimDaLista; contador++) {
-        dados[contador] = dados[contador + 1];
+      T retirado = dados[destino];
+      for (int posicao = destino; posicao < fimDaLista; posicao++) {
+        dados[posicao] = dados[posicao + 1];
       }
       fimDaLista--;
       return retirado;
@@ -95,8 +102,8 @@ template <typename T>
       if (listaVazia()) {
         throw "Lista Vazia";
       }
-      for (int contador = 0; contador < fimDaLista; contador++) {
-        if (dados[contador] == dado) {
+      for (int posicao = 0; posicao < fimDaLista; posicao++) {
+        if (igual(dados[posicao], dado)) {
           return true;
         }
       }
@@ -104,7 +111,7 @@ template <typename T>
     }
 
     bool igual(T dado1, T dado2) {
-      return dado1 == dado2;
+      return dado1 == dado2 ? true : false;
     }
 
     bool maior(T dado1, T dado2) {
@@ -116,7 +123,7 @@ template <typename T>
     }
 
     bool listaCheia() {
-      return fimDaLista == maximoDeElementos;
+      return fimDaLista == maximoDeElementos - 1;
     }
 
     bool listaVazia() {
