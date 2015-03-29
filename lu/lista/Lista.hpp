@@ -4,19 +4,20 @@
 
 template <typename T>
 
+#define MAX 1000
+
   class Lista {
    private:
     int fimDaLista;
-    int maximoDeElementos;
+    int maximoDeElementos = MAX;
     T* dados = new T[maximoDeElementos];
 
    public:
     Lista() {
-     maximoDeElementos = 10;
      inicializaLista();
     }
 
-    explicit Lista(int tam) {
+    explicit Lista<T>(int tam) {
       maximoDeElementos = tam;
       inicializaLista();
     }
@@ -74,6 +75,9 @@ template <typename T>
       if (listaVazia()) {
         throw "Lista Vazia";
       }
+      if (destino < 0 || destino > fimDaLista) {
+        throw "Erro de posicao";
+      }
       T retirado = dados[destino];
       for (int posicao = destino; posicao < fimDaLista; posicao++) {
         dados[posicao] = dados[posicao + 1];
@@ -102,7 +106,7 @@ template <typename T>
       if (listaVazia()) {
         throw "Lista Vazia";
       }
-      for (int posicao = 0; posicao < fimDaLista; posicao++) {
+      for (int posicao = 0; posicao <= fimDaLista; posicao++) {
         if (igual(dados[posicao], dado)) {
           return true;
         }
@@ -123,7 +127,7 @@ template <typename T>
     }
 
     bool listaCheia() {
-      return fimDaLista == maximoDeElementos - 1;
+      return fimDaLista == (maximoDeElementos - 1);
     }
 
     bool listaVazia() {
