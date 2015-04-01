@@ -13,7 +13,7 @@ template <typename T>
   class Lista {
    private:
     int fimDaLista;
-    int maximoDeElementos = MAX;
+    int maximoDeElementos;
     T* dados = new T[maximoDeElementos];
 
    public:
@@ -21,6 +21,7 @@ template <typename T>
    * Construtor. Construtor de uma Lista
    */
     Lista() {
+     maximoDeElementos = MAX;
      inicializaLista();
     }
 
