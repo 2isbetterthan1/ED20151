@@ -34,18 +34,56 @@ public:
       novoElemento->setInfo(*dado);
       setSize(getSize() + 1);
     }
-
   }
+
 	T retiraDoInicio(){
+    if (listaVazia()) {
+      return NULL;
+    }
 
+    Elemento *saiu;
+    T *volta;
+    saiu = *dados;
+    volta = saiu->getInfo();
+    dados = saiu->getNext();
+    setSize(getSize() - 1);
+    delete saiu; // ???
+    return volta;
   }
+
 	void eliminaDoInicio(){
-
+    Elemento *saiu;
+    if (listaVazia()) {
+      return NULL;
+    }
+    saiu = *dados;
+    dados = saiu->getNext();
+    setSize(getSize() -1);
+    delete saiu->getInfo();
+    delete saiu;
   }
+
 	// posicao
 	void adicionaNaPosicao(const T& dado, int pos){
-
+    Elemento *novo, *anterior;
+    if(pos > getSize() + 1) {
+      throw "Erro de posição";
+    }
+    if(pos == 0) {
+      adicionaNoInicio(dado);
+    } else {
+      novo = new Elemento();
+      if (novo == NULL) {
+        throw "Lista Cheia";
+      }
+      anterior = *dados;
+      for (counter = 0; counter < posicao - 2; counter++) {
+        anterior = *(anterior->getNext());
+        novo->setNext()
+      }
+    }
   }
+
 	int posicao(const T& dado) const{
 
   }
