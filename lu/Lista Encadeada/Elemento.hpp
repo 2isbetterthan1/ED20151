@@ -29,6 +29,10 @@ public:
 	{
 		_next = next;
 	}
+
+  void setInfo(T *newInfo) {
+    *info = *newInfo;
+  }
 };
 
 #endif
