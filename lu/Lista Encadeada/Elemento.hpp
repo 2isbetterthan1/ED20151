@@ -25,6 +25,10 @@ public:
 		return *info;
 	}
 
+  T* getNext(){
+    return _next;
+  }
+
 	void setProximo(Elemento<T>* next)
 	{
 		_next = next;
