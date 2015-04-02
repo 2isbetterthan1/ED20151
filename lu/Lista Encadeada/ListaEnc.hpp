@@ -25,6 +25,15 @@ public:
   }
 
 	void adicionaNoInicio(const T& dado){
+    Elemento *novoElemento;
+    novoElemento = new Elemento();
+    if (novoElemento == NULL) {
+      throw "Lista Cheia";
+    } else {
+      novoElemento->setProximo(*dados);
+      novoElemento->setInfo(*dado);
+      setSize(getSize() + 1);
+    }
 
   }
 	T retiraDoInicio(){
@@ -61,9 +70,11 @@ public:
 	void adicionaEmOrdem(const T& data){
 
   }
-	bool listaVazia() const{
 
+	bool listaVazia() const{
+    return getSize() == 0;
   }
+
 	bool igual(T dado1, T dado2){
 
   }
