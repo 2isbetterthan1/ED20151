@@ -135,9 +135,31 @@ public:
 
   }
 	// especifico
-	T retiraEspecifico(const T& dado)
-	void adicionaEmOrdem(const T& data){
+	T retiraEspecifico(const T& dado) {
 
+  }
+
+	void adicionaEmOrdem(const T& data){
+    if (listaVazia()) {
+      adicionaNoInicio(data);
+    }
+
+    Elemento *atual;
+    int posicao;
+
+    atual = *dados;
+    posicao = 0;
+
+    while (*atual.getNext() != NULL; && maior(data, atual.getInfo())) {
+      atual = *atual.getNext();
+      posicao++;
+    }
+
+    if (maior(data, atual.getInfo()) {
+      adicionaNaPosicao(data, posicao + 1);
+    } else {
+      adicionaNaPosicao(data, posicao);
+    }
   }
 
 	bool listaVazia() const{
@@ -155,7 +177,7 @@ public:
 	bool menor(T dado1, T dado2){
     return dado1 < dado2;
   }
-  
+
 	void destroiLista(){
 
   }
