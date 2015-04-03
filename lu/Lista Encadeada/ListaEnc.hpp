@@ -15,8 +15,8 @@ public:
 	// inicio
 
   Lista* criaLista() {
-    Lista *lista;
-    lista = new Lista();
+    Lista *lista;           //WAT
+    lista = new Elemento(); //cabeça da lista?
     if (lista != NULL) {
       setSize(0); //OU tamanho = 0; ???
       dados = NULL;
@@ -114,14 +114,17 @@ public:
   }
 
 	bool igual(T dado1, T dado2){
-
+    return dado1 == dado2;
   }
+
 	bool maior(T dado1, T dado2){
-
+    return dado1 > dado2;
   }
+
 	bool menor(T dado1, T dado2){
-
+    return dado1 < dado2;
   }
+  
 	void destroiLista(){
 
   }
