@@ -25,6 +25,11 @@ public:
 		return *info;
 	}
 
+	T setInfo(const T& dado)
+	{
+		*info = dado;
+	}
+
 	void setProximo(Elemento<T>* next)
 	{
 		_next = next;
