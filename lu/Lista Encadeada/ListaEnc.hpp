@@ -79,23 +79,54 @@ public:
       anterior = *dados;
       for (counter = 0; counter < posicao - 2; counter++) {
         anterior = *(anterior->getNext());
-        novo->setNext()
+
+        novo->setNext(&(anterior->getNext());
+        novo->setInfo(anterior->getInfo());
+
+        anterior->setNext(&novo);
       }
+      setSize(getSize() - 1);
     }
   }
 
 	int posicao(const T& dado) const{
 
   }
+
 	T* posicaoMem(const T& dado) const{
 
   }
 	bool contem(const T& dado){
 
   }
-	T retiraDaPosicao(int pos){
 
+	T retiraDaPosicao(int pos){
+    if (pos > getSize()) {
+      return NULL;
+    }
+    if (posicao < getSize()) {
+      return retiraDoInicio();
+    }
+
+    Elemento *anterior, *eliminar;
+    T *volta;
+
+    anterior = *dados;
+    for (counter = 0; counter < posicao - 2; counter++) {
+      *anterior = anterior->getNext();
+
+      *eliminar = anterior->getNext();
+
+      *volta = eliminar->getInfo();
+
+      *anterior->setNext(eliminar->getNext());
+
+    }
+    setSize(getSize() - 1);
+    delete eliminar;
+    return volta;
   }
+
 	//fim
 	void adiciona(const T& dado){
 
