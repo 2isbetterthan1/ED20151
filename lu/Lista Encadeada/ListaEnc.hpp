@@ -9,7 +9,7 @@ class ListaEnc {
 
 public:
 	ListaEnc(){
-    Elemento *cabeca;
+    Elemento *head;
     int tamanho;
   }
 	~ListaEnc(){
@@ -22,7 +22,7 @@ public:
 		*head = new Elemento<T>(NULL, NULL);
     if (head != NULL) {
       setSize(0);
-      cabeca.setNext(NULL);
+      head.setNext(NULL);
     }
     return *head;
   }
@@ -42,54 +42,62 @@ public:
       return NULL;
     }
 
-    Elemento<T> *saiu = cabeca.getNext();
+    Elemento<T> *saiu = head.getNext();
 
 		T *dadoRetirado = saiu.getInfo();
 
-		Elemento<T> *novoInicio = saiu.getNext();
-		dados.setNext(novoInicio);
-
-		sizeDecrement();
-
-    delete saiu;
+		eliminaDoInicio();
+		// Elemento<T> *novoInicio = saiu.getNext();
+		// head.setNext(novoInicio);
+		//
+		// sizeDecrement();
+		//
+    // delete saiu;
     return dadoRetirado;
   }
 
 	void eliminaDoInicio(){
-    Elemento *saiu;
     if (listaVazia()) {
       return NULL;
     }
-    saiu = *dados;
-    dados = saiu->getNext();
-    setSize(getSize() -1);
-    delete saiu->getInfo();
-    delete saiu;
+
+    Elemento *eliminado = head.getNext();
+
+		Elemento<T> *novoInicio = eliminado.getNext();
+    head.setNext(novoInicio);
+
+		sizeDecrement();
+
+    delete eliminado.getInfo();
+    delete eliminado;
   }
 
 	// posicao
 	void adicionaNaPosicao(const T& dado, int pos){
-    Elemento *novo, *anterior;
-    if(pos > getSize() + 1) {
+		if(pos > getSize() + 1) {
       throw "Erro de posição";
     }
-    if(pos == 0) {
+
+		if(pos == 0) {
       adicionaNoInicio(dado);
     } else {
-      novo = new Elemento();
-      if (novo == NULL) {
+      Elemento<T> *novo = new Elemento<T>(dado, NULL);
+
+			if (novo == NULL) {
         throw "Lista Cheia";
       }
-      anterior = *dados;
-      for (counter = 0; counter < posicao - 2; counter++) {
-        anterior = *(anterior->getNext());
 
-        novo->setNext(&(anterior->getNext());
-        novo->setInfo(anterior->getInfo());
+      Elemento<T> *anterior = head.getNext();
+      for (int i = 0; i < pos - 1; i++) {
+				*anterior = anterior.getNext();
+			}
 
-        anterior->setNext(&novo);
-      }
-      setSize(getSize() - 1);
+			Elemento<T> *posterior = anterior.getNext();
+			novo.setNext(posterior);
+
+			anterior.setNext(novo);
+
+			sizeIncrement();
     }
   }
 
