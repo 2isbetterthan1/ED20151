@@ -102,12 +102,49 @@ public:
   }
 
 	int posicao(const T& dado) const{
+		if(listaVazia()) {
+			throw "lista vazia";
+		}
+		Elemento<T> *current = head.getNext();
+
+		int posicao = 0;
+
+		while(posicao < getSize() && current.getInfo() != dado) {
+			*current = current.getNext();
+			i++;
+		}
+
+		if(current.getInfo() == dado) {
+			return posicao;
+		} else {
+			throw "Elemento não pertence à lista";
+		}
 
   }
 
 	T* posicaoMem(const T& dado) const{
+		if(listaVazia()) {
+			throw "lista vazia";
+		}
+		Elemento<T> *current = head.getNext();
+
+		int posicao = 0;
+
+		while(posicao < getSize() && current.getInfo() != dado) {
+			*current = current.getNext();
+			i++;
+		}
+
+		if(current.getInfo() == dado) {
+			return current;
+		} else {
+			throw "Elemento não pertence à lista";
+		}
 
   }
+
+
+
 	bool contem(const T& dado){
 
   }
