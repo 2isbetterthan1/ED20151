@@ -279,3 +279,4 @@ class ListaEnc {
 	void destroiLista() {
 		size = -1;
   }
+}
