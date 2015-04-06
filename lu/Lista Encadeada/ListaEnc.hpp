@@ -161,43 +161,74 @@ public:
 		} else {
 			return false;
 		}
-
   }
 
 	T retiraDaPosicao(int pos){
     if (pos > getSize()) {
-      return NULL;
+      throw "Erro de posicao";
     }
-    if (posicao < getSize()) {
+    if (posicao == 0) {
       return retiraDoInicio();
     }
 
-    Elemento *anterior, *eliminar;
-    T *volta;
+		Elemento *anterior = head.getNext();
 
-    anterior = *dados;
-    for (counter = 0; counter < posicao - 2; counter++) {
-      *anterior = anterior->getNext();
+		for (int i = 0; i < pos - 1; i++) {
+			*anterior = anterior.getNext();
+		}
 
-      *eliminar = anterior->getNext();
+		Elemento *retirar = anterior.getNext();
+		T dadoRetirado = retirar.getInfo();
 
-      *volta = eliminar->getInfo();
+		anterior.setNext(retirar.getNext());
 
-      *anterior->setNext(eliminar->getNext());
+		sizeDecrement();
 
-    }
-    setSize(getSize() - 1);
-    delete eliminar;
-    return volta;
+    delete retirar;
+    return dadoRetirado;
   }
 
 	//fim
 	void adiciona(const T& dado){
+		if (listaVazia()) {
+			adicionaNoInicio(dado);
+		}
 
+		Elemento<T> *novo = new Elemento<T>(dado, NULL);
+
+		if(novo == NULL) {
+			throw "lista cheia";
+		}
+
+		Elemento *anterior = head.getNext();
+
+		for (int i = 0; i < getSize(); i++) {
+			*anterior = anterior.getNext();
+		}
+
+		anterior.setNext(novo);
+
+		sizeIncrement();
   }
+
 	T retira(){
+		if (listaVazia()) {
+			throw "lista vazia";
+		}
+		Elemento *ultimo = head.getNext();
 
+		for (int i = 0; i < getSize(); i++) {
+			*ultimo = ultimo.getNext();
+		}
+
+		T dadoRetirado = ultimo.getInfo();
+
+		delete ultimo.getInfo();
+		delete ultimo;
+
+		return dadoRetirado();
   }
+
 	// especifico
 	T retiraEspecifico(const T& dado) {
 
