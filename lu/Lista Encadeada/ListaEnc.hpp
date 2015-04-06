@@ -42,14 +42,17 @@ public:
       return NULL;
     }
 
-    Elemento *saiu;
-    T *volta;
-    saiu = *dados;
-    volta = saiu->getInfo();
-    dados = saiu->getNext();
-    setSize(getSize() - 1);
-    delete saiu; // ???
-    return volta;
+    Elemento<T> *saiu = cabeca.getNext();
+
+		T *dadoRetirado = saiu.getInfo();
+
+		Elemento<T> *novoInicio = saiu.getNext();
+		dados.setNext(novoInicio);
+
+		sizeDecrement();
+
+    delete saiu;
+    return dadoRetirado;
   }
 
 	void eliminaDoInicio(){
@@ -193,6 +196,10 @@ public:
 
 	void incrementSize() {
 		size++;
+	}
+
+	void sizeDecrement() {
+		size--;
 	}
 
 private:
