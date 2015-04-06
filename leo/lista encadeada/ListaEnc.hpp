@@ -63,15 +63,15 @@ class ListaEnc {
       head = elemento;
       size++;
     } else {
-      throw("Não foi possível adicionar o elemento. Memória cheia.")
+      throw("Não foi possível adicionar o elemento. Memória cheia.");
     }
   }
 /**
 * Função retiraDoInicio. Retira e retorna elemento do início de uma lista encadeada.
 */
-  T retiraDoInicio() {
+  Elemento<T>* retiraDoInicio() {
     Elemento<T>* antigoPrimeiro = head->getProximo();
-    head = *antigoPrimeiro->getProximo();
+    head = antigoPrimeiro->getProximo();
     size--;
     return antigoPrimeiro;
   }
@@ -101,7 +101,7 @@ class ListaEnc {
 /**
 * Função acheElementoNaPos. Retorna um elemento na lista por meio de sua posição - passada como argumento.
 */
-  Elemento<T> acheElementoNaPos(int pos) {
+  Elemento<T>* acheElementoNaPos(int pos) {
     excecaoListaVazia();
     Elemento<T>* proximo = head->getProximo();
     int controller = 0;
@@ -115,10 +115,9 @@ class ListaEnc {
 * Função posicao. Retorna a posição de um determinado elemento - passado como argumento à função.
 */
   int posicao(const T& dado) const {
-    excecaoListaVazia();
+    int position = 0;
+    Elemento<T>* proximo = head->getProximo();
     if (contem(dado)) {
-      int position = 0;
-      Elemento<T>* proximo = acheElementoNaPos(position);
       while (proximo->getInfo() != dado && position < size) {
         position++;
         proximo = acheElementoNaPos(position);
@@ -148,7 +147,7 @@ class ListaEnc {
 /**
 * Função retiraDaPosicao. Retira e retorna um elemento da lista encadeada de uma posição específica (argumento).
 */
-  T retiraDaPosicao(int pos) {
+  Elemento<T>* retiraDaPosicao(int pos) {
     excecaoListaVazia();
     if (pos == size) {
       return retira();
@@ -178,7 +177,7 @@ class ListaEnc {
 * Função adiciona. Adiciona um dado (argumento) no final da lista encadeada.
 */
   void adiciona(const T& dado) {
-    Elemento<T>* novoElemento = new Elemento();
+    Elemento<T>* novoElemento = new Elemento<T>(dado, NULL);
     if (novoElemento != NULL) {
       adicionaNaPosicao(dado, size);
     } else {
@@ -188,7 +187,7 @@ class ListaEnc {
 /**
 * Função retira. Retira e retonar um elemento do final da lista encadeada.
 */
-  T retira() {
+  Elemento<T>* retira() {
     Elemento<T>* elementoAretirar = acheElementoNaPos(size);
     Elemento<T>* penultimoElemento = acheElementoNaPos(size - 1);
     Elemento<T>* elementoNulo = NULL;
@@ -198,10 +197,9 @@ class ListaEnc {
 /**
 * Função retiraEspecifico. Retira e retorna um elemento específico (argumento) da lista encadeada.
 */
-  T retiraEspecifico(const T& dado) {
+  Elemento<T>* retiraEspecifico(const T& dado) {
     int pos = posicao(dado);
-    Elemento<T>* elemento = acheElementoNaPos(pos);
-    return retiraDaPosicao(elemento);
+    return retiraDaPosicao(pos);
   }
 /**
 * Função adicionaEmOrdem. Adiciona o elemento passado (argumento) em ordem na lista encadeada.
