@@ -32,7 +32,7 @@ class Elemento {
   }
 
   void setNext(const Elemento<T>* next) {
-    next = next;
+    _next = *next;
   }
 
   void setInfo(T *newInfo) {

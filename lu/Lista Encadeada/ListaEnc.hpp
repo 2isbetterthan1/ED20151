@@ -16,6 +16,7 @@ class ListaEnc {
   }
 
 	~ListaEnc() {
+    destroiLista();
   }
 
   void criaLista() {
@@ -24,7 +25,6 @@ class ListaEnc {
       size = 0;
       head->setNext(NULL);
     }
-    // return *head;
   }
 
 	void adicionaNoInicio(const T& dado) {
@@ -47,12 +47,6 @@ class ListaEnc {
 	 T dadoRetirado = saiu->getInfo();
 
 		eliminaDoInicio();
-		// Elemento<T> *novoInicio = saiu->getNext();
-		// head->setNext(novoInicio);
-		//
-		// size--;
-		//
-    // delete saiu;
      return dadoRetirado;
   }
 
