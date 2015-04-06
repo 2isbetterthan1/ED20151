@@ -12,21 +12,21 @@ class ListaEnc {
 
  public:
 	ListaEnc() {
-    int size;
-    Elemento<T> *head;
+    criaLista();
   }
+
 	~ListaEnc() {
   }
 
 	// inicio
 
-  ListaEnc* criaLista() {
-		*head = new Elemento<T>(NULL, NULL);
+  void criaLista() {
+		head = new Elemento<T>(NULL, NULL);
     if (head != NULL) {
-      size = 0;;
+      size = 0;
       head.setNext(NULL);
     }
-    return *head;
+    // return *head;
   }
 
 	void adicionaNoInicio(const T& dado) {
@@ -90,7 +90,7 @@ class ListaEnc {
 
       Elemento<T> *anterior = head.getNext();
       for (int i = 0; i < pos - 1; i++) {
-				*anterior = anterior.getNext();
+				anterior = anterior.getNext();
 			}
 
 			Elemento<T> *posterior = anterior.getNext();
@@ -111,7 +111,7 @@ class ListaEnc {
 		int posicao = 0;
 
 		while (posicao < size && current.getInfo() != dado) {
-			*current = current.getNext();
+			current = current.getNext();
 			posicao++;
 		}
 
@@ -131,7 +131,7 @@ class ListaEnc {
 		int posicao = 0;
 
 		while (posicao < size && current.getInfo() != dado) {
-			*current = current.getNext();
+			current = current.getNext();
 			posicao++;
 		}
 
@@ -152,7 +152,7 @@ class ListaEnc {
 		int posicao = 0;
 
 		while (posicao < size && current.getInfo() != dado) {
-			*current = current.getNext();
+			current = current.getNext();
 			posicao++;
 		}
 
@@ -174,7 +174,7 @@ class ListaEnc {
 		Elemento<T> *anterior = head.getNext();
 
 		for (int i = 0; i < pos - 1; i++) {
-			*anterior = anterior.getNext();
+			anterior = anterior.getNext();
 		}
 
 		Elemento<T> *retirar = anterior.getNext();
@@ -202,7 +202,7 @@ class ListaEnc {
 		Elemento<T> *anterior = head.getNext();
 
 		for (int i = 0; i < size; i++) {
-			*anterior = anterior.getNext();
+			anterior = anterior.getNext();
 		}
 
 		anterior.setNext(novo);
@@ -217,7 +217,7 @@ class ListaEnc {
 		Elemento<T> *ultimo = head.getNext();
 
 		for (int i = 0; i < size; i++) {
-			*ultimo = ultimo.getNext();
+			ultimo = ultimo.getNext();
 		}
 
 		T dadoRetirado = ultimo.getInfo();
@@ -249,7 +249,7 @@ class ListaEnc {
     int posicao = 0;
 
     while (posicao < size && maior(dado, atual.getInfo())) {
-      *atual = atual.getNext();
+      atual = atual.getNext();
       posicao++;
     }
 
