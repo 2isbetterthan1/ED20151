@@ -136,7 +136,7 @@ public:
 		}
 
 		if (current.getInfo() == dado) {
-			return current;
+			return &current;
 		} else {
 			throw "Elemento não pertence à lista";
 		}
@@ -229,28 +229,32 @@ public:
 		return dadoRetirado();
   }
 
-	// especifico
 	T retiraEspecifico(const T& dado) {
-
+		Elemento<T> *elemento = posicaoMem(dado);
+		return elemento.getInfo();
   }
 
-	void adicionaEmOrdem(const T& data){
+	void adicionaEmOrdem(const T& dado){
     if (listaVazia()) {
       adicionaNoInicio(data);
     }
 
-    Elemento *atual;
-    int posicao;
+		Elemento<T> *novo = new Elemento<T>(dado, NULL);
 
-    atual = *dados;
-    posicao = 0;
+		if (novo == NULL) {
+			throw "lista cheia";
+		}
 
-    while (*atual.getNext() != NULL; && maior(data, atual.getInfo())) {
-      atual = *atual.getNext();
+		Elemento *atual = head.getNext();
+
+    int posicao = 0;
+
+    while (posicao < getSize() && maior(dado, atual.getInfo())) {
+      *atual = atual.getNext();
       posicao++;
     }
 
-    if (maior(data, atual.getInfo()) {
+    if (maior(dado, atual.getInfo()) {
       adicionaNaPosicao(data, posicao + 1);
     } else {
       adicionaNaPosicao(data, posicao);
@@ -274,7 +278,7 @@ public:
   }
 
 	void destroiLista(){
-
+		setSize(-1);
   }
 
   int getSize() {
