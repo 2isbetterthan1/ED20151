@@ -5,7 +5,8 @@
 #ifndef ELEMENTO_HPP
 #define ELEMENTO_HPP
 
-template<typename T>
+template <typename T>
+
 class Elemento {
  private:
 	T *info;
@@ -26,16 +27,16 @@ class Elemento {
 		return *info;
 	}
 
-  T* getNext() {
+  Elemento<T>* getNext() {
     return _next;
   }
 
-	void setProximo(Elemento<T>* next) {
-		_next = next;
-	}
+  void setNext(const Elemento<T>* next) {
+    next = next;
+  }
 
   void setInfo(T *newInfo) {
-    *info = *newInfo;
+    info = *newInfo;
   }
 };
 

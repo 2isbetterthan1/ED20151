@@ -18,59 +18,56 @@ class ListaEnc {
 	~ListaEnc() {
   }
 
-	// inicio
-
   void criaLista() {
-		head = new Elemento<T>(NULL, NULL);
+	head = new Elemento<T>(0, NULL);
     if (head != NULL) {
       size = 0;
-      head.setNext(NULL);
+      head->setNext(NULL);
     }
     // return *head;
   }
 
 	void adicionaNoInicio(const T& dado) {
-		Elemento<T>* novo = new Elemento<T>(dado, head.getNext());
+		Elemento<T>* novo = new Elemento<T>(dado, head->getNext());
     if (novo == NULL) {
       throw "Lista Cheia";
     } else {
-			head.setNext(&novo);
+			head->setNext(novo);
       size++;
     }
   }
 
 	T retiraDoInicio() {
      if (listaVazia()) {
-       return NULL;
+       throw "lista vazia";
      }
 
-     Elemento<T> *saiu = head.getNext();
+     Elemento<T> *saiu = head->getNext();
 
-	 T *dadoRetirado = saiu.getInfo();
+	 T dadoRetirado = saiu->getInfo();
 
 		eliminaDoInicio();
-		// Elemento<T> *novoInicio = saiu.getNext();
-		// head.setNext(novoInicio);
+		// Elemento<T> *novoInicio = saiu->getNext();
+		// head->setNext(novoInicio);
 		//
 		// size--;
 		//
-        // delete saiu;
+    // delete saiu;
      return dadoRetirado;
   }
 
 	void eliminaDoInicio() {
      if (listaVazia()) {
-       return NULL;
+       throw "lista vazia";
      }
 
-     Elemento<T> *eliminado = head.getNext();
+     Elemento<T> *eliminado = head->getNext();
 
-	 Elemento<T> *novoInicio = eliminado.getNext();
-     head.setNext(novoInicio);
+	 Elemento<T> *novoInicio = eliminado->getNext();
+     head->setNext(novoInicio);
 
 	 size--;
 
-     delete eliminado.getInfo();
      delete eliminado;
   }
 
@@ -88,15 +85,15 @@ class ListaEnc {
         throw "Lista Cheia";
       }
 
-      Elemento<T> *anterior = head.getNext();
+      Elemento<T> *anterior = head->getNext();
       for (int i = 0; i < pos - 1; i++) {
-				anterior = anterior.getNext();
+				anterior = anterior->getNext();
 			}
 
-			Elemento<T> *posterior = anterior.getNext();
-			novo.setNext(posterior);
+			Elemento<T> *posterior = anterior->getNext();
+			novo->setNext(posterior);
 
-			anterior.setNext(novo);
+			anterior->setNext(novo);
 
 			size++;
     }
@@ -106,16 +103,16 @@ class ListaEnc {
 		if (listaVazia()) {
 			throw "lista vazia";
 		}
-		Elemento<T> *current = head.getNext();
+		Elemento<T> *current = head->getNext();
 
 		int posicao = 0;
 
-		while (posicao < size && current.getInfo() != dado) {
-			current = current.getNext();
+		while (posicao < size && current->getInfo() != dado) {
+			current = current->getNext();
 			posicao++;
 		}
 
-		if (current.getInfo() == dado) {
+		if (current->getInfo() == dado) {
 			return posicao;
 		} else {
 			throw "Elemento não pertence à lista";
@@ -126,17 +123,17 @@ class ListaEnc {
 		if (listaVazia()) {
 			throw "lista vazia";
 		}
-		Elemento<T> *current = head.getNext();
+		Elemento<T> *current = head->getNext();
 
 		int posicao = 0;
 
-		while (posicao < size && current.getInfo() != dado) {
-			current = current.getNext();
+		while (posicao < size && current->getInfo() != dado) {
+			current = current->getNext();
 			posicao++;
 		}
 
-		if (current.getInfo() == dado) {
-			return &current;
+		if (current->getInfo() == dado) {
+			return current;
 		} else {
 			throw "Elemento não pertence à lista";
 		}
@@ -147,16 +144,16 @@ class ListaEnc {
 			throw "lista vazia";
 		}
 
-		Elemento<T> *current = head.getNext();
+		Elemento<T> *current = head->getNext();
 
-		int posicao = 0;
+		int pos = 0;
 
-		while (posicao < size && current.getInfo() != dado) {
-			current = current.getNext();
-			posicao++;
+		while (pos < size && current->getInfo() != dado) {
+			current = current->getNext();
+			pos++;
 		}
 
-		if (current.getInfo() == dado) {
+		if (current->getInfo() == dado) {
 			return true;
 		} else {
 			return false;
@@ -167,20 +164,20 @@ class ListaEnc {
     if (pos > size) {
       throw "Erro de posicao";
     }
-    if (posicao == 0) {
+    if (pos == 0) {
       return retiraDoInicio();
     }
 
-		Elemento<T> *anterior = head.getNext();
+		Elemento<T> *anterior = head->getNext();
 
 		for (int i = 0; i < pos - 1; i++) {
-			anterior = anterior.getNext();
+			anterior = anterior->getNext();
 		}
 
-		Elemento<T> *retirar = anterior.getNext();
-		T dadoRetirado = retirar.getInfo();
+		Elemento<T> *retirar = anterior->getNext();
+		T dadoRetirado = retirar->getInfo();
 
-		anterior.setNext(retirar.getNext());
+		anterior->setNext(retirar->getNext());
 
 		size--;
 
@@ -199,13 +196,13 @@ class ListaEnc {
 			throw "lista cheia";
 		}
 
-		Elemento<T> *anterior = head.getNext();
+		Elemento<T> *anterior = head->getNext();
 
 		for (int i = 0; i < size; i++) {
-			anterior = anterior.getNext();
+			anterior = anterior->getNext();
 		}
 
-		anterior.setNext(novo);
+		anterior->setNext(novo);
 
 		size++;
   }
@@ -214,23 +211,46 @@ class ListaEnc {
 		if (listaVazia()) {
 			throw "lista vazia";
 		}
-		Elemento<T> *ultimo = head.getNext();
+		Elemento<T> *ultimo = head->getNext();
 
 		for (int i = 0; i < size; i++) {
-			ultimo = ultimo.getNext();
+			ultimo = ultimo->getNext();
 		}
 
-		T dadoRetirado = ultimo.getInfo();
+		T dadoRetirado = ultimo->getInfo();
 
-		delete ultimo.getInfo();
 		delete ultimo;
 
-		return dadoRetirado();
+		return dadoRetirado;
   }
 
 	T retiraEspecifico(const T& dado) {
-		Elemento<T> *elemento = posicaoMem(dado);
-		return elemento.getInfo();
+    if (listaVazia()) {
+      throw "lista vazia";
+    }
+
+    Elemento<T> *atual = head->getNext();
+    Elemento<T> *anterior = head;
+    int pos = 0;
+    while (pos < size && atual->getInfo() != dado) {
+      anterior = atual;
+      atual = atual->getNext();
+      pos++;
+    }
+
+    if (pos == size) {
+      throw "Elemento inexistente";
+    }
+
+    if (pos == size - 1) {
+      return retira();
+    }
+
+    T dadoRetirado = atual->getInfo();
+    anterior->setNext(atual->getNext());
+    delete atual;
+
+    return dadoRetirado;
   }
 
 	void adicionaEmOrdem(const T& dado) {
@@ -244,16 +264,16 @@ class ListaEnc {
 			throw "lista cheia";
 		}
 
-		Elemento<T> *atual = head.getNext();
+		Elemento<T> *atual = head->getNext();
 
     int posicao = 0;
 
-    while (posicao < size && maior(dado, atual.getInfo())) {
-      atual = atual.getNext();
+    while (posicao < size && maior(dado, atual->getInfo())) {
+      atual = atual->getNext();
       posicao++;
     }
 
-    if (maior(dado, atual.getInfo())) {
+    if (maior(dado, atual->getInfo())) {
       adicionaNaPosicao(dado, posicao + 1);
     } else {
       adicionaNaPosicao(dado, posicao);
@@ -279,4 +299,4 @@ class ListaEnc {
 	void destroiLista() {
 		size = -1;
   }
-}
+};
