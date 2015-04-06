@@ -6,75 +6,76 @@
 
 template<typename T>
 class ListaEnc {
+ private:
+	Elemento<T>* head;
+	int size;
 
-public:
-	ListaEnc(){
-    Elemento *head;
+ public:
+	ListaEnc() {
+    Elemento<T> *head;
     int tamanho;
   }
-	~ListaEnc(){
-
+	~ListaEnc() {
   }
 
 	// inicio
 
-  Lista* criaLista() {
+  T* criaLista() {
 		*head = new Elemento<T>(NULL, NULL);
     if (head != NULL) {
-      setSize(0);
+      size = 0;;
       head.setNext(NULL);
     }
     return *head;
   }
 
-	void adicionaNoInicio(const T& dado){
+	void adicionaNoInicio(const T& dado) {
 		Elemento<T>* novo = new Elemento<T>(dado, head.getNext());
     if (novo == NULL) {
       throw "Lista Cheia";
     } else {
 			head.setNext(&novo);
-      sizeIncrement();
+      size++;
     }
   }
 
-	T retiraDoInicio(){
-    if (listaVazia()) {
-      return NULL;
-    }
+	T retiraDoInicio() {
+     if (listaVazia()) {
+       return NULL;
+     }
 
-    Elemento<T> *saiu = head.getNext();
+     Elemento<T> *saiu = head.getNext();
 
-		T *dadoRetirado = saiu.getInfo();
+	 T *dadoRetirado = saiu.getInfo();
 
 		eliminaDoInicio();
 		// Elemento<T> *novoInicio = saiu.getNext();
 		// head.setNext(novoInicio);
 		//
-		// sizeDecrement();
+		// size--;
 		//
-    // delete saiu;
-    return dadoRetirado;
+        // delete saiu;
+     return dadoRetirado;
   }
 
-	void eliminaDoInicio(){
-    if (listaVazia()) {
-      return NULL;
-    }
+	void eliminaDoInicio() {
+     if (listaVazia()) {
+       return NULL;
+     }
 
-    Elemento *eliminado = head.getNext();
+     Elemento<T> *eliminado = head.getNext();
 
-		Elemento<T> *novoInicio = eliminado.getNext();
-    head.setNext(novoInicio);
+	 Elemento<T> *novoInicio = eliminado.getNext();
+     head.setNext(novoInicio);
 
-		sizeDecrement();
+	 size--;
 
-    delete eliminado.getInfo();
-    delete eliminado;
+     delete eliminado.getInfo();
+     delete eliminado;
   }
 
-	// posicao
-	void adicionaNaPosicao(const T& dado, int pos){
-		if(pos > getSize() + 1) {
+	void adicionaNaPosicao(const T& dado, int pos) {
+		if(pos > size + 1) {
       throw "Erro de posição";
     }
 
@@ -97,11 +98,11 @@ public:
 
 			anterior.setNext(novo);
 
-			sizeIncrement();
+			size++;
     }
   }
 
-	int posicao(const T& dado) const{
+	int posicao(const T& dado) const {
 		if (listaVazia()) {
 			throw "lista vazia";
 		}
@@ -109,9 +110,9 @@ public:
 
 		int posicao = 0;
 
-		while (posicao < getSize() && current.getInfo() != dado) {
+		while (posicao < size && current.getInfo() != dado) {
 			*current = current.getNext();
-			i++;
+			posicao++;
 		}
 
 		if (current.getInfo() == dado) {
@@ -119,10 +120,9 @@ public:
 		} else {
 			throw "Elemento não pertence à lista";
 		}
-
   }
 
-	T* posicaoMem(const T& dado) const{
+	T* posicaoMem(const T& dado) const {
 		if (listaVazia()) {
 			throw "lista vazia";
 		}
@@ -130,9 +130,9 @@ public:
 
 		int posicao = 0;
 
-		while (posicao < getSize() && current.getInfo() != dado) {
+		while (posicao < size && current.getInfo() != dado) {
 			*current = current.getNext();
-			i++;
+			posicao++;
 		}
 
 		if (current.getInfo() == dado) {
@@ -142,7 +142,7 @@ public:
 		}
   }
 
-	bool contem(const T& dado){
+	bool contem(const T& dado) {
 		if (listaVazia()) {
 			throw "lista vazia";
 		}
@@ -151,9 +151,9 @@ public:
 
 		int posicao = 0;
 
-		while (posicao < getSize() && current.getInfo() != dado) {
+		while (posicao < size && current.getInfo() != dado) {
 			*current = current.getNext();
-			i++;
+			posicao++;
 		}
 
 		if (current.getInfo() == dado) {
@@ -163,33 +163,32 @@ public:
 		}
   }
 
-	T retiraDaPosicao(int pos){
-    if (pos > getSize()) {
+	T retiraDaPosicao(int pos) {
+    if (pos > size) {
       throw "Erro de posicao";
     }
     if (posicao == 0) {
       return retiraDoInicio();
     }
 
-		Elemento *anterior = head.getNext();
+		Elemento<T> *anterior = head.getNext();
 
 		for (int i = 0; i < pos - 1; i++) {
 			*anterior = anterior.getNext();
 		}
 
-		Elemento *retirar = anterior.getNext();
+		Elemento<T> *retirar = anterior.getNext();
 		T dadoRetirado = retirar.getInfo();
 
 		anterior.setNext(retirar.getNext());
 
-		sizeDecrement();
+		size--;
 
     delete retirar;
     return dadoRetirado;
   }
 
-	//fim
-	void adiciona(const T& dado){
+	void adiciona(const T& dado) {
 		if (listaVazia()) {
 			adicionaNoInicio(dado);
 		}
@@ -200,24 +199,24 @@ public:
 			throw "lista cheia";
 		}
 
-		Elemento *anterior = head.getNext();
+		Elemento<T> *anterior = head.getNext();
 
-		for (int i = 0; i < getSize(); i++) {
+		for (int i = 0; i < size; i++) {
 			*anterior = anterior.getNext();
 		}
 
 		anterior.setNext(novo);
 
-		sizeIncrement();
+		size++;
   }
 
-	T retira(){
+	T retira() {
 		if (listaVazia()) {
 			throw "lista vazia";
 		}
-		Elemento *ultimo = head.getNext();
+		Elemento<T> *ultimo = head.getNext();
 
-		for (int i = 0; i < getSize(); i++) {
+		for (int i = 0; i < size; i++) {
 			*ultimo = ultimo.getNext();
 		}
 
@@ -234,9 +233,9 @@ public:
 		return elemento.getInfo();
   }
 
-	void adicionaEmOrdem(const T& dado){
+	void adicionaEmOrdem(const T& dado) {
     if (listaVazia()) {
-      adicionaNoInicio(data);
+      adicionaNoInicio(dado);
     }
 
 		Elemento<T> *novo = new Elemento<T>(dado, NULL);
@@ -245,58 +244,38 @@ public:
 			throw "lista cheia";
 		}
 
-		Elemento *atual = head.getNext();
+		Elemento<T> *atual = head.getNext();
 
     int posicao = 0;
 
-    while (posicao < getSize() && maior(dado, atual.getInfo())) {
+    while (posicao < size && maior(dado, atual.getInfo())) {
       *atual = atual.getNext();
       posicao++;
     }
 
-    if (maior(dado, atual.getInfo()) {
-      adicionaNaPosicao(data, posicao + 1);
+    if (maior(dado, atual.getInfo())) {
+      adicionaNaPosicao(dado, posicao + 1);
     } else {
-      adicionaNaPosicao(data, posicao);
+      adicionaNaPosicao(dado, posicao);
     }
   }
 
-	bool listaVazia() const{
-    return getSize() == 0;
+	bool listaVazia() const {
+    return size == 0;
   }
 
-	bool igual(T dado1, T dado2){
+	bool igual(T dado1, T dado2) {
     return dado1 == dado2;
   }
 
-	bool maior(T dado1, T dado2){
+	bool maior(T dado1, T dado2) {
     return dado1 > dado2;
   }
 
-	bool menor(T dado1, T dado2){
+	bool menor(T dado1, T dado2) {
     return dado1 < dado2;
   }
 
-	void destroiLista(){
-		setSize(-1);
+	void destroiLista() {
+		size = -1;
   }
-
-  int getSize() {
-    return size;
-  }
-
-  void setSize(int new_size) {
-    size = new_size;
-  }
-
-	void incrementSize() {
-		size++;
-	}
-
-	void sizeDecrement() {
-		size--;
-	}
-
-private:
-	Elemento<T>* head;
-	int size;

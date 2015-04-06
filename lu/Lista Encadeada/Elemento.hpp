@@ -1,36 +1,36 @@
+/* Copyright [2015] <marcelinol>
+ * Lista.hpp
+ */
+
 #ifndef ELEMENTO_HPP
 #define ELEMENTO_HPP
 
 template<typename T>
 class Elemento {
-private:
+ private:
 	T *info;
 	Elemento<T>* _next;
 
-public:
+ public:
 	Elemento(const T& info, Elemento<T>* next) : info(new T(info)), _next(next) {}
 
-	~Elemento()
-	{
+	~Elemento() {
 		delete info;
 	}
 
-	Elemento<T>* getProximo() const
-	{
+	Elemento<T>* getProximo() const {
 		return _next;
 	}
 
-	T getInfo() const
-	{
+	T getInfo() const {
 		return *info;
 	}
 
-  T* getNext(){
+  T* getNext() {
     return _next;
   }
 
-	void setProximo(Elemento<T>* next)
-	{
+	void setProximo(Elemento<T>* next) {
 		_next = next;
 	}
 
