@@ -1,3 +1,7 @@
+/* Copyright [2015] <marcelinol>
+ * Lista.hpp
+ */
+
 #include "Elemento.hpp"
 
 template<typename T>
@@ -5,7 +9,7 @@ class ListaEnc {
 
 public:
 	ListaEnc(){
-    Elemento *dados;
+    Elemento *cabeca;
     int tamanho;
   }
 	~ListaEnc(){
@@ -15,24 +19,21 @@ public:
 	// inicio
 
   Lista* criaLista() {
-    Lista *lista;           //WAT
-    lista = new Elemento(); //cabeça da lista?
-    if (lista != NULL) {
-      setSize(0); //OU tamanho = 0; ???
-      dados = NULL;
+		*head = new Elemento<T>(NULL, NULL);
+    if (head != NULL) {
+      setSize(0);
+      cabeca.setNext(NULL);
     }
-    return lista;
+    return *head;
   }
 
 	void adicionaNoInicio(const T& dado){
-    Elemento *novoElemento;
-    novoElemento = new Elemento();
-    if (novoElemento == NULL) {
+		Elemento<T>* novo = new Elemento<T>(dado, head.getNext());
+    if (novo == NULL) {
       throw "Lista Cheia";
     } else {
-      novoElemento->setProximo(*dados);
-      novoElemento->setInfo(*dado);
-      setSize(getSize() + 1);
+			head.setNext(&novo);
+      sizeIncrement();
     }
   }
 
@@ -190,13 +191,9 @@ public:
     size = new_size;
   }
 
-  T getHead(){
-    return head;
-  }
-
-  void setHead(T *new_head){
-    head = *new_head
-  }
+	void incrementSize() {
+		size++;
+	}
 
 private:
 	Elemento<T>* head;
