@@ -12,15 +12,15 @@ class ListaEnc {
 
  public:
 	ListaEnc() {
+    int size;
     Elemento<T> *head;
-    int tamanho;
   }
 	~ListaEnc() {
   }
 
 	// inicio
 
-  T* criaLista() {
+  ListaEnc* criaLista() {
 		*head = new Elemento<T>(NULL, NULL);
     if (head != NULL) {
       size = 0;;
