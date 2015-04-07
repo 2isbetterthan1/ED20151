@@ -161,6 +161,9 @@ class ListaEnc {
     if (pos == 0) {
       return retiraDoInicio();
     }
+    if (pos == size - 1) {
+      return retira();
+    }
 
 		Elemento<T> *anterior = head->getNext();
 

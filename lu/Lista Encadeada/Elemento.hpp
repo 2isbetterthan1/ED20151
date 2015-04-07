@@ -31,8 +31,8 @@ class Elemento {
     return _next;
   }
 
-  void setNext(const Elemento<T>* next) {
-    _next = *next;
+  void setNext(Elemento<T>* next) {
+    _next = next;
   }
 
   void setInfo(T *newInfo) {
