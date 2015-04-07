@@ -45,7 +45,7 @@ public:
 */
   void setInfo(const T& dado)
   {
-    *info = dado;
+    info = dado;
   }
 /**
 * Função setProximo. Grava a referência ao próximo elemento da lista encadeada.

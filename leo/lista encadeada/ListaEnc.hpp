@@ -10,7 +10,7 @@ template<typename T>
 */
 class ListaEnc {
  private:
-  int size = -1;
+  int size;
   Elemento<T>* head;
 
  public:
@@ -18,7 +18,6 @@ class ListaEnc {
 * Construtor. Construtor de uma Lista Encadeada.
 */
   ListaEnc() {
-    size = 0;
     criaLista();
   }
 /**
@@ -31,11 +30,11 @@ class ListaEnc {
 * Função criaLista. Serve para fazer a configuração inicial de uma lista encadeada.
 */
   void criaLista() {
-    Elemento<T>* cabeca = new Elemento<T>(0, NULL);
+    head = new Elemento<T>(0, NULL);
     if (cabeca != NULL) {
-      head = cabeca;
+      size = 0;
     } else {
-    throw("Não foi possível criar a lista.");
+      throw("Não foi possível criar a lista.");
     }
   }
 /**
@@ -56,11 +55,9 @@ class ListaEnc {
 * Função adicionaNoInicio. Adiciona elementos no início de uma lista encadeada.
 */
   void adicionaNoInicio(const T& dado) {
-    Elemento<T>* antigoPrimeiro = head->getProximo();
-    Elemento<T>* elemento = new Elemento<T>(dado, NULL);
+    Elemento<T>* elemento = new Elemento<T>(dado, head->getProximo();
     if (elemento != NULL) {
-      elemento->setProximo(antigoPrimeiro);
-      head = elemento;
+      head->setProximo(elemento);
       size++;
     } else {
       throw("Não foi possível adicionar o elemento. Memória cheia.");
@@ -69,18 +66,22 @@ class ListaEnc {
 /**
 * Função retiraDoInicio. Retira e retorna elemento do início de uma lista encadeada.
 */
-  Elemento<T>* retiraDoInicio() {
+  T retiraDoInicio() {
+    excecaoListaVazia();
     Elemento<T>* antigoPrimeiro = head->getProximo();
-    head = antigoPrimeiro->getProximo();
+    head->setProximo(antigoPrimeiro->getProximo());
+    T data = antigoPrimeiro->getInfo();
     size--;
-    return antigoPrimeiro;
+    return data;
   }
 /**
 * Função eliminaDoInicio. Chama o destrutor do primeiro elemento de uma lista encadeada.
 */
   void eliminaDoInicio() {
-    Elemento<T>* inicio = retiraDoInicio();
-    inicio.~Elemento();
+    excecaoListaVazia();
+    Elemento<T>* antigoPrimeiro = head->getProximo();
+    head->setProximo(antigoPrimeiro->getProximo());
+    antigoPrimeiro.~Elemento();
   }
 /**
 * Função adicionaNaPosicao. Adiciona um elemento (argumento) em uma posição específica (argumento) da lista encadeada.
@@ -139,7 +140,7 @@ class ListaEnc {
         position++;
         proximo = acheElementoNaPos(position);
       }
-      return *proximo;
+      return proximo->getInfo();
     } else {
       throw("Dado Inválido");
     }
@@ -147,26 +148,30 @@ class ListaEnc {
 /**
 * Função retiraDaPosicao. Retira e retorna um elemento da lista encadeada de uma posição específica (argumento).
 */
-  Elemento<T>* retiraDaPosicao(int pos) {
+  T retiraDaPosicao(int pos) {
     excecaoListaVazia();
-    if (pos == size) {
+    if (pos == (size - 1)) {
       return retira();
     }
+    if (pos == 0) {
+      return retiraDoInicio();
+    }
     Elemento<T>* elementoAretirar = acheElementoNaPos(pos);
-    Elemento<T>* anterior = acheElementoNaPos(pos - 1);
-    Elemento<T>* seguinte = acheElementoNaPos(pos + 1);
+    Elemento<T>* anterior = acheElementoNaPos((pos - 1));
+    Elemento<T>* seguinte = acheElementoNaPos((pos + 1));
     anterior->setProximo(seguinte);
-    return elementoAretirar;
+    return elementoAretirar->getInfo();
   }
 /**
 * Função contem. Retorna um valor booleano positivo caso determinado dado (argumento) conste na lista.
 */
   bool contem(const T& dado) {
     excecaoListaVazia();
-    int position = -1;
+    int position = 0;
+    Elemento<T>* proximo = head->getProximo();
     while (position < size) {
       position++;
-      Elemento<T>* proximo = acheElementoNaPos(position);
+      proximo = acheElementoNaPos(position);
       if (proximo->getInfo() == dado) {
         return true;
       }
