@@ -11,7 +11,7 @@ class ListaEnc {
 	int size;
 
  public:
-	ListaEnc() {
+	ListaEnc<T>() {
     criaLista();
   }
 
@@ -20,19 +20,16 @@ class ListaEnc {
   }
 
   void criaLista() {
-	head = new Elemento<T>(0, NULL);
-    if (head != NULL) {
-      size = 0;
-      head->setNext(NULL);
-    }
+	head = NULL;
+    size = -1;
   }
 
 	void adicionaNoInicio(const T& dado) {
-		Elemento<T>* novo = new Elemento<T>(dado, head->getNext());
+		Elemento<T>* novo = new Elemento<T>(dado, head);
     if (novo == NULL) {
       throw "Lista Cheia";
     } else {
-			head->setNext(novo);
+			head = novo;
       size++;
     }
   }
@@ -42,7 +39,7 @@ class ListaEnc {
        throw "lista vazia";
      }
 
-     Elemento<T> *saiu = head->getNext();
+     Elemento<T> *saiu = head;
 
 	 T dadoRetirado = saiu->getInfo();
 
@@ -55,7 +52,7 @@ class ListaEnc {
        throw "lista vazia";
      }
 
-     Elemento<T> *eliminado = head->getNext();
+     Elemento<T> *eliminado = head;
 
 	 Elemento<T> *novoInicio = eliminado->getNext();
      head->setNext(novoInicio);
@@ -79,7 +76,7 @@ class ListaEnc {
         throw "Lista Cheia";
       }
 
-      Elemento<T> *anterior = head->getNext();
+      Elemento<T> *anterior = head;
       for (int i = 0; i < pos - 1; i++) {
 				anterior = anterior->getNext();
 			}
@@ -97,7 +94,7 @@ class ListaEnc {
 		if (listaVazia()) {
 			throw "lista vazia";
 		}
-		Elemento<T> *current = head->getNext();
+		Elemento<T> *current = head;
 
 		int posicao = 0;
 
@@ -117,7 +114,7 @@ class ListaEnc {
 		if (listaVazia()) {
 			throw "lista vazia";
 		}
-		Elemento<T> *current = head->getNext();
+		Elemento<T> *current = head;
 
 		int posicao = 0;
 
@@ -138,7 +135,7 @@ class ListaEnc {
 			throw "lista vazia";
 		}
 
-		Elemento<T> *current = head->getNext();
+		Elemento<T> *current = head;
 
 		int pos = 0;
 
@@ -165,7 +162,7 @@ class ListaEnc {
       return retira();
     }
 
-		Elemento<T> *anterior = head->getNext();
+		Elemento<T> *anterior = head;
 
 		for (int i = 0; i < pos - 1; i++) {
 			anterior = anterior->getNext();
@@ -184,7 +181,7 @@ class ListaEnc {
 
 	void adiciona(const T& dado) {
 		if (listaVazia()) {
-			adicionaNoInicio(dado);
+			return adicionaNoInicio(dado);
 		}
 
 		Elemento<T> *novo = new Elemento<T>(dado, NULL);
@@ -193,7 +190,7 @@ class ListaEnc {
 			throw "lista cheia";
 		}
 
-		Elemento<T> *anterior = head->getNext();
+		Elemento<T> *anterior = head;
 
 		for (int i = 0; i < size; i++) {
 			anterior = anterior->getNext();
@@ -208,7 +205,7 @@ class ListaEnc {
 		if (listaVazia()) {
 			throw "lista vazia";
 		}
-		Elemento<T> *ultimo = head->getNext();
+		Elemento<T> *ultimo = head;
 
 		for (int i = 0; i < size; i++) {
 			ultimo = ultimo->getNext();
@@ -226,7 +223,7 @@ class ListaEnc {
       throw "lista vazia";
     }
 
-    Elemento<T> *atual = head->getNext();
+    Elemento<T> *atual = head;
     Elemento<T> *anterior = head;
     int pos = 0;
     while (pos < size && atual->getInfo() != dado) {
@@ -261,7 +258,7 @@ class ListaEnc {
 			throw "lista cheia";
 		}
 
-		Elemento<T> *atual = head->getNext();
+		Elemento<T> *atual = head;
 
     int posicao = 0;
 
@@ -278,7 +275,7 @@ class ListaEnc {
   }
 
 	bool listaVazia() const {
-    return size == 0;
+    return size == -1;
   }
 
 	bool igual(T dado1, T dado2) {
