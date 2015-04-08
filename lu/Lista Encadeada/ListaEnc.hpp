@@ -11,7 +11,7 @@ class ListaEnc {
 	int size;
 
  public:
-	ListaEnc() {
+	ListaEnc<T>() {
     criaLista();
   }
 
@@ -20,19 +20,16 @@ class ListaEnc {
   }
 
   void criaLista() {
-	head = new Elemento<T>(0, NULL);
-    if (head != NULL) {
-      size = 0;
-      head->setNext(NULL);
-    }
+	head = NULL;
+    size = -1;
   }
 
 	void adicionaNoInicio(const T& dado) {
-		Elemento<T>* novo = new Elemento<T>(dado, head->getNext());
+		Elemento<T>* novo = new Elemento<T>(dado, head);
     if (novo == NULL) {
       throw "Lista Cheia";
     } else {
-			head->setNext(novo);
+			head = novo;
       size++;
     }
   }
@@ -138,7 +135,7 @@ class ListaEnc {
 			throw "lista vazia";
 		}
 
-		Elemento<T> *current = head->getNext();
+		Elemento<T> *current = head;
 
 		int pos = 0;
 
@@ -184,7 +181,7 @@ class ListaEnc {
 
 	void adiciona(const T& dado) {
 		if (listaVazia()) {
-			adicionaNoInicio(dado);
+			return adicionaNoInicio(dado);
 		}
 
 		Elemento<T> *novo = new Elemento<T>(dado, NULL);
@@ -278,7 +275,7 @@ class ListaEnc {
   }
 
 	bool listaVazia() const {
-    return size == 0;
+    return size == -1;
   }
 
 	bool igual(T dado1, T dado2) {
