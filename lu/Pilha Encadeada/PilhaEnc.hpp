@@ -2,24 +2,23 @@
  * PilhaEnc.hpp
  */
 
-
 #ifndef PILHAENC_HPP
 #define PILHAENC_HPP
 
 #include "Elemento.hpp"
-// #include "ListaEnc.hpp"
-class ListaEnc;
+#include "ListaEnc.hpp"
+
 template<typename T>
-class PilhaEnc: private ListaEnc {
+class PilhaEnc: private ListaEnc<T> {
  public:
-    PilhaEnc() : ListaEnc() {}
+    PilhaEnc(): ListaEnc() {}
     ~PilhaEnc() {
       limparPilha();
     }
     void empilha(const T& dado): adicionaNoInicio(const T& dado) {}
     T desempilha(): retiraDoInicio() {}
 	T topo() {
-    // implementar
+    return;  // implementar
   }
 	void limparPilha(): ~ListaEnc() {}
 	bool PilhaVazia(): listaVazia() {}
