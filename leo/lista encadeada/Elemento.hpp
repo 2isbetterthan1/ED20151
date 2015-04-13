@@ -10,11 +10,11 @@ template<typename T>
 * Classe Elemento. Cada elemento de lista referencia o próximo elemento e só é alocado dinamicamente quando necessário.
 */
 class Elemento {
-private:
+ private:
   T *info;
   Elemento<T>* _next;
 
-public:
+ public:
 /**
 * Construtor. Construtor de um elemento.
 */
@@ -22,36 +22,31 @@ public:
 /**
 * Destrutor. Destrutor de um elemento.
 */
-  ~Elemento()
-  {
+  ~Elemento() {
     delete info;
   }
 /**
 * Função getProximo. Retorna a referência do próximo elemento da lista encadeada.
 */
-  Elemento<T>* getProximo() const
-  {
+  Elemento<T>* getProximo() {
     return _next;
   }
 /**
 * Função getInfo. Retorna o valor do elemento de uma lista encadeada.
 */
-  T getInfo() const
-  {
+  T getInfo() const {
     return *info;
   }
 /**
 * Função setInfo. Grava o valor (argumento) de um elemento de uma lista encadeada.
 */
-  void setInfo(const T& dado)
-  {
-    info = dado;
+  void setInfo(T* dado) {
+    info = *dado;
   }
 /**
 * Função setProximo. Grava a referência ao próximo elemento da lista encadeada.
 */
-  void setProximo(Elemento<T>* next)
-  {
+  void setProximo(Elemento<T>* next) {
     _next = next;
   }
 };
