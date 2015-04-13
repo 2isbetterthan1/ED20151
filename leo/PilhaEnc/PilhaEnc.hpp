@@ -1,42 +1,45 @@
+/* Copyright [2015] <LeoSL>
+ * PilhaEnc.hpp
+ */
+#ifndef PILHAENC_HPP
+#define PILHAENC_HPP
+
+#include "Elemento.hpp"
+#include "ListaEnc.hpp"
+
 template<typename T>
 
 class PilhaEnc: public ListaEnc<T> {
  private:
-  Elemento<T>* head;
-  int index;
+  ListaEnc<T>* lista;
 
  public:
-  PilhaEnc(): ListaEnc<T>::ListaEnc() {}
-
-  ~PilhaEnc() {
-    destroiPilhaEnc();
+  PilhaEnc(): ListaEnc<T>::ListaEnc() {
+    lista = new ListaEnc<T>();
   }
 
-  bool pilhaVazia() {
-    if (index == -1) {
-      return true;
-    } else {
-      return false;
-    }
+  ~PilhaEnc() {
+    limparPilha();
+  }
+
+  bool PilhaVazia() {
+    return lista->listaVazia();
   }
 
   void empilha(const T& dado) {
-
+    lista->adicionaNoInicio(dado);
   }
 
   T desempilha() {
-
+    return lista->retiraDoInicio();
   }
 
   T topo() {
-
+    return lista->primeiroElemento();
   }
 
   void limparPilha() {
-
-  }
-
-  void destroiPilhaEnc() {
-
+    lista->destroiLista();
   }
 };
+#endif
