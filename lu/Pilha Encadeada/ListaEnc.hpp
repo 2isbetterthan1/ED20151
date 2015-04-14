@@ -281,8 +281,23 @@ class ListaEnc {
     if (listaVazia()) {
       throw 'u';
     }
-    Elemento<T>* first = head;
+    Elemento<T> *first = head;
     return first->getInfo();
+  }
+
+  T getLast() {
+    if (listaVazia()) {
+      throw 'u';
+    } elsif (size == 0) {
+      return getFirst();
+    }
+    Element<T> *last = head;
+
+    for (int i = 0; i < size; i++) {
+			last = last->getNext();
+		}
+
+		return last->getInfo();
   }
 
 	bool listaVazia() const {

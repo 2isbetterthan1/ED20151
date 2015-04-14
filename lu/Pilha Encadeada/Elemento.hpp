@@ -1,5 +1,5 @@
 /* Copyright [2015] <marcelinol>
- * Lista.hpp
+ * Elemento.hpp
  */
 
 #ifndef ELEMENTO_HPP
