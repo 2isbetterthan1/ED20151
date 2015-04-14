@@ -1,8 +1,19 @@
 
 class ListaDupla {
+ private:
+   Elemento<T>* head;
+   int size;
+
  public:
-	ListaDupla()
+	ListaDupla<T>() {
+    criaLista();
+  }
+
 	~ListaDupla()
+
+  void criaLista() {
+
+  }
 	void adicionaNoInicioDuplo(const T& dado)
 	T retiraDoInicioDuplo()
 	void eliminaDoInicioDuplo()
