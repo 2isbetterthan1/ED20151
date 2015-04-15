@@ -7,7 +7,9 @@
 template<typename T>
 
 /**
-* Classe ListaEnc. Uma Lista Encadeada é uma lista onde cada elemento está armazenado em um objeto chamado elemento de lista.
+* Classe ListaDupla. Uma Lista Duplamente Encadeada é uma lista linear.
+* Na lista duplamente encadeada, cada elemento está armazenado em um objeto chamado elemento de lista.
+* Cada elemento possui referências para o seu elemento posterior e anterior.
 */
 class ListaDupla {
  private:
@@ -15,19 +17,28 @@ class ListaDupla {
   int size;
 
  public:
+/**
+* Construtor. Construtor de uma Lista Duplamente Encadeada.
+*/
   ListaDupla<T>() {
     criaListaDupla();
   }
-
+/**
+* Destrutor. Destrutor de uma Lista Duplamente Encadeada.
+*/
   ~ListaDupla() {
     destroiListaDuplo();
   }
-
+/**
+* Função criaListaDupla. Serve para fazer a configuração inicial de uma lista duplamente encadeada.
+*/
   void criaListaDupla() {
     this->head = NULL;
     this->size = -1;
   }
-
+/**
+* Função adicionaNoInicioDuplo. Adiciona elementos no início de uma lista duplamente encadeada.
+*/
   void adicionaNoInicioDuplo(const T& dado) {
     Elemento<T>* novoElemento = new Elemento<T>(dado, NULL);
     if (novoElemento != NULL) {
@@ -38,7 +49,9 @@ class ListaDupla {
      throw 'a';
     }
   }
-
+/**
+* Função retiraDoInicioDuplo. Retira e retorna elemento do início de uma lista duplamente encadeada.
+*/
   T retiraDoInicioDuplo() {
     if (listaVazia()) {
       throw 'a';
@@ -50,7 +63,9 @@ class ListaDupla {
     size--;
     return primeiroElemento;
   }
-
+/**
+* Função eliminaDoInicioDuplo. Chama o destrutor do primeiro elemento de uma lista duplamente encadeada.
+*/
   void eliminaDoInicioDuplo() {
     if (listaVazia()) {
       throw 'a';
@@ -60,7 +75,9 @@ class ListaDupla {
     primeiro->~Elemento();
     size--;
   }
-
+/**
+* Função adicionaNaPosicaoDuplo. Adiciona um elemento (argumento) em uma posição específica (argumento) da lista duplamente encadeada.
+*/
   void adicionaNaPosicaoDuplo(const T& dado, int pos) {
     if (listaVazia()) {
       adicionaNoInicioDuplo(dado);
@@ -104,7 +121,9 @@ class ListaDupla {
       }
     }
   }
-
+/**
+* Função adicionaDuplo. Adiciona um dado (argumento) no final da lista duplamente encadeada.
+*/
   void adicionaDuplo(const T& dado) {
     if (listaVazia()) {
       adicionaNoInicioDuplo(dado);
@@ -126,7 +145,10 @@ class ListaDupla {
       }
     }
   }
-
+/**
+* Função adicionaEmOrdem. Adiciona o elemento passado (argumento) em ordem na lista duplamente encadeada.
+* Percorre e verifica a ordem de grandeza dos elementos encadeados.
+*/
   void adicionaEmOrdem(const T& data) {
     if (listaVazia()) {
       adicionaNoInicioDuplo(data);
@@ -144,7 +166,9 @@ class ListaDupla {
       }
     }
   }
-
+/**
+* Função posicaoDuplo. Retorna a posição de um determinado elemento - passado como argumento à função.
+*/
   int posicaoDuplo(const T& dado) const {
     if (listaVazia()) {
       throw 'a';
@@ -163,7 +187,9 @@ class ListaDupla {
       throw 'a';
     }
   }
-
+/**
+* Função posicaoMemDuplo. Retorna a posição de memória de um determinado dado (argumento).
+*/
   T* posicaoMemDuplo(const T& dado) const {
     if (listaVazia()) {
       throw 'a';
@@ -182,7 +208,9 @@ class ListaDupla {
       throw 'a';
     }
   }
-
+/**
+* Função contemDuplo. Retorna um valor booleano positivo caso determinado dado (argumento) conste na lista.
+*/
   bool contemDuplo(const T& dado) {
     if (listaVazia()) {
       throw 'a';
@@ -201,7 +229,9 @@ class ListaDupla {
       return false;
     }
   }
-
+/**
+* Função retiraDaPosicaoDuplo. Retira e retorna um elemento da lista duplamente encadeada de uma posição específica (argumento).
+*/
   T retiraDaPosicaoDuplo(int pos) {
     if (listaVazia() || pos > size) {
       throw 'a';
@@ -220,7 +250,9 @@ class ListaDupla {
     size--;
     return infoElemento;
   }
-
+/**
+* Função retiraDuplo. Retira e retonar um elemento do final da lista duplamente encadeada.
+*/
   T retiraDuplo() {
     if (listaVazia()) {
       throw 'a';
@@ -237,7 +269,9 @@ class ListaDupla {
     size--;
     return infoElemento;
   }
-
+/**
+* Função retiraEspecificoDuplo. Retira e retorna um elemento específico (argumento) da lista duplamente encadeada.
+*/
   T retiraEspecificoDuplo(const T& dado) {
     if (listaVazia()) {
       throw 'a';
@@ -256,7 +290,9 @@ class ListaDupla {
       throw 'a';
     }
   }
-
+/**
+* Função mostra. Mostra a informação de um elemento em uma posição (argumento) específica da lista duplamente encadeada.
+*/
   T mostra(int pos) {
     if (listaVazia() || pos > size) {
       throw 'a';
@@ -271,11 +307,15 @@ class ListaDupla {
     }
     return infoElemento;
   }
-
+/**
+* Função verUltimo. Vê o último.
+*/
   int verUltimo() {
     return 0;
   }
-
+/**
+* Função listaVazia. Retorna um valor booleano informando se a lista duplamente encadeada está vazia ou não.
+*/
   bool listaVazia() const {
     if (size == -1) {
       return true;
@@ -302,7 +342,7 @@ class ListaDupla {
     return dado1 < dado2;
   }
 /**
-* Função destroiLista. Serve para destruir a lista encadeada dupla.
+* Função destroiLista. Serve para destruir a lista duplamente encadeada dupla.
 */
   void destroiListaDuplo() {
     size = -1;
