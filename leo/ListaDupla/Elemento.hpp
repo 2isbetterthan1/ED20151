@@ -1,41 +1,41 @@
 /* Copyright [2015] <LeoSL>
  * Elemento.hpp
  */
-#ifndef ELEMENTODUPLO_HPP
-#define ELEMENTODUPLO_HPP
+#ifndef ELEMENTO_HPP
+#define ELEMENTO_HPP
 
 template<typename T>
 
 /**
-* Classe ElementoDuplo. Cada elemento de lista referencia o próximo elemento e só é alocado dinamicamente quando necessário.
+* Classe Elemento. Cada elemento de lista referencia o próximo elemento e só é alocado dinamicamente quando necessário.
 */
-class ElementoDuplo {
+class Elemento {
  private:
-  T *info;
-  ElementoDuplo<T>* _antecedent;
-  ElementoDuplo<T>* _next;
+  T* info;
+  Elemento<T>* _antecedent;
+  Elemento<T>* _next;
 
  public:
 /**
 * Construtor. Construtor de um elemento.
 */
-  ElementoDuplo(const T& info, ElementoDuplo<T>* antecedent, ElementoDuplo<T>* next) : info(new T(info)), _antecedent(antecedent), _next(next) {}
+  Elemento(const T& info, Elemento<T>* next) : info(new T(info)), _next(next) {}
 /**
 * Destrutor. Destrutor de um elemento.
 */
-  ~ElementoDuplo() {
+  ~Elemento() {
     delete info;
   }
 /**
 * Função getProximo. Retorna a referência do próximo elemento da lista encadeada.
 */
-  ElementoDuplo<T>* getProximo() {
+  Elemento<T>* getProximo() {
     return _next;
   }
 /**
 * Função getBack. Retorna a referência do elemento anterior da lista encadeada.
 */
-  ElementoDuplo<T>* getBack() {
+  Elemento<T>* getBack() {
     return _antecedent;
   }
 /**
@@ -53,13 +53,13 @@ class ElementoDuplo {
 /**
 * Função setProximo. Grava a referência ao próximo elemento da lista encadeada.
 */
-  void setProximo(ElementoDuplo<T>* next) {
+  void setProximo(Elemento<T>* next) {
     _next = next;
   }
 /**
 * Função setAnterior. Grava a referência ao elemento anterior da lista encadeada.
 */
-  void setAnterior(ElementoDuplo<T>* antecedent) {
+  void setAnterior(Elemento<T>* antecedent) {
     _antecedent = antecedent;
   }
 };

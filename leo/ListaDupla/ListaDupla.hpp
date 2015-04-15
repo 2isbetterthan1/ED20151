@@ -32,6 +32,7 @@ class ListaDupla {
     Elemento<T>* novoElemento = new Elemento<T>(dado, NULL);
     if (novoElemento != NULL) {
       head = novoElemento;
+      novoElemento->setProximo(NULL);
       size++;
     } else {
      throw 'a';
@@ -61,22 +62,30 @@ class ListaDupla {
   }
 
   void adicionaNaPosicaoDuplo(const T& dado, int pos) {
-    Elemento<T>* novoElemento = new Elemento<T>(dado, NULL);
-    if (novoElemento != NULL) {
-      Elemento<T>* elementoApercorrer = head;
-      int controller = 0;
-      while (controller != pos && controller < size) {
-        elementoApercorrer = elementoApercorrer->getProximo();
-        controller++;
-      }
-      Elemento<T>* anterior = elementoApercorrer->getBack();
-      novoElemento->setProximo(elementoApercorrer);
-      novoElemento->setAnterior(anterior);
-      elementoApercorrer->setAnterior(novoElemento);
-      anterior->setProximo(novoElemento);
-      size++;
+    if (pos == 0) {
+      adicionaNoInicioDuplo(dado);
     } else {
-     throw 'a';
+      if (pos == size + 1) {
+        adicionaDuplo(dado);
+      } else {
+        Elemento<T>* novoElemento = new Elemento<T>(dado, NULL);
+        if (novoElemento != NULL) {
+          Elemento<T>* elementoApercorrer = head;
+          int controller = 0;
+          while (controller != pos && controller < size) {
+            elementoApercorrer = elementoApercorrer->getProximo();
+            controller++;
+          }
+          Elemento<T>* anterior = elementoApercorrer->getBack();
+          novoElemento->setProximo(elementoApercorrer);
+          novoElemento->setAnterior(anterior);
+          elementoApercorrer->setAnterior(novoElemento);
+          anterior->setProximo(novoElemento);
+          size++;
+        } else {
+          throw 'a';
+        }
+      }
     }
   }
 
@@ -95,6 +104,7 @@ class ListaDupla {
         elemento->setProximo(novoElemento);
         novoElemento->setAnterior(elemento);
         novoElemento->setProximo(NULL);
+        size++;
       } else {
         throw 'a';
       }
@@ -104,25 +114,33 @@ class ListaDupla {
   void adicionaEmOrdem(const T& data) {
     if (listaVazia()) {
       adicionaNoInicioDuplo(data);
-    }
-    Elemento<T>* novoElemento = new Elemento<T>(data, NULL);
-    if (novoElemento != NULL) {
-      Elemento<T>* elementoApercorrer = head;
-      T infoElemento = elementoApercorrer->getInfo();
-      int controller = 0;
-      while (maior(infoElemento, data) && controller < size) {
-        elementoApercorrer = elementoApercorrer->getProximo();
-        infoElemento = elementoApercorrer->getInfo();
-        controller++;
-      }
-      Elemento<T>* proximo = elementoApercorrer->getProximo();
-      novoElemento->setProximo(proximo);
-      novoElemento->setAnterior(elementoApercorrer);
-      elementoApercorrer->setProximo(novoElemento);
-      proximo->setAnterior(novoElemento);
-      size++;
     } else {
-     throw 'a';
+      Elemento<T>* novoElemento = new Elemento<T>(data, NULL);
+      if (novoElemento != NULL) {
+        Elemento<T>* elementoApercorrer = head;
+        T infoElemento = elementoApercorrer->getInfo();
+        int controller = 0;
+        while (maior(infoElemento, data) && controller < size) {
+          elementoApercorrer = elementoApercorrer->getProximo();
+          infoElemento = elementoApercorrer->getInfo();
+          controller++;
+        }
+        if (maior(infoElemento, data) && controller >= size) {
+          novoElemento->setProximo(NULL);
+          novoElemento->setAnterior(elementoApercorrer);
+          elementoApercorrer->setProximo(novoElemento);
+          size++;
+        } else {
+          Elemento<T>* proximo = elementoApercorrer->getProximo();
+          novoElemento->setProximo(proximo);
+          novoElemento->setAnterior(elementoApercorrer);
+          elementoApercorrer->setProximo(novoElemento);
+          proximo->setAnterior(novoElemento);
+          size++;
+        }
+      } else {
+       throw 'a';
+      }
     }
   }
 
@@ -166,13 +184,20 @@ class ListaDupla {
 
   bool contemDuplo(const T& dado) {
     if (listaVazia()) {
-      throw 0;
+      throw 'a';
     }
-    int pos = posicaoDuplo(dado);
-    if (pos < 0 || NULL) {
-      return false;
-    } else {
+    Elemento<T>* elementoApercorrer = head;
+    int controller = 0;
+    T infoElemento = elementoApercorrer->getInfo();
+    while (infoElemento != dado && controller < size) {
+      elementoApercorrer = elementoApercorrer->getProximo();
+      infoElemento = elementoApercorrer->getInfo();
+      controller++;
+    }
+    if (infoElemento == dado) {
       return true;
+    } else {
+      return false;
     }
   }
 
