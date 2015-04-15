@@ -1,10 +1,7 @@
 /* Copyright [2015] <marcelinol>
  * ListaEnc.hpp
  */
-
-#ifndef LISTAENC_HPP
-#define LISTAENC_HPP
-
+ 
 #include "Elemento.hpp"
 
 template<typename T>
