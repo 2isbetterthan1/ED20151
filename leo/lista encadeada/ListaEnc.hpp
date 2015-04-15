@@ -80,6 +80,20 @@ class ListaEnc {
     return primeiro->getInfo();
   }
 /**
+* Função ultimoElemento. Retorna o elemento do final da lista encadeada.
+*/
+  T ultimoElemento() {
+    Elemento<T>* ultimo = head;
+    if ( listaVazia() ) {
+      return ultimo->getInfo();
+    } else {
+      for (int i = 0; i < size; i++) {
+        ultimo = ultimo->getProximo();
+      }
+      return ultimo->getInfo();
+    }
+  }
+/**
 * Função eliminaDoInicio. Chama o destrutor do primeiro elemento de uma lista encadeada.
 */
   void eliminaDoInicio() {
@@ -213,23 +227,6 @@ class ListaEnc {
       }
       anterior->setProximo(novoDado);
       size++;
-    }
-  }
-/**
-* Função ultimoElemento. Retorna o elemento do final da lista encadeada.
-*/
-  T ultimoElemento() {
-    Elemento<T>* ultimo = head;
-    if ( listaVazia() ) {
-      throw 'a';
-    } else {
-      if (size == 0) {
-        return ultimo->getInfo();
-      }
-      for (int i = 0; i < size; i++) {
-        ultimo = ultimo->getProximo();
-      }
-      return ultimo->getInfo();
     }
   }
 /**

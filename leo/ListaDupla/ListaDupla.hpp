@@ -62,28 +62,44 @@ class ListaDupla {
   }
 
   void adicionaNaPosicaoDuplo(const T& dado, int pos) {
-    if (pos == 0) {
+    if (listaVazia()) {
       adicionaNoInicioDuplo(dado);
     } else {
-      if (pos == size + 1) {
-        adicionaDuplo(dado);
-      } else {
+      if (pos == 0) {
         Elemento<T>* novoElemento = new Elemento<T>(dado, NULL);
         if (novoElemento != NULL) {
-          Elemento<T>* elementoApercorrer = head;
-          int controller = 0;
-          while (controller != pos && controller < size) {
-            elementoApercorrer = elementoApercorrer->getProximo();
-            controller++;
-          }
-          Elemento<T>* anterior = elementoApercorrer->getBack();
-          novoElemento->setProximo(elementoApercorrer);
-          novoElemento->setAnterior(anterior);
-          elementoApercorrer->setAnterior(novoElemento);
-          anterior->setProximo(novoElemento);
+          Elemento<T>* antigoPrimeiro = head;
+          head = novoElemento;
+          novoElemento->setProximo(antigoPrimeiro);
+          antigoPrimeiro->setAnterior(novoElemento);
           size++;
         } else {
-          throw 'a';
+         throw 'a';
+        }
+      } else {
+        if (pos == size + 1) {
+          adicionaDuplo(dado);
+        } else {
+          if (pos > size + 1) {
+            throw 'a';
+          }
+          Elemento<T>* novoElemento = new Elemento<T>(dado, NULL);
+          if (novoElemento != NULL) {
+            Elemento<T>* elementoApercorrer = head;
+            int controller = 0;
+            while (controller != pos && controller < size) {
+              elementoApercorrer = elementoApercorrer->getProximo();
+              controller++;
+            }
+            Elemento<T>* anterior = elementoApercorrer->getBack();
+            novoElemento->setProximo(elementoApercorrer);
+            novoElemento->setAnterior(anterior);
+            elementoApercorrer->setAnterior(novoElemento);
+            anterior->setProximo(novoElemento);
+            size++;
+          } else {
+            throw 'a';
+          }
         }
       }
     }
@@ -115,31 +131,16 @@ class ListaDupla {
     if (listaVazia()) {
       adicionaNoInicioDuplo(data);
     } else {
-      Elemento<T>* novoElemento = new Elemento<T>(data, NULL);
-      if (novoElemento != NULL) {
-        Elemento<T>* elementoApercorrer = head;
-        T infoElemento = elementoApercorrer->getInfo();
-        int controller = 0;
-        while (maior(infoElemento, data) && controller < size) {
-          elementoApercorrer = elementoApercorrer->getProximo();
-          infoElemento = elementoApercorrer->getInfo();
-          controller++;
-        }
-        if (maior(infoElemento, data) && controller >= size) {
-          novoElemento->setProximo(NULL);
-          novoElemento->setAnterior(elementoApercorrer);
-          elementoApercorrer->setProximo(novoElemento);
-          size++;
-        } else {
-          Elemento<T>* proximo = elementoApercorrer->getProximo();
-          novoElemento->setProximo(proximo);
-          novoElemento->setAnterior(elementoApercorrer);
-          elementoApercorrer->setProximo(novoElemento);
-          proximo->setAnterior(novoElemento);
-          size++;
-        }
+      Elemento<T>* elementoApercorrer = head;
+      int controller = 0;
+      while (controller < size && maior(data, elementoApercorrer->getInfo())) {
+        elementoApercorrer = elementoApercorrer->getProximo();
+        controller++;
+      }
+      if (maior(data, elementoApercorrer->getInfo())) {
+        adicionaNaPosicaoDuplo(data, size + 1);
       } else {
-       throw 'a';
+        adicionaNaPosicaoDuplo(data, controller);
       }
     }
   }
