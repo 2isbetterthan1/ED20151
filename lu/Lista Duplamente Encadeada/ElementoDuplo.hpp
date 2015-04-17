@@ -4,46 +4,42 @@
 
 template <typename T>
 
-class Elemento {
+class ElementoDuplo {
  private:
 	T *info;
-  Elemento<T>* _previous
-	Elemento<T>* _next;
+	ElementoDuplo<T>* _previous;
+	ElementoDuplo<T>* _next;
 
  public:
-	Elemento(const T& info, Elemento<T>* next, Elemento<T>* previous) : info(new T(info)), _next(next), _previous(previous) {}
+	ElementoDuplo(
+	const T& info, ElementoDuplo<T>* previous, ElementoDuplo<T>* next)
+	: info(new T(info)), _previous(previous), _next(next) {}
 
-	~Elemento() {
+	~ElementoDuplo() {
 		delete info;
 	}
-
-	Elemento<T>* getProximo() const {
-		return _next;
-	}
-
-  Elemento<T>* getPrevious() const {
-    return _previous;
-  }
 
 	T getInfo() const {
 		return *info;
 	}
-  //
-  // Elemento<T>* getNext() {
-  //   return _next;
-  // }
 
-  void setNext(Elemento<T>* next) {
-    _next = next;
-  }
+	ElementoDuplo<T>* getPrevious() const {
+		return _previous;
+	}
 
-  void setPrevious(Elemento<T>* previous) {
-    _previous = previous;
-  }
+	ElementoDuplo<T>* getNext() {
+		return _next;
+	}
 
-  void setInfo(T *newInfo) {
-    info = *newInfo;
-  }
+	void setNext(ElementoDuplo<T>* next) {
+		_next = next;
+	}
+
+	void setPrevious(ElementoDuplo<T>* previous) {
+		_previous = previous;
+	}
+
+	void setInfo(T *newInfo) {
+		info = *newInfo;
+	}
 };
-
-#endif
