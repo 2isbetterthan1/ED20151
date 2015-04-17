@@ -20,10 +20,11 @@ class ListaCirc : public ListaEnc<T> {
 	~ListaCirc() {
 		ListaEnc<T>::~ListaEnc();
 	}
-	void adicionaNoInicio(const T& dado);
+	void adicionaNoInicio(const T& dado) {
+		ListaEnc<T>::adicionaNoInicio(dado);
+	}
 	T retiraDoInicio() {
-			//  return ListaEnc<T>::retiraDoInicio();
-		return retiraDoInicio();
+		return ListaEnc<T>::retiraDoInicio();
 	}
 	void eliminaDoInicio() {  //  REESCREVER
 		eliminaDoInicio();
