@@ -1,5 +1,5 @@
 /* Copyright [2015] <marcelinol>
- * Elemento.hpp
+ * Lista.hpp
  */
 
 #ifndef ELEMENTO_HPP
@@ -27,17 +27,17 @@ class Elemento {
 		return *info;
 	}
 
-  Elemento<T>* getNext() {
-    return _next;
-  }
+	Elemento<T>* getNext() {
+		return _next;
+	}
 
-  void setNext(Elemento<T>* next) {
-    _next = next;
-  }
+	void setNext(Elemento<T>* next) {
+		_next = next;
+	}
 
-  void setInfo(T *newInfo) {
-    info = *newInfo;
-  }
+	void setInfo(T *newInfo) {
+		info = *newInfo;
+	}
 };
 
 #endif

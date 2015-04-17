@@ -1,5 +1,5 @@
 /* Copyright [2015] <marcelinol>
- * Lista.hpp
+ * ListaEnc.hpp
  */
 
 #include "Elemento.hpp"
@@ -12,72 +12,72 @@ class ListaEnc {
 
  public:
 	ListaEnc<T>() {
-    criaLista();
-  }
+		criaLista();
+	}
 
 	~ListaEnc() {
-    destroiLista();
-  }
+		destroiLista();
+	}
 
-  void criaLista() {
+	void criaLista() {
 	head = NULL;
-    size = -1;
-  }
+		size = -1;
+	}
 
 	void adicionaNoInicio(const T& dado) {
 		Elemento<T>* novo = new Elemento<T>(dado, head);
-    if (novo == NULL) {
-      throw "Lista Cheia";
-    } else {
+		if (novo == NULL) {
+			throw "Lista Cheia";
+		} else {
 			head = novo;
-      size++;
-    }
-  }
+			size++;
+		}
+	}
 
 	T retiraDoInicio() {
-     if (listaVazia()) {
-       throw "lista vazia";
-     }
+		 if (listaVazia()) {
+			 throw "lista vazia";
+		 }
 
-     Elemento<T> *saiu = head;
+		 Elemento<T> *saiu = head;
 
 	 T dadoRetirado = saiu->getInfo();
 
 		eliminaDoInicio();
-     return dadoRetirado;
-  }
+		 return dadoRetirado;
+	}
 
 	void eliminaDoInicio() {
-     if (listaVazia()) {
-       throw "lista vazia";
-     }
+		 if (listaVazia()) {
+			 throw "lista vazia";
+		 }
 
-     Elemento<T> *eliminado = head;
+		 Elemento<T> *eliminado = head;
 
 	 Elemento<T> *novoInicio = eliminado->getNext();
-     head->setNext(novoInicio);
+		 head->setNext(novoInicio);
 
 	 size--;
 
-     delete eliminado;
-  }
+		 delete eliminado;
+	}
 
 	void adicionaNaPosicao(const T& dado, int pos) {
 		if(pos > size + 1) {
-      throw "Erro de posição";
-    }
+			throw "Erro de posição";
+		}
 
 		if(pos == 0) {
-      adicionaNoInicio(dado);
-    } else {
-      Elemento<T> *novo = new Elemento<T>(dado, NULL);
+			adicionaNoInicio(dado);
+		} else {
+			Elemento<T> *novo = new Elemento<T>(dado, NULL);
 
 			if (novo == NULL) {
-        throw "Lista Cheia";
-      }
+				throw "Lista Cheia";
+			}
 
-      Elemento<T> *anterior = head;
-      for (int i = 0; i < pos - 1; i++) {
+			Elemento<T> *anterior = head;
+			for (int i = 0; i < pos - 1; i++) {
 				anterior = anterior->getNext();
 			}
 
@@ -87,8 +87,8 @@ class ListaEnc {
 			anterior->setNext(novo);
 
 			size++;
-    }
-  }
+		}
+	}
 
 	int posicao(const T& dado) const {
 		if (listaVazia()) {
@@ -108,7 +108,7 @@ class ListaEnc {
 		} else {
 			throw "Elemento não pertence à lista";
 		}
-  }
+	}
 
 	T* posicaoMem(const T& dado) const {
 		if (listaVazia()) {
@@ -128,7 +128,7 @@ class ListaEnc {
 		} else {
 			throw "Elemento não pertence à lista";
 		}
-  }
+	}
 
 	bool contem(const T& dado) {
 		if (listaVazia()) {
@@ -149,18 +149,18 @@ class ListaEnc {
 		} else {
 			return false;
 		}
-  }
+	}
 
 	T retiraDaPosicao(int pos) {
-    if (pos > size) {
-      throw "Erro de posicao";
-    }
-    if (pos == 0) {
-      return retiraDoInicio();
-    }
-    if (pos == size - 1) {
-      return retira();
-    }
+		if (pos > size) {
+			throw "Erro de posicao";
+		}
+		if (pos == 0) {
+			return retiraDoInicio();
+		}
+		if (pos == size - 1) {
+			return retira();
+		}
 
 		Elemento<T> *anterior = head;
 
@@ -175,9 +175,9 @@ class ListaEnc {
 
 		size--;
 
-    delete retirar;
-    return dadoRetirado;
-  }
+		delete retirar;
+		return dadoRetirado;
+	}
 
 	void adiciona(const T& dado) {
 		if (listaVazia()) {
@@ -199,7 +199,7 @@ class ListaEnc {
 		anterior->setNext(novo);
 
 		size++;
-  }
+	}
 
 	T retira() {
 		if (listaVazia()) {
@@ -216,41 +216,41 @@ class ListaEnc {
 		delete ultimo;
 
 		return dadoRetirado;
-  }
+	}
 
 	T retiraEspecifico(const T& dado) {
-    if (listaVazia()) {
-      throw "lista vazia";
-    }
+		if (listaVazia()) {
+			throw "lista vazia";
+		}
 
-    Elemento<T> *atual = head;
-    Elemento<T> *anterior = head;
-    int pos = 0;
-    while (pos < size && atual->getInfo() != dado) {
-      anterior = atual;
-      atual = atual->getNext();
-      pos++;
-    }
+		Elemento<T> *atual = head;
+		Elemento<T> *anterior = head;
+		int pos = 0;
+		while (pos < size && atual->getInfo() != dado) {
+			anterior = atual;
+			atual = atual->getNext();
+			pos++;
+		}
 
-    if (pos == size) {
-      throw "Elemento inexistente";
-    }
+		if (pos == size) {
+			throw "Elemento inexistente";
+		}
 
-    if (pos == size - 1) {
-      return retira();
-    }
+		if (pos == size - 1) {
+			return retira();
+		}
 
-    T dadoRetirado = atual->getInfo();
-    anterior->setNext(atual->getNext());
-    delete atual;
+		T dadoRetirado = atual->getInfo();
+		anterior->setNext(atual->getNext());
+		delete atual;
 
-    return dadoRetirado;
-  }
+		return dadoRetirado;
+	}
 
 	void adicionaEmOrdem(const T& dado) {
-    if (listaVazia()) {
-      adicionaNoInicio(dado);
-    }
+		if (listaVazia()) {
+			adicionaNoInicio(dado);
+		}
 
 		Elemento<T> *novo = new Elemento<T>(dado, NULL);
 
@@ -260,37 +260,62 @@ class ListaEnc {
 
 		Elemento<T> *atual = head;
 
-    int posicao = 0;
+		int posicao = 0;
 
-    while (posicao < size && maior(dado, atual->getInfo())) {
-      atual = atual->getNext();
-      posicao++;
-    }
+		while (posicao < size && maior(dado, atual->getInfo())) {
+			atual = atual->getNext();
+			posicao++;
+		}
 
-    if (maior(dado, atual->getInfo())) {
-      adicionaNaPosicao(dado, posicao + 1);
-    } else {
-      adicionaNaPosicao(dado, posicao);
-    }
-  }
+		if (maior(dado, atual->getInfo())) {
+			adicionaNaPosicao(dado, posicao + 1);
+		} else {
+			adicionaNaPosicao(dado, posicao);
+		}
+	}
+
+	T getFirst() {
+		if (listaVazia()) {
+			throw 'u';
+		}
+		Elemento<T> *first = head;
+		return first->getInfo();
+	}
+
+	T getLast() {
+		if (listaVazia()) {
+			throw 'u';
+		} elsif (size == 0) {
+			return getFirst();
+		}
+		Element<T> *last = head;
+
+		for (int i = 0; i < size; i++) {
+			last = last->getNext();
+		}
+
+		return last->getInfo();
+	}
 
 	bool listaVazia() const {
-    return size == -1;
-  }
+		return size == -1;
+	}
 
 	bool igual(T dado1, T dado2) {
-    return dado1 == dado2;
-  }
+		return dado1 == dado2;
+	}
 
 	bool maior(T dado1, T dado2) {
-    return dado1 > dado2;
-  }
+		return dado1 > dado2;
+	}
 
 	bool menor(T dado1, T dado2) {
-    return dado1 < dado2;
-  }
+		return dado1 < dado2;
+	}
 
 	void destroiLista() {
 		size = -1;
-  }
+	}
 };
+
+#endif
