@@ -2,9 +2,13 @@
  * ListaEnc.hpp
  */
 
+#ifndef LISTAENC_HPP
+#define LISTAENC_HPP
+
 #include "Elemento.hpp"
 
 template<typename T>
+
 class ListaEnc {
  private:
 	Elemento<T>* head;
@@ -55,7 +59,7 @@ class ListaEnc {
 		 Elemento<T> *eliminado = head;
 
 	 Elemento<T> *novoInicio = eliminado->getNext();
-		 head->setNext(novoInicio);
+		 head = novoInicio;
 
 	 size--;
 
@@ -285,10 +289,11 @@ class ListaEnc {
 	T getLast() {
 		if (listaVazia()) {
 			throw 'u';
-		} elsif (size == 0) {
+		}
+		if (size == 0) {
 			return getFirst();
 		}
-		Element<T> *last = head;
+		Elemento<T> *last = head;
 
 		for (int i = 0; i < size; i++) {
 			last = last->getNext();
