@@ -9,22 +9,30 @@ private:
 public:
   controladorDeEventos(tempoTotal) {
     this->tempoTotal = tempoTotal;
+    setup();
+  }
+
+  setup() {
+    criaLinhaDoTempo();
+    inicializaPistas();
+    geraEventosIniciais();
   }
 
 
-  CriaLinhaDoTempo() {
+  criaLinhaDoTempo() {
     ListaEnc linhaDoTempo = new ListaEnc<Evento>();
   }
 
-  InicializaPista() {
-    Fila p1 = new Fila<Carro>(...);
-    p1.criaPilhaAleatoria(8, 1, 1, p2, p3, p4);
+  inicializaPistas() {
+    Pista p1 = new Pista<Carro>(...);
+    p1->criaPilhaAleatoria(8, 1, 1, p2, p3, p4);
+    geraCriaCarros(p1);
     (p2,p3,p4...)
   }
 
-  GeraEventosIniciais() {
+  geraEventosIniciais() {
     geraSemaforos();
-    geraCarros();
+    geraCriaCarros();
   }
 
   geraSemaforos() {
@@ -36,20 +44,13 @@ public:
     }
   }
 
-  geraCarros() {
-    // int ordemCronologica = 0;
-    // while(ordemCronologica < 15) {
-    //   GeraCarro carro1 = new geraCarro(p1, ordemCronologica);
-    //   linhaDoTempo->adicionaEmOrdem(carro1);
-    //   ordemCronologica += 5;
-    // }
-
-    GeraCarro carro1 = new geraCarro(p1, 0);
+  geraCriaCarros(Pista pista) {
+    CriaCarro carro1 = new CriaCarro(p1, 0);
     linhaDoTempo->adicionaEmOrdem(carro1)
 
-    GeraCarro carro2 = new geraCarro(p2, 0);
-    linhaDoTempo->adicionaEmOrdem(carro2);
-    (p3, p4, ...)
+    // CriaCarro carro2 = new CriaCarro(p2, 0);
+    // linhaDoTempo->adicionaEmOrdem(carro2);
+    // (p3, p4, ...)
   }
 
 
@@ -61,13 +62,13 @@ abstract Evento() {
   Evento() { }
 }
 
-GeraCarro() : Evento() {
+CriaCarro() : Evento() {
 
 private:
   int tempo;
   Pista pista;
 public:
-  GeraCarro(pista, tempo) {
+  CriaCarro(pista, tempo) {
     this->tempo = tempo;
     this->pista = pista;
   }
@@ -81,7 +82,7 @@ public:
     int proximoTempo = tempo + pista->getFrequenciaAddCarro();
 
     if(proximoTempo < tempoTotal) { //  VERIFICAR SE TEMOS ACESSO AO TEMPO TOTAL.
-      GeraCarro novoCarro = new GeraCarro(pista, proximoTempo);
+      CriaCarro novoCarro = new CriaCarro(pista, proximoTempo);
     }
   }
 
