@@ -1,3 +1,4 @@
+#define TEMPOSEMAFORO 15
 ChegaSemaforo() : Evento() {
 private:
   Carro carro;
@@ -11,22 +12,24 @@ public:
     this->tempo = tempo;
     this->pista = pista;
     pistaDestino = pista->getPistaAleatoria();
+    podeCruzar(pistaDestino);
   }
 
-  bool podeCruzar() {
+  void podeCruzar(Pista pistaDestino) {
     if (pistaAberta() && !pistaDestinoLotada(pistaDestino)) {
-      // Adiciona carro na pista pistaDestino
-      // Deleta carro da pista original
+      pistaDestino->adiciona(carro); // Adiciona carro na pista pistaDestino
+      pistaDestino->retira(carro); // Retira carro da pista original
     } else {
-      // Cria um novo evento Chega Semaforo para this->tempo + TEMPOSEMAFORO
+      double tempo = this->tempo + TEMPOSEMAFORO;
+      ChegaSemaforo novoChegaSemaforo = new ChegaSemaforo(carro, tempo, this->pista); // Cria um novo evento Chega Semaforo para this->tempo + TEMPOSEMAFORO
     }
   }
 
   bool pistaAberta() {
-    return pista->getStatus();
+    return this->pista->getStatus();
   }
 
-  bool pistaDestinoLotada(Pista pista) {
-    return pista->lotada();
+  bool pistaDestinoLotada(Pista pistaDestino) {
+    return pistaDestino->lotada();
   }
 }

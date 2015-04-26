@@ -2,8 +2,6 @@
  * ControladorDeEventos.hpp
  */
 #define TEMPOSEMAFORO 15
-#define TAMANHOCARRO 7
-
 ControladorDeEventos() {
 
 private:
@@ -134,8 +132,9 @@ public:
   }
 
   geraCriaCarros(Pista pista) {
-    CriaCarro carro1 = new CriaCarro(p1, 0);
-    linhaDoTempo->adicionaEmOrdem(carro1)
+    int tempo = 0;
+    CriaCarro carro1 = new CriaCarro(p1, tempo);
+    linhaDoTempo->adicionaEmOrdem(carro1);
 
     // CriaCarro carro2 = new CriaCarro(p2, 0);
     // linhaDoTempo->adicionaEmOrdem(carro2);

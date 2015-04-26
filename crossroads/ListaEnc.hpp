@@ -33,6 +33,10 @@ class ListaEnc {
     head = NULL;
     size = -1;
   }
+
+  int getSize() {
+    return this->size;
+  }
 /**
 * Função listaVazia. Retorna um valor booleano informando se a lista encadeada está vazia ou não.
 */

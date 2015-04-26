@@ -1,4 +1,5 @@
-Pista() : Fila() {
+#define TAMANHOCARRO 7
+Pista() : FilaEnc() {
 private:
   double frequenciaEntradaDeCarros;
   bool aberta;
@@ -14,6 +15,18 @@ public:
     tempoPercorrimento = tamanho/velocidade;
   }
 
+  void adiciona(Carro carro){
+    Fila<Carro>::adiciona(carro);
+  }
+
+  int getSize() {
+    Fila<Carro>::getSize();
+  }
+
+  void retira() {
+    Fila<Carro>::retira();
+  }
+
   bool isSumidouro() {
     return sumidouro;
   }
@@ -23,31 +36,34 @@ public:
   }
 
   bool lotada() {
-    double ocupado = size*(TAMANHOCARRO + 3);
+    int tamanhoDaFila = getSize();
+    double ocupado = tamanhoDaFila*(TAMANHOCARRO + 3);
     return ocupado > (tamanho - (TAMANHOCARRO + 3)
   }
   
-  criaPilhaAleatoria(prob1, prob2, prob3, primeiraOpcao, segundaOpcao, terceiraOpcao) {
+  void criaPilhaAleatoria(prob1, prob2, prob3, primeiraOpcao, segundaOpcao, terceiraOpcao) {
     aleatorio = new Pilha<Pista>;
-    for(prob1) {
+   
+    for (int i = 0; i <= prob1; i++) {
       aleatorio.empilha(primeiraOpcao);
     }
-    for(prob2) {
+   
+    for (int i = 0; i <= prob2; i++) {
       aleatorio.empilha(segundaOpcao);
     }
-    for(prob3) {
+
+    for (int i = 0; i <= prob2; i++) {
       aleatorio.empilha(terceiraOpcao);
     }
-    return aleatorio
   }
 
   Pista getPistaAleatoria() {
-    int indicePistaDestino = random(0..9)
+    int indicePistaDestino = rand() % 10;
     return aleatorio->encontra(indicePistaDestino);
   }
 
   void switchStatus() {
-    aberta = !aberta;
+    aberta = !getStatus();
   }
 
   bool getStatus() {
