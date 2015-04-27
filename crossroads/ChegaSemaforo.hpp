@@ -1,5 +1,5 @@
 #define TEMPOSEMAFORO 15
-ChegaSemaforo() : Evento() {
+class ChegaSemaforo() : public Evento() {
 private:
   Carro carro;
   double tempo;

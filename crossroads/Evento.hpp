@@ -1,3 +1,3 @@
 abstract Evento() {
-  Evento() { }
+  class Evento() { }
 }

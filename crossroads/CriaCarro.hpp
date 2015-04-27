@@ -1,4 +1,4 @@
-CriaCarro() : Evento() {
+CriaCarro() : public Evento() {
 
 private:
   double tempo;
@@ -9,12 +9,12 @@ public:
     this->pista = pista;
   }
 
-  insereCarro() {
+  void insereCarro() {
     Carro carro = new Carro();
     pista->adiciona(carro);
   }
 
-  geraProximoCarro() {
+  void geraProximoCarro() {
     double proximoTempo = tempo + pista->getFrequenciaEntradaDeCarros();
 
     if(proximoTempo < controladorDeEventos->tempoTotal) { //  VERIFICAR SE TEMOS ACESSO AO TEMPO TOTAL.
@@ -22,7 +22,7 @@ public:
     }
   }
 
-  criaEventoChegaSemaforo() {
+  void criaEventoChegaSemaforo() {
     double tempoDePercorrimento = pista->getTempoPercorrimento();
     double tempoChegada = this->tempo + tempoDePercorrimento;
     Evento chegaSemaforo = new ChegaSemaforo(Carro carro, double tempoChegada, Pista pista, NULL);

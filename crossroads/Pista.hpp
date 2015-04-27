@@ -1,5 +1,5 @@
 #define TAMANHOCARRO 7
-Pista() : FilaEnc() {
+class Pista() : public FilaEnc() {
 private:
   double frequenciaEntradaDeCarros;
   bool aberta;

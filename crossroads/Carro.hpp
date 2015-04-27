@@ -1,3 +1,3 @@
-Carro() {
+class Carro() {
 
 }

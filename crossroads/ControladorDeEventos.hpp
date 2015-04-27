@@ -2,7 +2,7 @@
  * ControladorDeEventos.hpp
  */
 #define TEMPOSEMAFORO 15
-ControladorDeEventos() {
+class ControladorDeEventos() {
 
 private:
   double tempoTotal;
@@ -17,12 +17,12 @@ public:
     setup();
   }
 
-  setup() {
+  void setup() {
     inicializaPistas();
     geraEventosIniciais();
   }
 
-  inicializaPistas() {
+  void inicializaPistas() {
     listaDePistas = new Lista<Pista>();
     
     // Via O1leste (1)
@@ -108,7 +108,7 @@ public:
     listaDePistas->adiciona(p14);
   }
 
-  geraEventosIniciais() {
+  void geraEventosIniciais() {
     linhaDoTempo = new Lista<Evento>();
     geraSemaforos();
     geraCriaCarros();
@@ -122,7 +122,7 @@ public:
     linhaDoTempo->adicionaEmOrdem(evento);
   }
 
-  geraSemaforos() {
+  void geraSemaforos() {
     double tempoCorrente = 0;
     while(tempoCorrente < tempoTotal) {
       GeraSemaforo semaforo = new GeraSemaforo(tempoCorrente);
@@ -131,7 +131,7 @@ public:
     }
   }
 
-  geraCriaCarros(Pista pista) {
+  void geraCriaCarros(Pista pista) {
     int tempo = pista->getFrequenciaEntradaDeCarros();
     CriaCarro criaCarro = new CriaCarro(pista, tempo);
     linhaDoTempo->adicionaEmOrdem(criaCarro);
