@@ -15,6 +15,10 @@ public:
     tempoPercorrimento = tamanho/velocidade;
   }
 
+  double getFrequenciaEntradaDeCarros () {
+    return frequenciaEntradaDeCarros;
+  }
+
   void adiciona(Carro carro){
     Fila<Carro>::adiciona(carro);
   }
