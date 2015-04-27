@@ -132,12 +132,9 @@ public:
   }
 
   geraCriaCarros(Pista pista) {
-    int tempo = 0;
-    CriaCarro carro1 = new CriaCarro(p1, tempo);
-    linhaDoTempo->adicionaEmOrdem(carro1);
+    int tempo = pista->getFrequenciaEntradaDeCarros();
+    CriaCarro criaCarro = new CriaCarro(pista, tempo);
+    linhaDoTempo->adicionaEmOrdem(criaCarro);
 
-    // CriaCarro carro2 = new CriaCarro(p2, 0);
-    // linhaDoTempo->adicionaEmOrdem(carro2);
-    // (p3, p4, ...)
   }
 }
