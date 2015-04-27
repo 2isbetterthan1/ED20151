@@ -48,15 +48,15 @@ public:
   void criaPilhaAleatoria(prob1, prob2, prob3, primeiraOpcao, segundaOpcao, terceiraOpcao) {
     aleatorio = new Pilha<Pista>;
    
-    for (int i = 0; i <= prob1; i++) {
+    for (int i = 0; i < prob1; i++) {
       aleatorio.empilha(primeiraOpcao);
     }
    
-    for (int i = 0; i <= prob2; i++) {
+    for (int i = 0; i < prob2; i++) {
       aleatorio.empilha(segundaOpcao);
     }
 
-    for (int i = 0; i <= prob2; i++) {
+    for (int i = 0; i < prob2; i++) {
       aleatorio.empilha(terceiraOpcao);
     }
   }
