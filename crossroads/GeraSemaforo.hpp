@@ -11,6 +11,10 @@ public:
     return this->tempo;
   }
 
+  void executa() {
+    trocaStatusPistas();
+  }
+
   trocaStatusPistas() {
     int estado = controladorDeEventos->getEstadoSemaforos();
 
