@@ -10,6 +10,18 @@ public:
     this->pista = pista;
   }
 
+  void executa() {
+    if(!pistaDestinoLotada(this->pista)) {
+      insereCarro();
+      criaEventoChegaSemaforo();
+    }
+    geraProximoCarro();
+  }
+
+  bool pistaDestinoLotada(Pista pistaDestino) {
+    return pistaDestino->lotada();
+  }
+
   double getTime() {
     return this->tempo;
   }
