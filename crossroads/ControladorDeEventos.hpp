@@ -17,6 +17,14 @@ public:
     setup();
   }
 
+  int getEstadoSemaforos() {
+    return this->estadoSemaforos();
+  }
+
+  void setEstadoSemaforos(int estado) {
+    this->estadoSemaforos = estado;
+  }
+
   void setup() {
     inicializaPistas();
     geraEventosIniciais();

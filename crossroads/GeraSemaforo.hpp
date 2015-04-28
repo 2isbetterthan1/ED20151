@@ -8,18 +8,24 @@ public:
   }
 
   trocaStatusPistas() {
+    int estado = controladorDeEventos->getEstadoSemaforos();
 
-    switchCase(estado) { // TÁ ERRADO!
-
-    case 1:
-      estadoA();
-    case 2:
-      estadoB();
-    case 3:
-      estadoC();
-    case 4:
-      estadoD();
-    }
+    switch(estado) {
+      case 1:
+        estadoA();
+        break;
+      case 2:
+        estadoB();
+        break;
+      case 3:
+        estadoC();
+        break;
+      case 4:
+        estadoD();
+        break;
+      default:
+        break;
+      }
 
   }
 
@@ -28,7 +34,7 @@ public:
     trocaEstadoPista(3);
     trocaEstadoPista(4);
     trocaEstadoPista(6);
-    controladorDeEventos->setEstado(2);
+    controladorDeEventos->setEstadoSemaforos(2);
   }
   
   estadoB() {
@@ -36,7 +42,7 @@ public:
     trocaEstadoPista(3);
     trocaEstadoPista(4);
     trocaEstadoPista(11);
-    controladorDeEventos->setEstado(3);
+    controladorDeEventos->setEstadoSemaforos(3);
   }
 
   estadoC() {
@@ -44,7 +50,7 @@ public:
     trocaEstadoPista(10);
     trocaEstadoPista(13);
     trocaEstadoPista(8);
-    controladorDeEventos->setEstado(4);
+    controladorDeEventos->setEstadoSemaforos(4);
   }
 
   estadoD() {
@@ -52,7 +58,7 @@ public:
     trocaEstadoPista(10);
     trocaEstadoPista(13);
     trocaEstadoPista(4);
-    controladorDeEventos->setEstado(1);
+    controladorDeEventos->setEstadoSemaforos(1);
   }
 
   trocaEstadoPista(int indice) {
