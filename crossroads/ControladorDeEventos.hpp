@@ -22,14 +22,16 @@ public:
     linhaDoTempo = new Lista<Evento>();
     inicializaPistas();
     geraSemaforos();
-    percorreListaDeEventos();
+    percorreLinhaDoTempo();
   }
 
-  void percorreListaDeEventos() {
+  void percorreLinhaDoTempo() {
     bool ongoing = true
     Evento currentEvent = linhaDoTempo->getFirst();
     while(currentEvent->getTime() <= tempoTotal) {
-
+      currentEvent.executa();
+      currentEvent = linhaDoTempo.encontraNaPosicao(2);
+      linhaDoTempo.retiraDoInicio();
     }
   }
 
