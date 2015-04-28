@@ -1,5 +1,5 @@
 #define TAMANHOCARRO 7
-class Pista() : public FilaEnc() {
+class Pista : public FilaEnc() {
 private:
   bool aberta;
   bool sumidouro;

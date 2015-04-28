@@ -3,7 +3,7 @@
  */
 #define TEMPOSEMAFORO 15
 
-class ControladorDeEventos() {
+class ControladorDeEventos {
 
 private:
   double tempoTotal;

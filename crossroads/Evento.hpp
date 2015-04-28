@@ -1,4 +1,4 @@
-abstract Evento() {
+abstract Evento {
 private:
   double tempo;
 

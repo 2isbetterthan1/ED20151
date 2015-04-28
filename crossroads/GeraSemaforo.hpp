@@ -1,4 +1,4 @@
-GeraSemaforo(double tempo) : public Evento() {
+GeraSemaforo : public Evento() {
 private:
   double tempo;
 
@@ -44,7 +44,7 @@ public:
     trocaEstadoPista(6);
     controladorDeEventos->setEstadoSemaforos(2);
   }
-  
+
   estadoB() {
     trocaEstadoPista(8);
     trocaEstadoPista(3);
