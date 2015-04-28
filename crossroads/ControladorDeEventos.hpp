@@ -2,6 +2,7 @@
  * ControladorDeEventos.hpp
  */
 #define TEMPOSEMAFORO 15
+
 class ControladorDeEventos() {
 
 private:
@@ -17,17 +18,41 @@ public:
     setup();
   }
 
+  void setup() {
+    linhaDoTempo = new Lista<Evento>();
+    inicializaPistas();
+    geraSemaforos();
+  }
+
+  void geraSemaforos() {
+    double tempoCorrente = 0;
+    while(tempoCorrente < tempoTotal) {
+      GeraSemaforo semaforo = new GeraSemaforo(tempoCorrente);
+      linhaDoTempo->adicionaEmOrdem(semaforo);
+      tempoCorrente += tempoSemaforo;
+    }
+  }
+
+  Lista<Evento> getTimeline() {
+    return this->linhaDoTempo();
+  }
+
+  void addTimelineEvent(Evento evento) {
+    linhaDoTempo->adicionaEmOrdem(evento);
+  }
+
+  void geraCriaCarro(Pista pista) {
+    int tempo = pista->getFrequenciaEntradaDeCarros();
+    CriaCarro criaCarro = new CriaCarro(pista, tempo);
+    linhaDoTempo->adicionaEmOrdem(criaCarro);
+  }
+
   int getEstadoSemaforos() {
     return this->estadoSemaforos();
   }
 
   void setEstadoSemaforos(int estado) {
     this->estadoSemaforos = estado;
-  }
-
-  void setup() {
-    inicializaPistas();
-    geraEventosIniciais();
   }
 
   void inicializaPistas() { // INICIA com semaforos no estado = 1
@@ -193,34 +218,5 @@ public:
     listaDePistas->adiciona(p12);
     listaDePistas->adiciona(p13);
     listaDePistas->adiciona(p14);
-  }
-
-  void geraEventosIniciais() {
-    linhaDoTempo = new Lista<Evento>();
-    geraSemaforos();
-  }
-
-  Lista<Evento> getTimeline() {
-    return this->linhaDoTempo();
-  }
-
-  void addTimelineEvent(Evento evento) {
-    linhaDoTempo->adicionaEmOrdem(evento);
-  }
-
-  void geraSemaforos() {
-    double tempoCorrente = 0;
-    while(tempoCorrente < tempoTotal) {
-      GeraSemaforo semaforo = new GeraSemaforo(tempoCorrente);
-      linhaDoTempo->adicionaEmOrdem(semaforo);
-      tempoCorrente += tempoSemaforo;
-    }
-  }
-
-  void geraCriaCarro(Pista pista) {
-    int tempo = pista->getFrequenciaEntradaDeCarros();
-    CriaCarro criaCarro = new CriaCarro(pista, tempo);
-    linhaDoTempo->adicionaEmOrdem(criaCarro);
-
   }
 }
