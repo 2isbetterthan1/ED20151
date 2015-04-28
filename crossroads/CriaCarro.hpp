@@ -29,6 +29,7 @@ public:
   void insereCarro() {
     Carro carro = new Carro();
     pista->adiciona(carro);
+    controladorDeEventos->carroIn();
   }
 
   void geraProximoCarro() {

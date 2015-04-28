@@ -9,6 +9,8 @@ private:
   double tempoTotal;
   double tempoSemaforo = TEMPOSEMAFORO;
   int estadoSemaforos = 1;
+  int carrosIn = 0;
+  int carrosOut = 0;
   Lista<Pista> listaDePistas;
   Lista<Evento> linhaDoTempo;
 
@@ -23,6 +25,14 @@ public:
     inicializaPistas();
     geraSemaforos();
     percorreLinhaDoTempo();
+  }
+
+  void carroOut() {
+    this->carrosOut += 1;
+  }
+
+  void carroIn() {
+    this->carrosIn += 1;
   }
 
   void percorreLinhaDoTempo() {

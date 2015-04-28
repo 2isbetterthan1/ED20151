@@ -14,12 +14,14 @@ public:
     this->tempo = tempo;
     this->pista = pista;
     setPistaDestino(pistaDestino);
-
-    podeCruzar(pistaDestino);
   }
 
   double getTime() {
     return this->tempo;
+  }
+
+  void executa() {
+    tentaCruzar();
   }
 
   void setPistaDestino(Pista pistaDestino) {
@@ -30,14 +32,31 @@ public:
     this->pistaDestino = pistaDestino;
   }
 
-  void podeCruzar(Pista pistaDestino) {
+  void tentaCruzar() {
     if (pistaAberta() && !pistaDestinoLotada(pistaDestino)) {
-      pistaDestino->adiciona(carro); // Adiciona carro na pista pistaDestino
-      pistaDestino->elimina(carro); // Retira carro da pista original ---- temos função elimina?
+      criaCarroNaPistaDestino(carro);
+      pista->retiraEspecifico(carro); // Retira carro da pista original ---- temos função elimina?
     } else {
       double tempo = this->tempo + TEMPOSEMAFORO;
       ChegaSemaforo novoChegaSemaforo = new ChegaSemaforo(carro, tempo, this->pista, this->pistaDestino); // Cria um novo evento Chega Semaforo para this->tempo + TEMPOSEMAFORO
     }
+  }
+
+  void criaCarroNaPistaDestino(Carro carro) {
+    pistaDestino->adiciona(carro); // Adiciona carro na pista pistaDestino
+    if(pistaDestino->isSumidouro()) {
+      pistaDestino->retiraEspecifico(carro);
+      controladorDeEventos->carroOut();
+    } else {
+      criaEventoChegaSemaforo(carro, pistaDestino);
+    }
+  }
+
+  void criaEventoChegaSemaforo(Pista pista) {
+    double tempoDePercorrimento = pista->getTempoPercorrimento();
+    double tempoChegada = this->tempo + tempoDePercorrimento;
+    Evento chegaSemaforo = new ChegaSemaforo(carro, tempoChegada, pista, NULL);
+    controladorDeEventos->addTimelineEvent(chegaSemaforo);
   }
 
   bool pistaAberta() {
