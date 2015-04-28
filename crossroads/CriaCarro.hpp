@@ -3,8 +3,9 @@ CriaCarro() : public Evento() {
 private:
   double tempo;
   Pista pista;
+
 public:
-  CriaCarro(pista, tempo) {
+  CriaCarro(Pista pista, double tempo) {
     this->tempo = tempo;
     this->pista = pista;
   }

@@ -22,64 +22,143 @@ public:
     geraEventosIniciais();
   }
 
-  void inicializaPistas() {
+  void inicializaPistas() { // INICIA com semaforos no estado = 1
     listaDePistas = new Lista<Pista>();
-    
+    bool aberta, sumidouro;
+    double freq, tamanho, velocidade;
+
+
     // Via O1leste (1)
-    Pista p1 = new Pista<Carro>(..., sumidouro = false);
-    geraCriaCarros(p1);
+    aberta = true;
+    sumidouro = false;
+    freq = 8~12 (s);
+    tamanho = 2000;
+    velocidade = 80/3.6;
+
+    Pista p1 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    geraCriaCarro(p1);
 
     // Via S1Sul (2)
-    Pista p2 = new Pista<Carro>(..., sumidouro = true);
-    geraCriaCarros(p2);
+    aberta = true;
+    sumidouro = true;
+    freq = NULL;
+    tamanho = 500;
+    velocidade = 60/3.6;
+
+    Pista p2 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
 
     // Via S1norte (3)
-    Pista p3 = new Pista<Carro>(..., sumidouro = false);
-    geraCriaCarros(p3);
+    aberta = false;
+    sumidouro = false;
+    freq = 23~37 (s);
+    tamanho = 500;
+    velocidade = 60/3.6;
+
+    Pista p3 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    geraCriaCarro(p3);
 
     // Via C1leste (4) << PISTA ESPECIAL, POIS NÃO PODE CHAMAR CRIA CARRO!
-    Pista p4 = new Pista<Carro>(..., sumidouro = false);
-    geraCriaCarros(p4);
+    aberta = true;
+    sumidouro = false;
+    freq = NULL;
+    tamanho = 300;
+    velocidade = 60/3.6;
+
+    Pista p4 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
 
     // Via S2Sul (5)
-    Pista p5 = new Pista<Carro>(..., sumidouro = true);
-    geraCriaCarros(p5);
+    aberta = true;
+    sumidouro = true;
+    freq = NULL;
+    tamanho = 500;
+    velocidade = 40/3.6;
+
+    Pista p5 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
 
     // Via S2Norte (6)
-    Pista p6 = new Pista<Carro>(..., sumidouro = false);
-    geraCriaCarros(p6);
+    aberta = false;
+    sumidouro = false;
+    freq = 45~75 (s);
+    tamanho = 500;
+    velocidade = 40/3.6;
+
+    Pista p6 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    geraCriaCarro(p6);
 
     // Via L1leste (7)
-    Pista p7 = new Pista<Carro>(..., sumidouro = true);
-    geraCriaCarros(p7);
+    aberta = true;
+    sumidouro = true;
+    freq = NULL;
+    tamanho = 400;
+    velocidade = 30/3.6;
+
+    Pista p7 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
 
     // Via L1oeste (8)
-    Pista p8 = new Pista<Carro>(..., sumidouro = false);
-    geraCriaCarros(p8);
+    aberta = false;
+    sumidouro = false;
+    freq = 8~12 (s);
+    tamanho = 400;
+    velocidade = 30/3.6;
+
+    Pista p8 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    geraCriaCarro(p8);
 
     // Via N2norte (9)
-    Pista p9 = new Pista<Carro>(..., sumidouro = true);
-    geraCriaCarros(p9);
+    aberta = true;
+    sumidouro = true;
+    freq = NULL;
+    tamanho = 500;
+    velocidade = 40/3.6;
+
+    Pista p9 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
 
     // Via N2sul (10)
-    Pista p10 = new Pista<Carro>(..., sumidouro = false);
-    geraCriaCarros(p10);
+    aberta = false;
+    sumidouro = false;
+    freq = 15~25 (s);
+    tamanho = 500;
+    velocidade = 40/3.6;
+
+    Pista p10 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    geraCriaCarro(p10);
 
     // Via C1oeste (11) << PISTA ESPECIAL, POIS NÃO PODE CHAMAR CRIA CARRO!
-    Pista p11 = new Pista<Carro>(..., sumidouro = false);
-    geraCriaCarros(p11);
+    aberta = false;
+    sumidouro = false;
+    freq = NULL;
+    tamanho = 300;
+    velocidade = 60/3.6;
+
+    Pista p11 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
 
     // Via N1norte (12)
-    Pista p12 = new Pista<Carro>(..., sumidouro = true);
-    geraCriaCarros(p13);
+    aberta = true;
+    sumidouro = true;
+    freq = NULL;
+    tamanho = 500;
+    velocidade = 60/3.6;
+
+    Pista p12 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
 
     // Via N1sul (13)
-    Pista p13 = new Pista<Carro>(..., sumidouro = false);
-    geraCriaCarros(p13);
+    aberta = false;
+    sumidouro = false;
+    freq = 15~25 (s);
+    tamanho = 500;
+    velocidade = 60/3.6;
+
+    Pista p13 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    geraCriaCarro(p13);
 
     // Via O1oeste (14)
-    Pista p14 = new Pista<Carro>(..., sumidouro = true);
-    geraCriaCarros(p14);
+    aberta = true;
+    sumidouro = true;
+    freq = NULL;
+    tamanho = 2000;
+    velocidade = 80/3.6;
+
+    Pista p14 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
 
     // Cria pilha de possibilidades de conversão para cada pista
     p1->criaPilhaAleatoria(8, 1, 1, p4, p2, p12);
@@ -111,7 +190,6 @@ public:
   void geraEventosIniciais() {
     linhaDoTempo = new Lista<Evento>();
     geraSemaforos();
-    geraCriaCarros();
   }
 
   Lista<Evento> getTimeline() {
@@ -131,7 +209,7 @@ public:
     }
   }
 
-  void geraCriaCarros(Pista pista) {
+  void geraCriaCarro(Pista pista) {
     int tempo = pista->getFrequenciaEntradaDeCarros();
     CriaCarro criaCarro = new CriaCarro(pista, tempo);
     linhaDoTempo->adicionaEmOrdem(criaCarro);

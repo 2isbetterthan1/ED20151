@@ -1,22 +1,48 @@
 #define TAMANHOCARRO 7
 class Pista() : public FilaEnc() {
 private:
-  double frequenciaEntradaDeCarros;
   bool aberta;
   bool sumidouro;
+  double frequenciaEntradaDeCarros;
   double tamanho;     //  EM METROS
   double velocidade;  //  EM METROS POR SEGUNDO
   double tempoPercorrimento;
   Pilha aleatorio<Pista>;
 public:
 
-  Pista() {
+  Pista(bool aberta, bool sumidouro, double frequenciaEntradaDeCarros, double tamanho, double velocidade) {
+    this->aberta = aberta;
+    this->sumidouro = sumidouro;
+    this->frequenciaEntradaDeCarros = frequenciaEntradaDeCarros;
+    this->tamanho = tamanho;
+    this->velocidade = velocidade;
+    setTempoPercorrimento();
+  }
 
-    tempoPercorrimento = tamanho/velocidade;
+  void setTempoPercorrimento() {
+    this->tempoPercorrimento = (this->tamanho)/(this->velocidade);
   }
 
   double getFrequenciaEntradaDeCarros () {
-    return frequenciaEntradaDeCarros;
+    return this->frequenciaEntradaDeCarros;
+  }
+
+  bool isSumidouro() {
+    return this->sumidouro;
+  }
+
+  double getTempoPercorrimento() {
+    return this->tempoPercorrimento;
+  }
+
+  bool getStatus() {
+    return this->aberta;
+  }
+
+  bool lotada() {
+    int tamanhoDaFila = getSize();
+    double ocupado = tamanhoDaFila*(TAMANHOCARRO + 3);
+    return ocupado > (tamanho - (TAMANHOCARRO + 3)
   }
 
   void adiciona(Carro carro){
@@ -29,20 +55,6 @@ public:
 
   void retira() {
     Fila<Carro>::retira();
-  }
-
-  bool isSumidouro() {
-    return sumidouro;
-  }
-
-  double getTempoPercorrimento() {
-    tempoPercorrimento;
-  }
-
-  bool lotada() {
-    int tamanhoDaFila = getSize();
-    double ocupado = tamanhoDaFila*(TAMANHOCARRO + 3);
-    return ocupado > (tamanho - (TAMANHOCARRO + 3)
   }
   
   void criaPilhaAleatoria(prob1, prob2, prob3, primeiraOpcao, segundaOpcao, terceiraOpcao) {
@@ -67,11 +79,7 @@ public:
   }
 
   void switchStatus() {
-    aberta = !getStatus();
-  }
-
-  bool getStatus() {
-    return aberta;
+    this->aberta = !getStatus();
   }
 
 }
