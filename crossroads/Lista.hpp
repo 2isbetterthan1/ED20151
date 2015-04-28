@@ -211,6 +211,11 @@ class Lista {
     return dado;
   }
 
+  T getFirst() {
+    excecaoListaVazia();
+    return dados[0];
+  }
+
 /**
 * Função retiraEspecifico. Retira um dado específico da lista.
 * A função também verifica se o o dado existe na lista.

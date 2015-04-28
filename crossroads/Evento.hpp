@@ -3,7 +3,6 @@ private:
   double tempo;
 
 public:
-  double getTime() {
-    return this->tempo;
-  }
+  virtual double getTime() = 0;
+  virtual ~Evento() { }
 }

@@ -10,6 +10,10 @@ public:
     this->pista = pista;
   }
 
+  double getTime() {
+    return this->tempo;
+  }
+
   void insereCarro() {
     Carro carro = new Carro();
     pista->adiciona(carro);

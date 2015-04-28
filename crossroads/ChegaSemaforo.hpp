@@ -18,6 +18,10 @@ public:
     podeCruzar(pistaDestino);
   }
 
+  double getTime() {
+    return this->tempo;
+  }
+
   void setPistaDestino(Pista pistaDestino) {
     if (pistaDestino == NULL) {
       this->pistaDestino = this->pista->getPistaAleatoria();

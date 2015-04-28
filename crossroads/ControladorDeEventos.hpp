@@ -22,6 +22,15 @@ public:
     linhaDoTempo = new Lista<Evento>();
     inicializaPistas();
     geraSemaforos();
+    percorreListaDeEventos();
+  }
+
+  void percorreListaDeEventos() {
+    bool ongoing = true
+    Evento currentEvent = linhaDoTempo->getFirst();
+    while(currentEvent->getTime() <= tempoTotal) {
+
+    }
   }
 
   void geraSemaforos() {
