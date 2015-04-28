@@ -7,6 +7,10 @@ public:
     this->tempo = tempo;
   }
 
+  double getTime() {
+    return this->tempo;
+  }
+
   trocaStatusPistas() {
     int estado = controladorDeEventos->getEstadoSemaforos();
 
