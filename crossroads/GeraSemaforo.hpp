@@ -1,4 +1,4 @@
-GeraSemaforo(double tempo) : Evento() {
+GeraSemaforo(double tempo) : public Evento() {
 private:
   double tempo;
 

@@ -7,8 +7,6 @@ private:
   Pista pistaDestino;
 public:
 
-// se ele receber a pista aleatoria, nao pegar uma nova.
-// Quando o evento for reagendado ele deve usar a mesma pista do evento original
   ChegaSemaforo(Carro carro, double tempo, Pista pista, Pista pistaDestino) {
     this->carro = carro;
     this->tempo = tempo;
@@ -35,7 +33,7 @@ public:
   void tentaCruzar() {
     if (pistaAberta() && !pistaDestinoLotada(pistaDestino)) {
       criaCarroNaPistaDestino(carro);
-      pista->retiraEspecifico(carro); // Retira carro da pista original ---- temos função elimina?
+      pista->retiraEspecifico(carro);
     } else {
       double tempo = this->tempo + TEMPOSEMAFORO;
       ChegaSemaforo novoChegaSemaforo = new ChegaSemaforo(carro, tempo, this->pista, this->pistaDestino); // Cria um novo evento Chega Semaforo para this->tempo + TEMPOSEMAFORO
@@ -43,7 +41,7 @@ public:
   }
 
   void criaCarroNaPistaDestino(Carro carro) {
-    pistaDestino->adiciona(carro); // Adiciona carro na pista pistaDestino
+    pistaDestino->adiciona(carro);å
     if(pistaDestino->isSumidouro()) {
       pistaDestino->retiraEspecifico(carro);
       controladorDeEventos->carroOut();

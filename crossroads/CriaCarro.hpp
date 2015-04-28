@@ -1,5 +1,4 @@
-CriaCarro() : public Evento() {
-
+class CriaCarro() : public Evento() {
 private:
   double tempo;
   Pista pista;
