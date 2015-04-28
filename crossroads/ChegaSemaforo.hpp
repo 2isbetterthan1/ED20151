@@ -1,4 +1,20 @@
+/* Copyright [2015] <LeoSL e marcelinol>
+ * ControladorDeEventos.hpp
+ */
+
+ #include "ControladorDeEventos.hpp"
+ #include "Evento.hpp"
+ #include "Pista.hpp"
+ #include "GeraSemaforo.hpp"
+ #include "CriaCarro.hpp"
+ #include "Pilha.hpp"
+ #include "Carro.hpp"
+ #include "FilaEnc.hpp"
+ #include "ListaEnc.hpp"
+ #include "Lista.hpp"
+
 #define TEMPOSEMAFORO 15
+
 class ChegaSemaforo : public Evento() {
 private:
   Carro carro;

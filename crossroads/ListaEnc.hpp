@@ -1,7 +1,7 @@
 /* Copyright [2015] <LeoSL>
  * ListaEnc.hpp
  */
-#include "Elemento.hpp"
+//#include "Elemento.hpp"
 
 template<typename T>
 

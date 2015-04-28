@@ -4,7 +4,7 @@
 #ifndef FilaENC_HPP
 #define FilaENC_HPP
 
-#include "Elemento.hpp"
+//#include "Elemento.hpp"
 #include "ListaEnc.hpp"
 
 template<typename T>

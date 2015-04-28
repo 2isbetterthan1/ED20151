@@ -1,7 +1,18 @@
 /* Copyright [2015] <LeoSL e marcelinol>
  * ControladorDeEventos.hpp
  */
+
 #define TEMPOSEMAFORO 15
+#include "Evento.hpp"
+#include "Pista.hpp"
+#include "CriaCarro.hpp"
+#include "GeraSemaforo.hpp"
+#include "ChegaSemaforo.hpp"
+#include "Pilha.hpp"
+#include "Carro.hpp"
+#include "FilaEnc.hpp"
+#include "ListaEnc.hpp"
+#include "Lista.hpp"
 
 class ControladorDeEventos {
 
@@ -240,4 +251,4 @@ public:
     listaDePistas->adiciona(p13);
     listaDePistas->adiciona(p14);
   }
-}
+};

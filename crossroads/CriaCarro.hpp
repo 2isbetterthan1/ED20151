@@ -1,4 +1,20 @@
-class CriaCarro : public Evento() {
+/* Copyright [2015] <LeoSL e marcelinol>
+ * ControladorDeEventos.hpp
+ */
+
+#include "ControladorDeEventos.hpp"
+#include "Evento.hpp"
+#include "Pista.hpp"
+#include "GeraSemaforo.hpp"
+#include "CriaCarro.hpp"
+#include "ChegaSemaforo.hpp"
+#include "Pilha.hpp"
+#include "Carro.hpp"
+#include "FilaEnc.hpp"
+#include "ListaEnc.hpp"
+#include "Lista.hpp"
+
+class CriaCarro : public Evento {
 private:
   double tempo;
   Pista pista;

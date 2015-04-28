@@ -1,4 +1,11 @@
-GeraSemaforo : public Evento() {
+/* Copyright [2015] <LeoSL e marcelinol>
+ * ControladorDeEventos.hpp
+ */
+
+#include "Pista.hpp"
+#include "ControladorDeEventos.hpp"
+
+class GeraSemaforo : public Evento {
 private:
   double tempo;
 
