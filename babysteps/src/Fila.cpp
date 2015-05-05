@@ -2,6 +2,10 @@
  * Fila.hpp
  */
 
+#ifndef FILA_HPP
+#define FILA_HPP
+
+
 #include "Carro.cpp"
 
 /**
@@ -101,3 +105,4 @@ class Fila {
     return end == -1;
   }
 };
+#endif

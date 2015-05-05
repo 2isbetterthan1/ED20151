@@ -2,6 +2,11 @@
  * Pilha.hpp
  */
 
+template<typename T>
+
+#ifndef PILHA_HPP
+#define PILHA_HPP
+
 
 class Pilha {
  private:
@@ -15,7 +20,7 @@ class Pilha {
     top = -1;
   }
 
-  Pilha (int t) {
+  Pilha<T> (int t) {
     max = t;
     top = -1;
   }
@@ -31,7 +36,7 @@ class Pilha {
     return dados[pos];
   }
 
-  void empilha(int dado) {
+  void empilha(T dado) {
     if (PilhaCheia()) {
       throw "Pilha Cheia!";
     }
@@ -39,7 +44,7 @@ class Pilha {
     dados[top] = dado;
   }
 
-  int desempilha() {
+  T desempilha() {
     if (PilhaVazia()) {
       throw "Pilha Vazia!";
     }
@@ -47,7 +52,7 @@ class Pilha {
     return dados[top+1];
   }
 
-  int topo() {
+  T topo() {
     if (PilhaVazia()) {
       throw "Pilha Vazia!";
     }
@@ -73,3 +78,4 @@ class Pilha {
     return top == (max - 1);
   }
 };
+#endif

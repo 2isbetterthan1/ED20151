@@ -12,14 +12,11 @@
 #include "Pilha.cpp"
 #include "Fila.cpp"
 #include "Carro.cpp"
+#include "Pista.cpp"
 
 using namespace std;
 
 
-Pilha criaPilha() {
-	Pilha pilha = Pilha(10);
-	return pilha;
-}
 
 Fila criaFila() {
 	Fila fila = Fila(10);
@@ -27,17 +24,12 @@ Fila criaFila() {
 }
 
 int main() {
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
-	Pilha p = criaPilha();
-	p.empilha(1);
-	int primeiro = p.desempilha();
 
 	Carro carro = Carro();
 	Fila fila = criaFila();
 	fila.inclui(carro);
 	Carro retirado = fila.retira();
 
-	cout << primeiro << endl; // prints !!!Hello World!!!
 	return 0;
 }
 

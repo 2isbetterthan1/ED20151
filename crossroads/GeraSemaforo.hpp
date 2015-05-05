@@ -44,7 +44,7 @@ public:
 
   }
 
-  estadoA() {
+  void estadoA() {
     trocaEstadoPista(1);
     trocaEstadoPista(3);
     trocaEstadoPista(4);
@@ -52,7 +52,7 @@ public:
     controladorDeEventos->setEstadoSemaforos(2);
   }
 
-  estadoB() {
+  void estadoB() {
     trocaEstadoPista(8);
     trocaEstadoPista(3);
     trocaEstadoPista(4);
@@ -60,7 +60,7 @@ public:
     controladorDeEventos->setEstadoSemaforos(3);
   }
 
-  estadoC() {
+  void estadoC() {
     trocaEstadoPista(11);
     trocaEstadoPista(10);
     trocaEstadoPista(13);
@@ -68,7 +68,7 @@ public:
     controladorDeEventos->setEstadoSemaforos(4);
   }
 
-  estadoD() {
+  void estadoD() {
     trocaEstadoPista(1);
     trocaEstadoPista(10);
     trocaEstadoPista(13);
@@ -76,7 +76,7 @@ public:
     controladorDeEventos->setEstadoSemaforos(1);
   }
 
-  trocaEstadoPista(int indice) {
+  void trocaEstadoPista(int indice) {
     Pista pista = listaDePistas->encontraNaPosicao(indice);
     pista->switchStatus();
   }
