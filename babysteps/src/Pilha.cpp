@@ -12,24 +12,21 @@ class Pilha {
  private:
   int top;
   int max;
-  int dados[];
+  T* dados;
 
  public:
-  Pilha() {
-    max = 10;
-    top = -1;
-  }
 
   Pilha<T> (int t) {
     max = t;
     top = -1;
+    dados = new T[max];
   }
 
   int getMax() {
 	  return this->max;
   }
 
-  int encontra(int pos) {
+  T encontra(int pos) {
     if(PilhaVazia()) {
       throw "a";
     }

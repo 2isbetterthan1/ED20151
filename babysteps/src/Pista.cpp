@@ -31,7 +31,8 @@ public:
       this->frequenciaEntradaDeCarros = frequenciaEntradaDeCarros;
       this->tamanho = tamanho;
       this->velocidade = velocidade;
-      //setTempoPercorrimento();
+      setTempoPercorrimento();
+      Pilha<Pista>* aleatorio = new Pilha<Pista>(14);
     }
 
   void setTempoPercorrimento() {
@@ -59,25 +60,25 @@ public:
     double ocupado = tamanhoDaFila*(TAMANHOCARRO + 3);
     return ocupado > (tamanho - (TAMANHOCARRO + 3));
   }
-/*
+
 
   void criaPilhaAleatoria(int prob1, int prob2, int prob3, Pista primeiraOpcao, Pista segundaOpcao, Pista terceiraOpcao) {
-    Pilha aleatorio = new Pilha;
 
     for (int i = 0; i < prob1; i++) {
-      aleatorio.empilha(primeiraOpcao);
+      aleatorio->empilha(primeiraOpcao);
     }
 
     for (int i = 0; i < prob2; i++) {
-      aleatorio.empilha(segundaOpcao);
+      aleatorio->empilha(segundaOpcao);
     }
 
     for (int i = 0; i < prob2; i++) {
-      aleatorio.empilha(terceiraOpcao);
+      aleatorio->empilha(terceiraOpcao);
     }
   }
-*/
+
   Pista getPistaAleatoria() {
+	srand(time(NULL));
     int indicePistaDestino = rand() % 10;
     return aleatorio.encontra(indicePistaDestino);
   }

@@ -13,6 +13,9 @@
 #include "Fila.cpp"
 #include "Carro.cpp"
 #include "Pista.cpp"
+#include <iostream>
+#include <cstdlib>
+#include <time.h>
 
 using namespace std;
 
@@ -24,11 +27,7 @@ Fila criaFila() {
 }
 
 int main() {
-
-	Carro carro = Carro();
-	Fila fila = criaFila();
-	fila.inclui(carro);
-	Carro retirado = fila.retira();
+	srand(time(NULL));
 
 	return 0;
 }
