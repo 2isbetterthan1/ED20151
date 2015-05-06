@@ -27,7 +27,9 @@ private:
   Pista pista;
   Pista pistaDestino;
 public:
-
+  /**
+  * Construtor. Construtor de um ChegaSemaforo.
+  */
   ChegaSemaforo(Carro carro, double tempo, Pista pista, Pista pistaDestino) {
     this->carro = carro;
     this->tempo = tempo;
@@ -43,14 +45,22 @@ public:
     tentaCruzar();
   }
 
+  /**
+  * Função setPistaDestino. Determina, aleatoriamente, a pista para o qual
+  * o carro vai virar. Se a pista atual for um sumidouro, não faz nada.
+  */
   void setPistaDestino(Pista pistaDestino) {
-    if (pistaDestino == NULL) {
+    if (pistaDestino != NULL) {
       this->pistaDestino = this->pista.getPistaAleatoria();
     }
-
     this->pistaDestino = pistaDestino;
   }
 
+  /**
+  * Função tentaCruzar. Verifica se a pista atual está com o semáforo aberto
+  * e se a pista de destino tem espaço para o carro. Caso seja possível,
+  * retira o carro da pista atual e insere-o na pista de destino.
+  */
   void tentaCruzar() {
     if (pistaAberta() && !pistaDestinoLotada(pistaDestino)) {
       criaCarroNaPistaDestino(carro);
@@ -62,6 +72,11 @@ public:
     }
   }
 
+  /**
+  * Função criaCarroNaPistaDestino. Insere o carro na pista de destino.
+  * Se a pista de destino for sumidouro, já exclui o carro e acrescenta na
+  * contagem de carros retirados.
+  */
   void criaCarroNaPistaDestino(Carro carro) {
     pistaDestino.inclui(carro);
     if(pistaDestino.isSumidouro()) {
@@ -72,19 +87,32 @@ public:
     }
   }
 
+  /**
+  * Função criaEventoChegaSemaforo. Cria um novo evento de chegaSemaforo.
+  * Utilizado quando não for possível cruzar. (Reagenda o cruzamento)
+  */
   void criaEventoChegaSemaforo(Pista pista) {
     double tempoDePercorrimento = pista.getTempoPercorrimento();
     double tempoChegada = this->tempo + tempoDePercorrimento;
-    //  Evento chegaSemaforo = new ChegaSemaforo(carro, tempoChegada, pista, NULL);
-    //  controladorDeEventos->addTimelineEvent(chegaSemaforo);
+    Evento chegaSemaforo = new ChegaSemaforo(carro, tempoChegada, pista, NULL);
+    controladorDeEventos->addTimelineEvent(chegaSemaforo);
   }
 
+  /**
+  * Função pistaAberta. Informa se a pista que o carro está inserido está
+  * com o semáforo aberto.
+  */
   bool pistaAberta() {
     return this->pista.getStatus();
   }
 
+  /**
+  * Função pistaDestinoLotada. Verifica se há espaço para o carro na pista de
+  * destino.
+  */
   bool pistaDestinoLotada(Pista pistaDestino) {
-    return pistaDestino.lotada();
+    float tamanhoCarro = carro.getSize();
+    return pistaDestino.lotada(tamanhoCarro);
   }
 };
 #endif
