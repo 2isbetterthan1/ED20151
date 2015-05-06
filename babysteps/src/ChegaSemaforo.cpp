@@ -24,12 +24,12 @@ private:
   Carro carro;
   double tempo;
   Pista pista;
-  Pista pistaDestino;
+  Pista* pistaDestino;
 public:
   /**
   * Construtor. Construtor de um ChegaSemaforo.
   */
-  ChegaSemaforo(Carro carro, double tempo, Pista pista, Pista pistaDestino) {
+  ChegaSemaforo(Carro carro, double tempo, Pista pista, Pista* pistaDestino) {
     this->carro = carro;
     this->tempo = tempo;
     this->pista = pista;

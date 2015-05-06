@@ -296,19 +296,19 @@ class ListaEnc {
 * Função igual. Retorna um valor booleano verdadeiro caso dois dados comparados sejam iguais.
 */
   bool igual(T dado1, T dado2) {
-    return dado1 == dado2;
+    return dado1.igual(dado2);
   }
 /**
 * Função maior. Retorna um valor booleano verdadeiro caso o primeiro elemento (argumento) seja maior que o segundo (argumento).
 */
   bool maior(T dado1, T dado2) {
-    return dado1 > dado2;
+    return dado1.maior(dado2);
   }
 /**
 * Função menor. Retorna um valor booleano verdadeiro caso o primeiro elemento (argumento) seja menor que o segundo (argumento).
 */
   bool menor(T dado1, T dado2) {
-    return dado1 < dado2;
+    return dado1.menor(dado2);
   }
 /**
 * Função destroiLista. Chama duas funções específicas para destruir a lista encadeada e sua cabeça.

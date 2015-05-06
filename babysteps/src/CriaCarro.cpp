@@ -56,7 +56,7 @@ public:
   * Função insereCarro. Cria um novo carro e adiciona ele na pista.
   */
   void insereCarro() {
-    Carro carro = new Carro();
+    Carro carro = Carro();
     pista.inclui(carro);
     controladorDeEventos->carroIn();
   }
@@ -68,7 +68,7 @@ public:
   void geraProximoCarro() {
     double proximoTempo = tempo + pista.getFrequenciaEntradaDeCarros();
     if(proximoTempo < controladorDeEventos->tempoTotal) {
-      CriaCarro novoCriaCarro = new CriaCarro(pista, proximoTempo);
+      CriaCarro novoCriaCarro = CriaCarro(pista, proximoTempo);
       controladorDeEventos->addTimelineEvent(novoCriaCarro);
     }
   }
@@ -80,7 +80,9 @@ public:
   void criaEventoChegaSemaforo() {
     double tempoDePercorrimento = pista.getTempoPercorrimento();
     double tempoChegada = this->tempo + tempoDePercorrimento;
-    Evento chegaSemaforo = new ChegaSemaforo(Carro carro, double tempoChegada, Pista pista, NULL);
+
+    ChegaSemaforo chegaSemaforo = ChegaSemaforo(carro, tempoChegada, pista, 0);
+
     controladorDeEventos->addTimelineEvent(chegaSemaforo);
   }
 };

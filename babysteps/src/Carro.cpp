@@ -17,7 +17,7 @@ public:
 	* Construtor. Construtor de um carro.
 	*/
 	Carro() {
-		this->tamanho = setTamanho();
+		setTamanho();
 	}
 
 	/**
@@ -25,11 +25,15 @@ public:
 	* determinado por um número aleatório entre 2 e 8, mais 1 metro a frente do
 	* carro e 2 metros atrás.
   */
-	float setTamanho() {
+	void setTamanho() {
 		srand(time(NULL));
 		int tamanhoCarro = 2 + rand() % 8;
 		float tamanhoOcupado = (float) (tamanhoCarro + 3);
-		return tamanhoOcupado;
+		this->tamanho = tamanhoOcupado;
+	}
+
+	float getSize() {
+		return this->tamanho;
 	}
 
 	/**

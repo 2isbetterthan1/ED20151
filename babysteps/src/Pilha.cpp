@@ -5,9 +5,10 @@
 #ifndef PILHA_HPP
 #define PILHA_HPP
 
-#include "Pista.cpp"
+//ESPECIALIZAR PILHA COMO PILHADEPISTAS
+//PilhaDePistas : pulic Pilha<Pista>
 
-template<typename Pista>
+template<typename T>
 
 /**
 * Classe Pilha. Uma pilha é uma lista linear na qual o primeiro elemento a entrar é o último elemento a sair.
@@ -17,17 +18,17 @@ class Pilha {
  private:
   int top;
   int max;
-  Pista* dados;
+  T* dados;
 
  public:
 
    /**
    * Construtor. Construtor de uma Pilha
    */
-  Pilha<Pista> (int t) {
+  Pilha<T> (int t) {
     max = t;
     top = -1;
-    dados = new Pista[max];
+    dados = new T[max];
   }
 
   /**
@@ -39,7 +40,7 @@ class Pilha {
   /**
   * Função encontra. Encontra um elemento na pilha pela sua posição.
   */
-  Pista encontra(int pos) {
+  T encontra(int pos) {
     if(PilhaVazia()) {
       throw "a";
     }
@@ -50,7 +51,7 @@ class Pilha {
   * Função empilha. Insere um elemento no topo da pilha se ela não estiver cheia.
   * @param dado Elemento a ser inserido na pilha.
   */
-  void empilha(Pista dado) {
+  void empilha(T dado) {
     if (PilhaCheia()) {
       throw "Pilha Cheia!";
     }
@@ -63,7 +64,7 @@ class Pilha {
   * Função desempilha. Retira um elemento do topo da pilha se ela não estiver vazia.
   * @return elemento retirado do topo da pilha
   */
-  Pista desempilha() {
+  T desempilha() {
     if (PilhaVazia()) {
       throw "Pilha Vazia!";
     }
@@ -75,7 +76,7 @@ class Pilha {
   * Função topo. Lê o valor que está no topo da pilha se ela não estiver vazia.
   * @return valor que está no dopo da pilha.
   */
-  Pista topo() {
+  T topo() {
     if (PilhaVazia()) {
       throw "Pilha Vazia!";
     }

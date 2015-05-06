@@ -43,6 +43,10 @@ class Fila {
     end = -1;
   }
 
+  Carro encontra(int posicao) {
+	  return dados[posicao];
+  }
+
 /**
 * Inclui. Insere elementos no final da fila.
 */

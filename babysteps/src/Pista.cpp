@@ -9,7 +9,6 @@
 
 #include "Fila.cpp"
 #include "Pilha.cpp"
-#include "PilhaEnc.cpp"
 #include <iostream>
 #include <cstdlib>
 #include <time.h>
@@ -24,7 +23,7 @@ private:
   double tamanho;     //  EM METROS
   double velocidade;  //  EM METROS POR SEGUNDO
   double tempoPercorrimento;
-  Pilha<Pista>* aleatorio;
+  //Pilha<Pista> aleatorio;
 public:
 
   /**
@@ -38,7 +37,7 @@ public:
     this->tamanho = tamanho;
     this->velocidade = velocidade;
     setTempoPercorrimento();
-    Pilha<Pista>* aleatorio = new Pilha<Pista>(14);
+    //aleatorio = Pilha<Pista>(14);
   }
 
   /**
@@ -53,8 +52,8 @@ public:
   * Função getFrequenciaEntradaDeCarros. Informa a frequência com que os carros
   * devem ser criados. (Usada somente para pistas fontes)
   */
-  double getFrequenciaEntradaDeCarros () {
-    float variacao = frequenciaEntradaDeCarrosMax - frequenciaEntradaDeCarrosMin;
+  int getFrequenciaEntradaDeCarros () {
+    int variacao = frequenciaEntradaDeCarrosMax - frequenciaEntradaDeCarrosMin;
     srand(time(NULL));
     return frequenciaEntradaDeCarrosMin + (rand() % variacao);
   }
@@ -97,7 +96,7 @@ public:
     float sizes = 0;
     Carro currentCar;
     for (int i = 0; i < this->getUltimo(); i++) {
-      currentCar = this.encontra(i);
+      currentCar = encontra(i);
       sizes += currentCar.getSize();
     }
     return sizes;
@@ -110,17 +109,17 @@ public:
   */
   void criaPilhaAleatoria(int prob1, int prob2, int prob3, Pista primeiraOpcao, Pista segundaOpcao, Pista terceiraOpcao) {
 
-    for (int i = 0; i < prob1; i++) {
-      aleatorio->empilha(primeiraOpcao);
-    }
-
-    for (int i = 0; i < prob2; i++) {
-      aleatorio->empilha(segundaOpcao);
-    }
-
-    for (int i = 0; i < prob2; i++) {
-      aleatorio->empilha(terceiraOpcao);
-    }
+//    for (int i = 0; i < prob1; i++) {
+//      aleatorio.empilha(primeiraOpcao);
+//    }
+//
+//    for (int i = 0; i < prob2; i++) {
+//      aleatorio.empilha(segundaOpcao);
+//    }
+//
+//    for (int i = 0; i < prob2; i++) {
+//      aleatorio.empilha(terceiraOpcao);
+//    }
   }
 
   /**
@@ -130,7 +129,7 @@ public:
   Pista getPistaAleatoria() {
 	srand(time(NULL));
     int indicePistaDestino = rand() % 10;
-    return aleatorio->encontra(indicePistaDestino);
+    return aleatorio.encontra(indicePistaDestino);
   }
 
   /**

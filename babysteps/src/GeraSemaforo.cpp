@@ -7,7 +7,7 @@
 
 #include "Pista.cpp"
 #include "Evento.cpp"
-#include "ControladorDeEventos.hpp"
+#include "ControladorDeEventos.cpp"
 
 class GeraSemaforo : public Evento {
 private:
@@ -35,8 +35,7 @@ public:
   * simulação com relação aos semáforos).
   */
   void trocaStatusPistas() {
-	int estado = 1;
-    int estado = controladorDeEventos->getEstadoSemaforos();
+	int estado = controladorDeEventos->getEstadoSemaforos();
 
     switch(estado) {
       case 1:
