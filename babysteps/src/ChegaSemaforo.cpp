@@ -5,13 +5,17 @@
 #ifndef CHEGASEMAFORO_HPP
 #define CHEGASEMAFORO_HPP
 
+#ifndef NULL
+#define NULL   ((void *) 0)
+#endif
+
 #include "Evento.cpp"
 #include "Pista.cpp"
 #include "GeraSemaforo.cpp"
 #include "CriaCarro.cpp"
 #include "Pilha.cpp"
 #include "Carro.cpp"
-//  #include "ControladorDeEventos.cpp"
+#include "ControladorDeEventos.cpp"
 //  #include "Lista.cpp"
 
 #define TEMPOSEMAFORO 15
@@ -40,9 +44,9 @@ public:
   }
 
   void setPistaDestino(Pista pistaDestino) {
-    //if (pistaDestino == NULL) {
+    if (pistaDestino == NULL) {
       this->pistaDestino = this->pista.getPistaAleatoria();
-    //}
+    }
 
     this->pistaDestino = pistaDestino;
   }
@@ -53,7 +57,8 @@ public:
       pista.retira();  //  FILA NAO PODE TER retiraEspecifico
     } else {
       double tempo = this->tempo + TEMPOSEMAFORO;
-      ChegaSemaforo novoChegaSemaforo = new ChegaSemaforo(carro, tempo, this->pista, this->pistaDestino); // Cria um novo evento Chega Semaforo para this->tempo + TEMPOSEMAFORO
+      ChegaSemaforo* novoChegaSemaforo = new ChegaSemaforo(carro, tempo, this->pista, this->pistaDestino); // Cria um novo evento Chega Semaforo para this->tempo + TEMPOSEMAFORO
+      controladorDeEventos->addTimelineEvent(novoChegaSemaforo);  //  CRIAR A TIMELINE NO MAIN E ADICIONAR DIRETAMENTE NELA? - esse controlador de eventos nao é conhecido aqui
     }
   }
 

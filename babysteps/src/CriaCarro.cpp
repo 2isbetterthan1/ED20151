@@ -5,14 +5,17 @@
 #ifndef CRIACARRO_HPP
 #define CRIACARRO_HPP
 
+#ifndef NULL
+#define NULL   ((void *) 0)
+#endif
 
 #include "Evento.cpp"
 #include "Pista.cpp"
 #include "GeraSemaforo.cpp"
 #include "Pilha.cpp"
 #include "Carro.cpp"
-//  #include "ControladorDeEventos.cpp"
-//  #include "ChegaSemaforo.cpp"
+#include "ControladorDeEventos.cpp"
+#include "ChegaSemaforo.cpp"
 
 class CriaCarro : public Evento {
 private:
@@ -59,8 +62,8 @@ public:
   void criaEventoChegaSemaforo() {
     double tempoDePercorrimento = pista.getTempoPercorrimento();
     double tempoChegada = this->tempo + tempoDePercorrimento;
-    // Evento chegaSemaforo = new ChegaSemaforo(Carro carro, double tempoChegada, Pista pista, NULL);
-    // controladorDeEventos->addTimelineEvent(chegaSemaforo);
+    Evento chegaSemaforo = new ChegaSemaforo(Carro carro, double tempoChegada, Pista pista, NULL);
+    controladorDeEventos->addTimelineEvent(chegaSemaforo);
   }
 
 };

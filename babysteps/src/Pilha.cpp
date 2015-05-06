@@ -2,38 +2,40 @@
  * Pilha.hpp
  */
 
-template<typename T>
-
 #ifndef PILHA_HPP
 #define PILHA_HPP
+
+#include "Pista.cpp"
+
+template<typename Pista>
 
 
 class Pilha {
  private:
   int top;
   int max;
-  T* dados;
+  Pista* dados;
 
  public:
 
-  Pilha<T> (int t) {
+  Pilha<Pista> (int t) {
     max = t;
     top = -1;
-    dados = new T[max];
+    dados = new Pista[max];
   }
 
   int getMax() {
 	  return this->max;
   }
 
-  T encontra(int pos) {
+  Pista encontra(int pos) {
     if(PilhaVazia()) {
       throw "a";
     }
     return dados[pos];
   }
 
-  void empilha(T dado) {
+  void empilha(Pista dado) {
     if (PilhaCheia()) {
       throw "Pilha Cheia!";
     }
@@ -41,7 +43,7 @@ class Pilha {
     dados[top] = dado;
   }
 
-  T desempilha() {
+  Pista desempilha() {
     if (PilhaVazia()) {
       throw "Pilha Vazia!";
     }
@@ -49,7 +51,7 @@ class Pilha {
     return dados[top+1];
   }
 
-  T topo() {
+  Pista topo() {
     if (PilhaVazia()) {
       throw "Pilha Vazia!";
     }

@@ -9,6 +9,7 @@
 
 #include "Fila.cpp"
 #include "Pilha.cpp"
+#include "PilhaEnc.cpp"
 #include <iostream>
 #include <cstdlib>
 #include <time.h>
@@ -22,7 +23,7 @@ private:
   double tamanho;     //  EM METROS
   double velocidade;  //  EM METROS POR SEGUNDO
   double tempoPercorrimento;
-  Pilha<Pista> aleatorio;
+  Pilha<Pista>* aleatorio;
 public:
 
   Pista(bool aberta, bool sumidouro, double frequenciaEntradaDeCarros, double tamanho, double velocidade) {
@@ -80,7 +81,7 @@ public:
   Pista getPistaAleatoria() {
 	srand(time(NULL));
     int indicePistaDestino = rand() % 10;
-    return aleatorio.encontra(indicePistaDestino);
+    return aleatorio->encontra(indicePistaDestino);
   }
 
   void switchStatus() {
