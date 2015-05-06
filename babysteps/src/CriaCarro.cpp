@@ -47,14 +47,12 @@ public:
   void insereCarro() {
     Carro carro = new Carro();
     pista.inclui(carro);
-    //  controladorDeEventos->carroIn();
+    controladorDeEventos->carroIn();
   }
 
   void geraProximoCarro() {
     double proximoTempo = tempo + pista.getFrequenciaEntradaDeCarros();
-
-    if(true){
-    //  if(proximoTempo < controladorDeEventos->tempoTotal) {
+    if(proximoTempo < controladorDeEventos->tempoTotal) {
       CriaCarro novoCarro = new CriaCarro(pista, proximoTempo);
     }
   }

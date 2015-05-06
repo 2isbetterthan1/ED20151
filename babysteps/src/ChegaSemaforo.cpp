@@ -16,7 +16,6 @@
 #include "Pilha.cpp"
 #include "Carro.cpp"
 #include "ControladorDeEventos.cpp"
-//  #include "Lista.cpp"
 
 #define TEMPOSEMAFORO 15
 
@@ -81,9 +80,9 @@ public:
     pistaDestino.inclui(carro);
     if(pistaDestino.isSumidouro()) {
       pistaDestino.retira();
-      //  controladorDeEventos->carroOut();
+      controladorDeEventos->carroOut();
     } else {
-      //  criaEventoChegaSemaforo(carro, pistaDestino);
+      criaEventoChegaSemaforo(carro, pistaDestino);
     }
   }
 

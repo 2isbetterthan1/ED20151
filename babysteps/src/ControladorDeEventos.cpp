@@ -28,11 +28,19 @@ private:
   ListaEnc<Evento> linhaDoTempo;
 
 public:
+
+  /**
+  * Construtor. Construtor de um controlador de eventos.
+  */
   ControladorDeEventos(tempoTotal) { // herdar listas
     this->tempoTotal = tempoTotal;
     setup();
   }
 
+  /**
+  * Função setup. Chama as funções que cria as pistas e os eventos, cria a linha
+  * do tempo e manda percorrê-la.
+  */
   void setup() {
     linhaDoTempo = new Lista<Evento>();
     inicializaPistas();
@@ -40,14 +48,25 @@ public:
     percorreLinhaDoTempo();
   }
 
+
+  /**
+  * Função carroOut. acrescenta a contagem de carros que saíram do sistema.
+  */
   void carroOut() {
     this->carrosOut += 1;
   }
 
+  /**
+  * Função carroIn. acrescenta a contagem de carros que entraram no sistema.
+  */
   void carroIn() {
     this->carrosIn += 1;
   }
 
+  /**
+  * Função percorreLinhaDoTempo. Acessa cada um dos eventos da linha do tempo
+  * e executa-o até que acabe o tempo de execução da simulação.
+  */
   void percorreLinhaDoTempo() {
     bool ongoing = true;
     Evento currentEvent = linhaDoTempo.retiraDoInicio();
@@ -57,6 +76,10 @@ public:
     }
   }
 
+  /**
+  * Função geraSemaforos. Cria e adiciona os eventos de troca de estado dos semáforos
+  * na linha do tempo
+  */
   void geraSemaforos() {
     double tempoCorrente = 0;
     while(tempoCorrente < tempoTotal) {
