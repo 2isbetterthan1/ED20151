@@ -89,49 +89,65 @@ public:
     }
   }
 
+  /**
+  * Função getTimeline. Retorna a linha do tempo.
+  */
   Lista<Evento> getTimeline() {
     return this->linhaDoTempo();
   }
 
+  /**
+  * Função addTimelineEvent. Adiciona um elemento da linha do tempo.
+  */
   void addTimelineEvent(Evento evento) {
     linhaDoTempo.adicionaEmOrdem(evento);
   }
 
+  /**
+  * Função geraCriaCarro. Cria um evento CriaCarro para cada uma das pistas
+  * fonte. A criação dos carros seguintes será feita na execução do próprio
+  * evento CriaCarro.
+  */
   void geraCriaCarro(Pista pista) {
     int tempo = pista.getFrequenciaEntradaDeCarros();
     CriaCarro criaCarro = new CriaCarro(pista, tempo);
     linhaDoTempo.adicionaEmOrdem(criaCarro);
   }
 
+  /**
+  * Função getEstadoSemaforos. Informa em qual cenário está o sistema com
+  * relação aos semáforos.
+  */
   int getEstadoSemaforos() {
     return this->estadoSemaforos();
   }
 
+  /**
+  * Função setEstadoSemaforos. Determina o cenário do sistema com relação aos
+  * semáforos.
+  */
   void setEstadoSemaforos(int estado) {
     this->estadoSemaforos = estado;
   }
 
-  int randomTime(int minimo, int maximo) {
-	  int variacao = minimo - maximo;
-	  srand(time(NULL));
-	  return minimo + (rand() % variacao);
-  }
-
-  void inicializaPistas() { // INICIA com semaforos no estado = 1
+  /**
+  * Função inicializaPistas. Cria todas as pistas e adiciona elas na lista
+  * de pistas.
+  */
+  void inicializaPistas() {
     listaDePistas = new Lista<Pista>();
     bool aberta, sumidouro;
-    double freq, tamanho, velocidade;
-
-
+    double freqMin, freqMax, tamanho, velocidade;
 
     // Via O1leste (1)
     aberta = true;
     sumidouro = false;
-    freq = randomTime(8, 12);
+    freqMin = 8;
+    freqMax = 12;
     tamanho = 2000;
     velocidade = 80/3.6;
 
-    Pista p1 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    Pista p1 = new Pista<Carro>(aberta, sumidouro, freqMin, freqMax, tamanho, velocidade);
     geraCriaCarro(p1);
 
     // Via S1Sul (2)
@@ -141,16 +157,17 @@ public:
     tamanho = 500;
     velocidade = 60/3.6;
 
-    Pista p2 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    Pista p2 = new Pista<Carro>(aberta, sumidouro, freqMin, freqMax, tamanho, velocidade);
 
     // Via S1norte (3)
     aberta = false;
     sumidouro = false;
-    freq = randomTime(23, 37);
+    freqMin = 23;
+    freqMax = 37;
     tamanho = 500;
     velocidade = 60/3.6;
 
-    Pista p3 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    Pista p3 = new Pista<Carro>(aberta, sumidouro, freqMin, freqMax, tamanho, velocidade);
     geraCriaCarro(p3);
 
     // Via C1leste (4) << PISTA ESPECIAL, POIS NÃO PODE CHAMAR CRIA CARRO!
@@ -160,7 +177,7 @@ public:
     tamanho = 300;
     velocidade = 60/3.6;
 
-    Pista p4 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    Pista p4 = new Pista<Carro>(aberta, sumidouro, freqMin, freqMax, tamanho, velocidade);
 
     // Via S2Sul (5)
     aberta = true;
@@ -169,16 +186,17 @@ public:
     tamanho = 500;
     velocidade = 40/3.6;
 
-    Pista p5 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    Pista p5 = new Pista<Carro>(aberta, sumidouro, freqMin, freqMax, tamanho, velocidade);
 
     // Via S2Norte (6)
     aberta = false;
     sumidouro = false;
-    freq = randomTime(45, 75);
+    freqMin = 45;
+    freqMax = 75;
     tamanho = 500;
     velocidade = 40/3.6;
 
-    Pista p6 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    Pista p6 = new Pista<Carro>(aberta, sumidouro, freqMin, freqMax, tamanho, velocidade);
     geraCriaCarro(p6);
 
     // Via L1leste (7)
@@ -188,16 +206,17 @@ public:
     tamanho = 400;
     velocidade = 30/3.6;
 
-    Pista p7 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    Pista p7 = new Pista<Carro>(aberta, sumidouro, freqMin, freqMax, tamanho, velocidade);
 
     // Via L1oeste (8)
     aberta = false;
     sumidouro = false;
-    freq = randomTime(8, 12);
+    freqMin = 8;
+    freqMax = 12;
     tamanho = 400;
     velocidade = 30/3.6;
 
-    Pista p8 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    Pista p8 = new Pista<Carro>(aberta, sumidouro, freqMin, freqMax, tamanho, velocidade);
     geraCriaCarro(p8);
 
     // Via N2norte (9)
@@ -207,16 +226,17 @@ public:
     tamanho = 500;
     velocidade = 40/3.6;
 
-    Pista p9 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    Pista p9 = new Pista<Carro>(aberta, sumidouro, freqMin, freqMax, tamanho, velocidade);
 
     // Via N2sul (10)
     aberta = false;
     sumidouro = false;
-    freq = randomTime(15, 25);
+    freqMin = 15;
+    freqMax = 25;
     tamanho = 500;
     velocidade = 40/3.6;
 
-    Pista p10 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    Pista p10 = new Pista<Carro>(aberta, sumidouro, freqMin, freqMax, tamanho, velocidade);
     geraCriaCarro(p10);
 
     // Via C1oeste (11) << PISTA ESPECIAL, POIS NÃO PODE CHAMAR CRIA CARRO!
@@ -226,7 +246,7 @@ public:
     tamanho = 300;
     velocidade = 60/3.6;
 
-    Pista p11 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    Pista p11 = new Pista<Carro>(aberta, sumidouro, freqMin, freqMax, tamanho, velocidade);
 
     // Via N1norte (12)
     aberta = true;
@@ -235,16 +255,17 @@ public:
     tamanho = 500;
     velocidade = 60/3.6;
 
-    Pista p12 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    Pista p12 = new Pista<Carro>(aberta, sumidouro, freqMin, freqMax, tamanho, velocidade);
 
     // Via N1sul (13)
     aberta = false;
     sumidouro = false;
-    freq = randomTime(15, 25);
+    freqMin = 15;
+    freqMax = 25;
     tamanho = 500;
     velocidade = 60/3.6;
 
-    Pista p13 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    Pista p13 = new Pista<Carro>(aberta, sumidouro, freqMin, freqMax, tamanho, velocidade);
     geraCriaCarro(p13);
 
     // Via O1oeste (14)
@@ -254,7 +275,7 @@ public:
     tamanho = 2000;
     velocidade = 80/3.6;
 
-    Pista p14 = new Pista<Carro>(aberta, sumidouro, freq, tamanho, velocidade);
+    Pista p14 = new Pista<Carro>(aberta, sumidouro, freqMin, freqMax, tamanho, velocidade);
 
     // Cria pilha de possibilidades de conversão para cada pista
     p1.criaPilhaAleatoria(8, 1, 1, p4, p2, p12);

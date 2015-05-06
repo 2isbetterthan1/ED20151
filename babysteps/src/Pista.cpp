@@ -19,7 +19,8 @@ class Pista : public Fila {
 private:
   bool aberta;
   bool sumidouro;
-  double frequenciaEntradaDeCarros;
+  double frequenciaEntradaDeCarrosMin;
+  double frequenciaEntradaDeCarrosMax;
   double tamanho;     //  EM METROS
   double velocidade;  //  EM METROS POR SEGUNDO
   double tempoPercorrimento;
@@ -29,10 +30,11 @@ public:
   /**
   * Construtor. Construtor de uma pista.
   */
-  Pista(bool aberta, bool sumidouro, double frequenciaEntradaDeCarros, double tamanho, double velocidade) {
+  Pista(bool aberta, bool sumidouro, double frequenciaEntradaDeCarros, double frequenciaEntradaDeCarrosMax, double tamanho, double velocidade) {
     this->aberta = aberta;
     this->sumidouro = sumidouro;
-    this->frequenciaEntradaDeCarros = frequenciaEntradaDeCarros;
+    this->frequenciaEntradaDeCarrosMin = frequenciaEntradaDeCarrosMin;
+    this->frequenciaEntradaDeCarrosMax = frequenciaEntradaDeCarrosMax;
     this->tamanho = tamanho;
     this->velocidade = velocidade;
     setTempoPercorrimento();
@@ -52,7 +54,9 @@ public:
   * devem ser criados. (Usada somente para pistas fontes)
   */
   double getFrequenciaEntradaDeCarros () {
-    return this->frequenciaEntradaDeCarros;
+    float variacao = frequenciaEntradaDeCarrosMax - frequenciaEntradaDeCarrosMin;
+    srand(time(NULL));
+    return frequenciaEntradaDeCarrosMin + (rand() % variacao);
   }
 
   /**
