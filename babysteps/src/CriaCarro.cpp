@@ -21,6 +21,7 @@ class CriaCarro : public Evento {
 private:
   double tempo;
   Pista pista;
+  Carro carro;
 
 public:
 
@@ -37,6 +38,7 @@ public:
   }
 
   void executa() {
+	carro = Carro();
     if(!pistaDestinoLotada(this->pista)) {
       insereCarro();
       criaEventoChegaSemaforo();
@@ -49,14 +51,13 @@ public:
   * espaço para o carro, false se tiver espaço.
   */
   bool pistaDestinoLotada(Pista pistaDestino) {
-    return pistaDestino.lotada();
+    return pistaDestino.lotada(carro.getSize());
   }
 
   /**
   * Função insereCarro. Cria um novo carro e adiciona ele na pista.
   */
   void insereCarro() {
-    Carro carro = Carro();
     pista.inclui(carro);
     controladorDeEventos->carroIn();
   }
@@ -67,6 +68,7 @@ public:
   */
   void geraProximoCarro() {
     double proximoTempo = tempo + pista.getFrequenciaEntradaDeCarros();
+
     if(proximoTempo < controladorDeEventos->tempoTotal) {
       CriaCarro novoCriaCarro = CriaCarro(pista, proximoTempo);
       controladorDeEventos->addTimelineEvent(novoCriaCarro);
@@ -80,8 +82,9 @@ public:
   void criaEventoChegaSemaforo() {
     double tempoDePercorrimento = pista.getTempoPercorrimento();
     double tempoChegada = this->tempo + tempoDePercorrimento;
+    Pista pistaDestino = pista.getPistaAleatoria();
 
-    ChegaSemaforo chegaSemaforo = ChegaSemaforo(carro, tempoChegada, pista, 0);
+    ChegaSemaforo chegaSemaforo = ChegaSemaforo(carro, tempoChegada, pista, pistaDestino);
 
     controladorDeEventos->addTimelineEvent(chegaSemaforo);
   }

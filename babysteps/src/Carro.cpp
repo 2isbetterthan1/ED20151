@@ -10,7 +10,7 @@
 
 class Carro {
 private:
-	float tamanho;
+	double tamanho;
 public:
 
 	/**
@@ -28,11 +28,11 @@ public:
 	void setTamanho() {
 		srand(time(NULL));
 		int tamanhoCarro = 2 + rand() % 8;
-		float tamanhoOcupado = (float) (tamanhoCarro + 3);
+		double tamanhoOcupado = (double) (tamanhoCarro + 3);
 		this->tamanho = tamanhoOcupado;
 	}
 
-	float getSize() {
+	double getSize() {
 		return this->tamanho;
 	}
 
@@ -40,7 +40,6 @@ public:
   * Destrutor. Destrutor de um carro.
   */
 	~Carro() {
-		delete this;
 	}
 };
 #endif

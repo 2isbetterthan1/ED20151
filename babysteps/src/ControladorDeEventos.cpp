@@ -134,6 +134,13 @@ public:
   }
 
   /**
+  * Função getListaDePistas. Retorna a lista de pistas.
+  */
+  Lista getListaDePistas() {
+	  return listaDePistas;
+  }
+
+  /**
   * Função inicializaPistas. Cria todas as pistas e adiciona elas na lista
   * de pistas.
   */

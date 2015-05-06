@@ -8,6 +8,7 @@
 #include "Pista.cpp"
 #include "Evento.cpp"
 #include "ControladorDeEventos.cpp"
+#include "Lista.cpp"
 
 class GeraSemaforo : public Evento {
 private:
@@ -53,7 +54,6 @@ public:
       default:
         break;
       }
-
   }
 
   /**
@@ -113,7 +113,8 @@ public:
   * estiver fechada.
   */
   void trocaEstadoPista(int indice) {
-    Pista pista = listaDePistas->encontraNaPosicao(indice);
+	Lista listaDePistas = controladorDeEventos.getListaDePistas();
+    Pista pista = listaDePistas.encontraNaPosicao(indice);
     pista->switchStatus();
   }
 };

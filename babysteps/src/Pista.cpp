@@ -23,7 +23,7 @@ private:
   double tamanho;     //  EM METROS
   double velocidade;  //  EM METROS POR SEGUNDO
   double tempoPercorrimento;
-  //Pilha<Pista> aleatorio;
+  Pilha<Pista> aleatorio;
 public:
 
   /**
@@ -37,7 +37,7 @@ public:
     this->tamanho = tamanho;
     this->velocidade = velocidade;
     setTempoPercorrimento();
-    //aleatorio = Pilha<Pista>(14);
+    aleatorio = Pilha<Pista>(14);
   }
 
   /**
@@ -109,17 +109,17 @@ public:
   */
   void criaPilhaAleatoria(int prob1, int prob2, int prob3, Pista primeiraOpcao, Pista segundaOpcao, Pista terceiraOpcao) {
 
-//    for (int i = 0; i < prob1; i++) {
-//      aleatorio.empilha(primeiraOpcao);
-//    }
-//
-//    for (int i = 0; i < prob2; i++) {
-//      aleatorio.empilha(segundaOpcao);
-//    }
-//
-//    for (int i = 0; i < prob2; i++) {
-//      aleatorio.empilha(terceiraOpcao);
-//    }
+   for (int i = 0; i < prob1; i++) {
+     aleatorio.empilha(primeiraOpcao);
+   }
+
+   for (int i = 0; i < prob2; i++) {
+     aleatorio.empilha(segundaOpcao);
+   }
+
+   for (int i = 0; i < prob2; i++) {
+     aleatorio.empilha(terceiraOpcao);
+   }
   }
 
   /**

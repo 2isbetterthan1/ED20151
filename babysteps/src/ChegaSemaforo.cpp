@@ -24,16 +24,16 @@ private:
   Carro carro;
   double tempo;
   Pista pista;
-  Pista* pistaDestino;
+  Pista pistaDestino;
 public:
   /**
   * Construtor. Construtor de um ChegaSemaforo.
   */
-  ChegaSemaforo(Carro carro, double tempo, Pista pista, Pista* pistaDestino) {
+  ChegaSemaforo(Carro carro, double tempo, Pista pista, Pista pistaDestino) {
     this->carro = carro;
     this->tempo = tempo;
     this->pista = pista;
-    setPistaDestino(pistaDestino);
+    this->pistaDestino = pistaDestino;
   }
 
   double getTime() {
@@ -45,17 +45,6 @@ public:
   }
 
   /**
-  * Função setPistaDestino. Determina, aleatoriamente, a pista para o qual
-  * o carro vai virar. Se a pista atual for um sumidouro, não faz nada.
-  */
-  void setPistaDestino(Pista pistaDestino) {
-    if (pistaDestino != NULL) {
-      this->pistaDestino = this->pista.getPistaAleatoria();
-    }
-    this->pistaDestino = pistaDestino;
-  }
-
-  /**
   * Função tentaCruzar. Verifica se a pista atual está com o semáforo aberto
   * e se a pista de destino tem espaço para o carro. Caso seja possível,
   * retira o carro da pista atual e insere-o na pista de destino.
@@ -63,11 +52,11 @@ public:
   void tentaCruzar() {
     if (pistaAberta() && !pistaDestinoLotada(pistaDestino)) {
       criaCarroNaPistaDestino(carro);
-      pista.retira();  //  FILA NAO PODE TER retiraEspecifico
+      pista.retira();
     } else {
       double tempo = this->tempo + TEMPOSEMAFORO;
-      ChegaSemaforo* novoChegaSemaforo = new ChegaSemaforo(carro, tempo, this->pista, this->pistaDestino); // Cria um novo evento Chega Semaforo para this->tempo + TEMPOSEMAFORO
-      controladorDeEventos->addTimelineEvent(novoChegaSemaforo);  //  CRIAR A TIMELINE NO MAIN E ADICIONAR DIRETAMENTE NELA? - esse controlador de eventos nao é conhecido aqui
+      ChegaSemaforo* novoChegaSemaforo = new ChegaSemaforo(carro, tempo, this->pista, this->pistaDestino);
+      controladorDeEventos->addTimelineEvent(novoChegaSemaforo);
     }
   }
 
@@ -82,7 +71,7 @@ public:
       pistaDestino.retira();
       controladorDeEventos->carroOut();
     } else {
-      criaEventoChegaSemaforo(carro, pistaDestino);
+      criaEventoChegaSemaforo(pistaDestino);
     }
   }
 
@@ -93,7 +82,8 @@ public:
   void criaEventoChegaSemaforo(Pista pista) {
     double tempoDePercorrimento = pista.getTempoPercorrimento();
     double tempoChegada = this->tempo + tempoDePercorrimento;
-    Evento chegaSemaforo = new ChegaSemaforo(carro, tempoChegada, pista, NULL);
+    Pista novaPistaDestino = pista.getPistaAleatoria();
+    ChegaSemaforo chegaSemaforo = ChegaSemaforo(carro, tempoChegada, pista, novaPistaDestino);
     controladorDeEventos->addTimelineEvent(chegaSemaforo);
   }
 
