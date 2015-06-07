@@ -64,7 +64,42 @@ class NoBinario {
     };
 
     NoBinario<T>* remover(NoBinario<T>* arv, const T& dado) {
-
+      NoBinario<T>* temp = new NoBinario<T>(NULL);
+      NoBinario<T>* filho = new NoBinario<T>(NULL;)
+      if (arv == NULL) {
+        return arv;
+      } else {
+        if (dado < arv->getDado()) {
+          arv->getEsquerda() = remover(dado, arv->getEsquerda());
+          return arv;
+        } else {
+          if (dado > arv->getDado()) {
+            arv->getDireita() = remover(dado, arv->getDireita());
+            return arv;
+          } else {
+            if (arv->getDireita() != NULL && arv->getEsquerda() != NULL) {
+              temp = minimo(arv->getDireita());
+              arv->dado = temp->getDado();
+              arv->direita = remover(arv->getDado(), arv->getDireita());
+              return arv;
+            } else {
+              temp = arv;
+              if (arv->getDireita() != NULL) {
+                filho = arv->getDireita();
+                return filho;
+              } else {
+                if (arv->getEsquerda() != NULL) {
+                  filho = arv->getEsquerda();
+                  return filho;
+                } else {
+                  // LIBERE ARV???
+                  return NULL;
+                }
+              }
+            }
+          }
+        }
+      }
     };
 
     NoBinario<T>* minimo(NoBinario<T>* nodo);
