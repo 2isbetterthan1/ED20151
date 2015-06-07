@@ -19,13 +19,28 @@ class NoBinario {
 
  public:
     NoBinario<T>(const T& dado) {
-
+      this->dado = dado;
+      this->esquerda = NULL;
+      this->direita = NULL;
     };
+
     virtual ~NoBinario();
-    T* getDado();
-    std::vector< NoBinario<T>* > getElementos();
-    NoBinario<T>* getEsquerda();
-    NoBinario<T>* getDireita();
+
+    T* getDado() {
+      return this->dado;
+    };
+
+    std::vector< NoBinario<T>* > getElementos() {
+      return this->elementos;
+    };
+
+    NoBinario<T>* getEsquerda() {
+      return this->esquerda;
+    };
+
+    NoBinario<T>* getDireita() {
+      return this->direita;
+    };
 
     T* busca(const T& dado, NoBinario<T>* arv) {
       while (arv != NULL && arv->getDado() != dado) {
