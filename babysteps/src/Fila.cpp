@@ -2,6 +2,10 @@
  * Fila.hpp
  */
 
+#ifndef FILA_HPP
+#define FILA_HPP
+
+
 #include "Carro.cpp"
 
 /**
@@ -37,6 +41,10 @@ class Fila {
 */
   void inicializaFila() {
     end = -1;
+  }
+
+  Carro encontra(int posicao) {
+	  return dados[posicao];
   }
 
 /**
@@ -101,3 +109,4 @@ class Fila {
     return end == -1;
   }
 };
+#endif

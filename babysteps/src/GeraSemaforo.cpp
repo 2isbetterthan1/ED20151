@@ -2,15 +2,24 @@
  * ControladorDeEventos.hpp
  */
 
-#include "Pista.hpp"
-#include "ControladorDeEventos.hpp"
+#ifndef GERASEMAFORO_HPP
+#define GERASEMAFORO_HPP
+
+#include "Pista.cpp"
+#include "Evento.cpp"
+#include "ControladorDeEventos.cpp"
+#include "Lista.cpp"
 
 class GeraSemaforo : public Evento {
 private:
   double tempo;
 
 public:
-  GeraSemaforo(tempo) {
+
+  /**
+  * Construtor. Construtor de um evento GeraSemaforo.
+  */
+  GeraSemaforo(double time) {
     this->tempo = tempo;
   }
 
@@ -22,8 +31,12 @@ public:
     trocaStatusPistas();
   }
 
-  trocaStatusPistas() {
-    int estado = controladorDeEventos->getEstadoSemaforos();
+  /**
+  * Função trocaStatusPistas. Passa de um cenário para o próximo (cenário da
+  * simulação com relação aos semáforos).
+  */
+  void trocaStatusPistas() {
+	int estado = controladorDeEventos->getEstadoSemaforos();
 
     switch(estado) {
       case 1:
@@ -41,9 +54,13 @@ public:
       default:
         break;
       }
-
   }
 
+  /**
+  * Função estadoA.
+  * Abre os semáforos das pistas 4 e 6.
+  * Fecha os semáforos das pistas 1 e 3.
+  */
   void estadoA() {
     trocaEstadoPista(1);
     trocaEstadoPista(3);
@@ -52,6 +69,11 @@ public:
     controladorDeEventos->setEstadoSemaforos(2);
   }
 
+  /**
+  * Função estadoB.
+  * Abre os semáforos das pistas 8 e 11.
+  * Fecha os semáforos das pistas 4 e 6.
+  */
   void estadoB() {
     trocaEstadoPista(8);
     trocaEstadoPista(3);
@@ -60,6 +82,11 @@ public:
     controladorDeEventos->setEstadoSemaforos(3);
   }
 
+  /**
+  * Função estadoC.
+  * Abre os semáforos das pistas 10 e 13.
+  * Fecha os semáforos das pistas 8 e 11.
+  */
   void estadoC() {
     trocaEstadoPista(11);
     trocaEstadoPista(10);
@@ -68,6 +95,11 @@ public:
     controladorDeEventos->setEstadoSemaforos(4);
   }
 
+  /**
+  * Função estadoD.
+  * Abre os semáforos das pistas 1 e 3.
+  * Fecha os semáforos das pistas 10 e 13.
+  */
   void estadoD() {
     trocaEstadoPista(1);
     trocaEstadoPista(10);
@@ -76,8 +108,14 @@ public:
     controladorDeEventos->setEstadoSemaforos(1);
   }
 
+  /**
+  * Função trocaEstadoPista. Fecha uma pista se ela estiver aberta, abre se ela
+  * estiver fechada.
+  */
   void trocaEstadoPista(int indice) {
-    Pista pista = listaDePistas->encontraNaPosicao(indice);
+	Lista listaDePistas = controladorDeEventos.getListaDePistas();
+    Pista pista = listaDePistas.encontraNaPosicao(indice);
     pista->switchStatus();
   }
-}
+};
+#endif
