@@ -14,17 +14,17 @@ class NoBinario {
   NoBinario<T>* esquerda;
   NoBinario<T>* direita;
   std::vector<NoBinario<T>* > elementos;
-  typename std::vector<NoBinario<T>*>::iterator i;
+  typename std::vector<NoBinario<T>*>::iterator i = elementos.begin();
 
  public:
   NoBinario<T>(const T& data) {
     dado = new T(data);
-    esquerda = NULL;
-    direita = NULL;
+    esquerda = 0;
+    direita = 0;
   }
 
   virtual ~NoBinario() {
-    elementos;
+    delete this->dado;
   }
 
   T* getDado() {
@@ -37,27 +37,19 @@ class NoBinario {
 
   NoBinario<T>* inserir(const T& dado, NoBinario<T>* arv) {
     NoBinario<T>* novoNoh = new NoBinario<T>(dado);
-    if (dado != 0) {
-      if (dado > *arv->getDado()) {
-        if (arv->getDireita() == 0) {
-          arv->direita = novoNoh;
-        } else {
-          arv->getDireita()->inserir(dado, arv->getDireita());
-        }
+    if (dado > *arv->getDado()) {
+      if (arv->getDireita() == 0) {
+        arv->direita = novoNoh;
       } else {
-        if (dado < *arv->getDado()) {
-          if (arv->getEsquerda() == 0) {
-            arv->esquerda = novoNoh;
-          } else {
-            arv->getEsquerda()->inserir(dado, arv->getEsquerda());
-          }
-        }
+        arv->getDireita()->inserir(dado, arv->getDireita());
       }
     } else {
-      if (dado == *arv->getDado()) {
-        return arv;
-      } else {
-        throw("erro");
+      if (dado < *arv->getDado()) {
+        if (arv->getEsquerda() == 0) {
+          arv->esquerda = novoNoh;
+        } else {
+          arv->getEsquerda()->inserir(dado, arv->getEsquerda());
+        }
       }
     }
     return novoNoh;
@@ -72,7 +64,7 @@ class NoBinario {
   }
 
   T* busca(const T& dado, NoBinario<T>* arv) {
-    if (dado != 0 && arv != NULL) {
+    if (arv != NULL) {
       if (dado == *arv->getDado()) {
         return arv->getDado();
       } else {
@@ -100,13 +92,51 @@ class NoBinario {
   }
 
   NoBinario<T>* remover(NoBinario<T>* arv, const T& dado) {
+    NoBinario<T>* temp = new NoBinario<T>(0);
+    NoBinario<T>* filho = new NoBinario<T>(0);
+    if (arv == NULL) {
+      return arv;
+    } else {
+      if (dado < *arv->getDado()) {
+        arv->esquerda = remover(arv->getEsquerda(), dado);
+        return arv;
+      } else {
+        if (dado > *arv->getDado()) {
+          arv->direita = remover(arv->getDireita(), dado);
+          return arv;
+        } else {
+          if (arv->getDireita() != NULL && arv->getEsquerda() != NULL) {
+            temp = minimo(arv->getDireita());
+            arv->dado = temp->getDado();
+            arv->direita = remover(arv->getDireita(), *arv->getDado());
+            return arv;
+          } else {
+            temp = arv;
+            if (arv->getDireita() != NULL) {
+              filho = arv->getDireita();
+              return filho;
+            } else {
+              if (arv->getEsquerda() != NULL) {
+                filho = arv->getEsquerda();
+                return filho;
+              } else {
+                arv->~NoBinario();
+                return NULL;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  void addElemento(NoBinario<T>* nodo) {
+    elementos += nodo;
   }
 
   void preOrdem(NoBinario<T>* nodo) {
     if (nodo != NULL) {
-      // adiciona em elementos
-      i = elementos.begin();
-      i = elementos.insert(i, nodo);
+      elementos.push_back(nodo);
       if (nodo->getEsquerda() != NULL) {
         preOrdem(nodo->getEsquerda());
       }
@@ -121,8 +151,7 @@ class NoBinario {
     if (nodo->getEsquerda() != NULL) {
       emOrdem(nodo->getEsquerda());
     }
-    i = elementos.begin();
-    i = elementos.insert(i, nodo);
+    elementos.push_back(nodo);
     if (nodo->getDireita() != NULL) {
       emOrdem(nodo->getDireita());
     }
@@ -137,12 +166,10 @@ class NoBinario {
       if (nodo->getDireita() != NULL) {
         posOrdem(nodo->getDireita());
       }
-      i = elementos.begin();
-      i = elementos.insert(i, nodo);
+      elementos.push_back(nodo);
     }
     elementos.end();
   }
 };
 
 #endif /* NO_BINARIO_HPP */
-
