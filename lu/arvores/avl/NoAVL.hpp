@@ -55,7 +55,27 @@ class NoAVL  {
       return this->direita;
     }
 
-    NoAVL<T>* inserir(const T& dado, NoAVL<T>* arv);
+    NoAVL<T>* inserir(const T& dado, NoAVL<T>* arv) {
+      NoAVL<T>* novoNoh = new NoAVL<T>(dado);
+      if (dado > *arv->getDado()) {
+        if (arv->getDireita() == 0) {
+          arv->direita = novoNoh;
+        } else {
+          arv->getDireita()->inserir(dado, arv->getDireita());
+        }
+      } else {
+        if (dado < *arv->getDado()) {
+          if (arv->getEsquerda() == 0) {
+            arv->esquerda = novoNoh;
+          } else {
+            arv->getEsquerda()->inserir(dado, arv->getEsquerda());
+          }
+        }
+      }
+      isBalanced();
+
+      return novoNoh;
+    }
     NoAVL<T>* remover(NoAVL<T>* arv, const T& dado);
     NoAVL<T>* minimo(NoAVL<T>* nodo);
     T* getDado() {
