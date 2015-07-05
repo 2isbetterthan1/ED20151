@@ -18,7 +18,7 @@ class NoAVL  {
 
  public:
     explicit NoAVL(const T& data) {
-      altura = 1;
+      altura = 0;
       dado = new T(data);
       esquerda = 0;
       direita = 0;
@@ -57,6 +57,7 @@ class NoAVL  {
 
     NoAVL<T>* inserir(const T& dado, NoAVL<T>* arv) {
       NoAVL<T>* novoNoh = new NoAVL<T>(dado);
+      novoNoh->altura = arv->getAltura + 1;
       if (dado > *arv->getDado()) {
         if (arv->getDireita() == 0) {
           arv->direita = novoNoh;
