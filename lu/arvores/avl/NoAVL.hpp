@@ -46,7 +46,21 @@ class NoAVL  {
       return this->dado;
     }
 
-    T* busca(const T& dado, NoAVL<T>* arv);
+    T* busca(const T& dado, NoAVL<T>* arv) {
+      if (arv != NULL) {
+        if (dado == *arv->getDado()) {
+          return arv->getDado();
+        } else {
+          if (dado > *arv->getDado()) {
+            arv->busca(dado, arv->getDireita());
+          } else {
+            arv->busca(dado, arv->getEsquerda());
+          }
+        }
+      } else {
+        throw("erro");
+      }
+    }
 
     void preOrdem(NoAVL<T>* nodo) {
       if (nodo != NULL) {
