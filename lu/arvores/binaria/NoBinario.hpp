@@ -22,25 +22,25 @@ class NoBinario {
       this->dado = dado;
       this->esquerda = NULL;
       this->direita = NULL;
-    };
+    }
 
     virtual ~NoBinario();
 
     T* getDado() {
       return this->dado;
-    };
+    }
 
     std::vector< NoBinario<T>* > getElementos() {
       return this->elementos;
-    };
+    }
 
     NoBinario<T>* getEsquerda() {
       return this->esquerda;
-    };
+    }
 
     NoBinario<T>* getDireita() {
       return this->direita;
-    };
+    }
 
     T* busca(const T& dado, NoBinario<T>* arv) {
       while (arv != NULL && arv->getDado() != dado) {
@@ -51,7 +51,7 @@ class NoBinario {
         }
       }
       return arv;
-    };
+    }
 
     NoBinario<T>* inserir(const T& dado, NoBinario<T>* arv) {
       NoBinario<T>* novo = new NoBinario<T>(dado); //NAO SEI INSTANCIAR SACARALHA
@@ -76,7 +76,7 @@ class NoBinario {
           arv = inserir(arv->getDireita(), dado);
         }
       }
-    };
+    }
 
     NoBinario<T>* remover(NoBinario<T>* arv, const T& dado) {
       NoBinario<T>* temp = new NoBinario<T>(NULL);
@@ -115,9 +115,15 @@ class NoBinario {
           }
         }
       }
-    };
+    }
 
-    NoBinario<T>* minimo(NoBinario<T>* nodo);
+    NoBinario<T>* minimo(NoBinario<T>* nodo) {
+      if (nodo->getEsquerda() == NULL) {
+        return nodo;
+      } else {
+        nodo->minimo(nodo->getEsquerda());
+      }
+    }
 
     void preOrdem(NoBinario<T>* nodo) {
       if (novo != NULL) {
@@ -125,7 +131,7 @@ class NoBinario {
         preOrdem(nodo->getEsquerda());
         preOrdem(nodo->getDireita());
       }
-    };
+    }
 
     void emOrdem(NoBinario<T>* nodo) {
       if (nodo != NULL) {
@@ -133,7 +139,7 @@ class NoBinario {
         printf(nodp>getDado());
         emOrdem(nodo->getDireita());
       }
-    };
+    }
 
     void posOrdem(NoBinario<T>* nodo) {
       if (nodo != NULL) {
@@ -142,7 +148,7 @@ class NoBinario {
         printf(nodo->getDado());
 
       }
-    };
+    }
 };
 
 #endif
