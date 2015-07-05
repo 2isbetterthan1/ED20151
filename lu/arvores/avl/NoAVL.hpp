@@ -73,10 +73,20 @@ class NoAVL  {
           }
         }
       }
-      isBalanced();
+      if (!isBalanced()) {
+        //ROTACIONA
+      }
 
       return novoNoh;
     }
+
+    bool isBalanced(NoAVL<T>* arv) {
+      int alturaEsquerda = calcAltura(this->esquerda);
+      int alturaDireita = calcAltura(this->direita);
+
+      return (alturaEsquerda - alturaDireita) < 2
+    }
+
     NoAVL<T>* remover(NoAVL<T>* arv, const T& dado);
     NoAVL<T>* minimo(NoAVL<T>* nodo);
     T* getDado() {
