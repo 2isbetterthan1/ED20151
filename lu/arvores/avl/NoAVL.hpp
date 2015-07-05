@@ -27,7 +27,23 @@ class NoAVL  {
     virtual ~NoAVL();
 
     int getAltura() {
-      return this->altura;
+      int alturaEsquerda = calcAltura(this->esquerda);
+      int alturaDireita = calcAltura(this->direita);
+      if (alturaEsquerda > alturaDireita) {
+        return alturaEsquerda;
+      } else if (alturaDireita > alturaEsquerda){
+        return alturaDireita;
+      } else {
+        return 0;
+      }
+    }
+
+    int calcAltura(NoAVL<T>* subarvore) {
+      if (subarvore == NULL) {
+        return -1;
+      } else {
+        return subarvore->getAltura();
+      }
     }
 
     std::vector<NoAVL<T>* > getElementos();
