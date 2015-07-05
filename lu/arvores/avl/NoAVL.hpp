@@ -27,22 +27,24 @@ class NoAVL  {
     virtual ~NoAVL();
 
     int getAltura() {
-      int alturaEsquerda = calcAltura(this->esquerda);
-      int alturaDireita = calcAltura(this->direita);
-      if (alturaEsquerda > alturaDireita) {
-        return alturaEsquerda;
-      } else if (alturaDireita > alturaEsquerda){
-        return alturaDireita;
-      } else {
-        return 0;
-      }
+      return this->altura;
     }
 
-    int calcAltura(NoAVL<T>* subarvore) {
-      if (subarvore == NULL) {
-        return -1;
+    int maxAltura(NoAVL<T>* arvore) {
+      int alturaEsquerda = 0;
+      int alturaDireita = 0;
+
+      if (this->getEsquerda != NULL) {
+        alturaEsquerda = this->esquerda.getAltura();
+      }
+      if (this->getDireita != NULL) {
+        this->direita.getAltura();
+      }
+
+      if (alturaEsquerda > alturaDireita) {
+        return alturaEsquerda;
       } else {
-        return subarvore->getAltura();
+        return alturaDireita;
       }
     }
 
@@ -57,7 +59,6 @@ class NoAVL  {
 
     NoAVL<T>* inserir(const T& dado, NoAVL<T>* arv) {
       NoAVL<T>* novoNoh = new NoAVL<T>(dado);
-      novoNoh->altura = arv->getAltura + 1;
       if (dado > *arv->getDado()) {
         if (arv->getDireita() == 0) {
           arv->direita = novoNoh;
@@ -73,6 +74,8 @@ class NoAVL  {
           }
         }
       }
+
+      //ATUALIZAR ALTURA (CONTA-SE DE BAIXO PARA CIMA)
       if (!isBalanced()) {
         //ROTACIONA
       }
