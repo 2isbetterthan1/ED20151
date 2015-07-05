@@ -30,7 +30,7 @@ class NoAVL  {
       return this->altura;
     }
 
-    int maxAltura(NoAVL<T>* arvore) {
+    int maxAltura() {
       int alturaEsquerda = 0;
       int alturaDireita = 0;
 
@@ -75,6 +75,7 @@ class NoAVL  {
         }
       }
 
+      this->altura = maxAltura() + 1;
       //ATUALIZAR ALTURA (CONTA-SE DE BAIXO PARA CIMA)
       if (!isBalanced()) {
         //ROTACIONA
