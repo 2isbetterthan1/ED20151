@@ -1,6 +1,11 @@
+/* Copyright [2015] <marcelinol>
+ * NoAVL.hpp
+ */
+
 #ifndef NO_AVL_HPP
 #define NO_AVL_HPP
 #include <vector>
+#include <cstdlib>
 
 template <typename T>
 class NoAVL  {
@@ -12,11 +17,11 @@ class NoAVL  {
     std::vector<NoAVL<T>* > elementos;
 
  public:
-    explicit NoAVL(const T& dado) {
-      this->altura = 1;
-      this->dado = dado;
-      this->esquerda = NULL;
-      this->direita = NULL;
+    explicit NoAVL(const T& data) {
+      altura = 1;
+      dado = new T(data);
+      esquerda = 0;
+      direita = 0;
     }
 
     virtual ~NoAVL();
@@ -43,29 +48,41 @@ class NoAVL  {
 
     T* busca(const T& dado, NoAVL<T>* arv);
 
-    void preOrdem(NoBinario<T>* nodo) {
-      if (novo != NULL) {
-        printf(noto->getDado());
-        preOrdem(nodo->getEsquerda());
-        preOrdem(nodo->getDireita());
+    void preOrdem(NoAVL<T>* nodo) {
+      if (nodo != NULL) {
+        elementos.push_back(nodo);
+        if (nodo->getEsquerda() != NULL) {
+          preOrdem(nodo->getEsquerda());
+        }
+        if (nodo->getDireita() != NULL) {
+          preOrdem(nodo->getDireita());
+        }
       }
+      elementos.end();
     }
 
-    void emOrdem(NoBinario<T>* nodo) {
-      if (nodo != NULL) {
+    void emOrdem(NoAVL<T>* nodo) {
+      if (nodo->getEsquerda() != NULL) {
         emOrdem(nodo->getEsquerda());
-        printf(nodp>getDado());
+      }
+      elementos.push_back(nodo);
+      if (nodo->getDireita() != NULL) {
         emOrdem(nodo->getDireita());
       }
+      elementos.end();
     }
 
-    void posOrdem(NoBinario<T>* nodo) {
+    void posOrdem(NoAVL<T>* nodo) {
       if (nodo != NULL) {
-        posOrdem(nodo->getEsquerda());
-        posOrdem(nodo->getDireita());
-        printf(nodo->getDado());
-
+        if (nodo->getEsquerda() != NULL) {
+          posOrdem(nodo->getEsquerda());
+        }
+        if (nodo->getDireita() != NULL) {
+          posOrdem(nodo->getDireita());
+        }
+        elementos.push_back(nodo);
       }
+      elementos.end();
     }
 };
 
