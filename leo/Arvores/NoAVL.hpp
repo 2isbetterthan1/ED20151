@@ -24,7 +24,9 @@ class NoAVL  {
       direita = 0;
     }
 
-    virtual ~NoAVL();
+    virtual ~NoAVL() {
+      delete this;
+    }
 
     int getAltura() {
       return this->altura;
@@ -34,11 +36,11 @@ class NoAVL  {
       int alturaEsquerda = 0;
       int alturaDireita = 0;
 
-      if (this->getEsquerda != NULL) {
-        alturaEsquerda = this->esquerda.getAltura();
+      if (this->getEsquerda() != NULL) {
+        alturaEsquerda = this->esquerda->getAltura();
       }
-      if (this->getDireita != NULL) {
-        alturaDireita = this->direita.getAltura();
+      if (this->getDireita() != NULL) {
+        alturaDireita = this->direita->getAltura();
       }
 
       if (alturaEsquerda == 0 && alturaDireita == 0) {
@@ -95,76 +97,92 @@ class NoAVL  {
         filhoDireita = new NoAVL<T>(0);
       }
 
-      if ( !( filhoDireita.isBalanced() ) ) {
-        filhoDireita->balance();
-      } else if( !( filhoEsquerda.isBalanced() ) ) {
-        filhoEsquerda->balance();
-      } else if( !( arv.isBalanced() ) ) {
-        arv->balance();
+      if (!(isBalanced(filhoDireita))) {
+        balance(filhoDireita);
+      } else if (!(isBalanced(filhoEsquerda))) {
+        balance(filhoEsquerda);
+      } else if (!(isBalanced(arv))) {
+        balance(arv);
       }
       return novoNoh;
     }
 
-    NoAVL<T>* balance() {
-      int fatBal = this->getFatBal();
-
-      // Esquerda desbalanceada
-      if (fatBal > 0) {
-        int fatBalFilho = this->esquerda.getFatBal();
-        if (fatBalFilho > 0) { // Rotação Simples à Direita
-          this->rotacaoSimplesDireita();
-        } else { // Rotação Dupla (Rotação Simples Esquerda) + (Rotação Simples Direita)
-          NoAVL<T>* rotacionado = this->esquerda.rotacaoSimplesEsquerda();
-          this->esquerda = rotacionado;
-          this->rotacaoSimplesDireita();
-        }
-      } else { // fatBal < 0 - Direita desbalanceada
-        int fatBalFilho = this->direita.getFatBal();
-        if (fatBalFilho < 0) { // Rotação Simples à Esquerda
-          this->rotacaoSimplesEsquerda();
-        } else { // Rotação Dupla (Rotação Simples Direita) + (Rotação Simples Esquerda)
-          NoAVL<T>* rotacionado = this->direita.rotacaoSimplesDireita();
-          this->direita = rotacionado;
-          this->rotacaoSimplesEsquerda();
-        }
-    }
-
-    NoAVL<T>* rotacaoSimplesEsquerda() {
-      NoAVL<T>* filhoDireita = this->direita;
-      filhoDireita->esquerda = this;
-      this->direita = NULL;
-      this->esquerda = NULL;
-      return filhoDireita;
-    }
-
-    NoAVL<T>* rotacaoSimplesDireita() {
-      NoAVL<T>* filhoEsquerda = arv->esquerda;
-      filhoEsquerda->direita = this;
-      this->direita = NULL;
-      this->esquerda = NULL;
-      return filhoEsquerda;
-    }
-
-    int getFatBal() {
-      int alturaEsquerda = -1;
-      int alturaDireita = -1;
-      if (this->esquerda != NULL) {
-        alturaEsquerda = this->esquerda.getAltura();
+    bool isBalanced(NoAVL<T>* arv) const {
+      int fatBal = getFatBal(arv);
+      bool response = fatBal > -2 && fatBal < 2;
+      if (response) {
+        return true;
+      } else {
+        return false;
       }
-      if (this->direita != NULL) {
-        alturaDireita = this->direita.getAltura();
+    }
+
+    int getFatBal(NoAVL<T>* arv) const {
+      int alturaEsquerda = 0;
+      int alturaDireita = 0;
+      if (arv->esquerda != NULL) {
+        alturaEsquerda = arv->esquerda->getAltura() + 1;
+      }
+      if (arv->direita != NULL) {
+        alturaDireita = arv->direita->getAltura() + 1;
       }
       return  alturaEsquerda - alturaDireita;
     }
 
-    bool isBalanced(NoAVL<T>* arv) {
-      int fatBal = arv->getFatBal();
-      bool response = fatBal > -2 && fatBal < 2;
-      return response;
+    NoAVL<T>* balance(NoAVL<T>* arv) const {
+      int fatBal = getFatBal(arv);
+
+      // Esquerda desbalanceada
+      if (fatBal > 0) {
+        int fatBalFilho = getFatBal(arv->esquerda);
+        if (fatBalFilho > 0) {  // Rotação Simples à Direita
+          rotacaoSimplesDireita(arv);
+        } else {  // Rotação Dupla RotaçãoSimplesEsquerda/RotaçãoSimplesDireita
+          NoAVL<T>* rotacionado = rotacaoSimplesEsquerda(arv->esquerda);
+          arv->esquerda = rotacionado;
+          rotacaoSimplesDireita(arv);
+        }
+      } else {  // fatBal < 0 - Direita desbalanceada
+        int fatBalFilho = getFatBal(arv->direita);
+        if (fatBalFilho < 0) {  // Rotação Simples à Esquerda
+          rotacaoSimplesEsquerda(arv);
+        } else {  // Rotação Dupla RotaçãoSimplesDireita/RotaçãoSimplesEsquerda
+          NoAVL<T>* rotacionado = rotacaoSimplesDireita(arv->direita);
+          arv->direita = rotacionado;
+          rotacaoSimplesEsquerda(arv);
+        }
+      }
+      return arv;
     }
 
-    NoAVL<T>* remover(NoAVL<T>* arv, const T& dado);
-    NoAVL<T>* minimo(NoAVL<T>* nodo);
+    NoAVL<T>* rotacaoSimplesEsquerda(NoAVL<T>* arv) const {
+      NoAVL<T>* filhoDireita = arv->direita;
+      filhoDireita->esquerda = arv;
+      arv->direita = NULL;
+      arv->esquerda = NULL;
+      arv->altura = arv->maxAltura();
+      filhoDireita->altura = filhoDireita->maxAltura() + 1;
+      return filhoDireita;
+    }
+
+    NoAVL<T>* rotacaoSimplesDireita(NoAVL<T>* arv) const {
+      NoAVL<T>* filhoEsquerda = arv->esquerda;
+      filhoEsquerda->direita = arv;
+      arv->direita = NULL;
+      arv->esquerda = NULL;
+      arv->altura = arv->maxAltura();
+      filhoEsquerda->altura = filhoEsquerda->maxAltura() + 1;
+      return filhoEsquerda;
+    }
+
+    NoAVL<T>* remover(NoAVL<T>* arv, const T& dado) {
+      return arv;
+    }
+
+    NoAVL<T>* minimo(NoAVL<T>* nodo) {
+      return nodo;
+    }
+
     T* getDado() {
       return this->dado;
     }
@@ -183,6 +201,7 @@ class NoAVL  {
       } else {
         throw("erro");
       }
+      return arv->getDado();
     }
 
     void preOrdem(NoAVL<T>* nodo) {
