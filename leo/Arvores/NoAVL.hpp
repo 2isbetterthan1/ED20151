@@ -32,22 +32,20 @@ class NoAVL  {
       return this->altura;
     }
 
-    int maxAltura() {
+    int maxAltura(NoAVL<T>* arv) const {
       int alturaEsquerda = 0;
       int alturaDireita = 0;
 
-      if (this->getEsquerda() != NULL) {
-        alturaEsquerda = this->esquerda->getAltura();
+      if (arv->getEsquerda() != NULL) {
+        alturaEsquerda = arv->esquerda->getAltura();
       }
-      if (this->getDireita() != NULL) {
-        alturaDireita = this->direita->getAltura();
+      if (arv->getDireita() != NULL) {
+        alturaDireita = arv->direita->getAltura();
       }
 
       if (alturaEsquerda == 0 && alturaDireita == 0) {
         return 0;
-      }
-
-      if (alturaEsquerda > alturaDireita) {
+      } else if (alturaEsquerda > alturaDireita) {
         return alturaEsquerda;
       } else {
         return alturaDireita;
@@ -83,8 +81,8 @@ class NoAVL  {
       }
 
       // ATRIBUIÇÃO DE ALTURAS
-      novoNoh->altura = novoNoh->maxAltura();
-      arv->altura = arv->maxAltura() + 1;
+      novoNoh->altura = maxAltura(novoNoh);
+      arv->altura = maxAltura(arv) + 1;
 
       // ROTAÇÕES
       NoAVL<T>* filhoDireita = arv->direita;
@@ -129,7 +127,7 @@ class NoAVL  {
       return  alturaEsquerda - alturaDireita;
     }
 
-    NoAVL<T>* balance(NoAVL<T>* arv) const {
+    NoAVL<T>* balance(NoAVL<T>* arv) {
       int fatBal = getFatBal(arv);
 
       // Esquerda desbalanceada
@@ -138,8 +136,7 @@ class NoAVL  {
         if (fatBalFilho > 0) {  // Rotação Simples à Direita
           rotacaoSimplesDireita(arv);
         } else {  // Rotação Dupla RotaçãoSimplesEsquerda/RotaçãoSimplesDireita
-          NoAVL<T>* rotacionado = rotacaoSimplesEsquerda(arv->esquerda);
-          arv->esquerda = rotacionado;
+          rotacaoSimplesEsquerda(arv->esquerda);
           rotacaoSimplesDireita(arv);
         }
       } else {  // fatBal < 0 - Direita desbalanceada
@@ -147,32 +144,41 @@ class NoAVL  {
         if (fatBalFilho < 0) {  // Rotação Simples à Esquerda
           rotacaoSimplesEsquerda(arv);
         } else {  // Rotação Dupla RotaçãoSimplesDireita/RotaçãoSimplesEsquerda
-          NoAVL<T>* rotacionado = rotacaoSimplesDireita(arv->direita);
-          arv->direita = rotacionado;
+          rotacaoSimplesDireita(arv->direita);
           rotacaoSimplesEsquerda(arv);
         }
       }
       return arv;
     }
 
-    NoAVL<T>* rotacaoSimplesEsquerda(NoAVL<T>* arv) const {
-      NoAVL<T>* filhoDireita = arv->direita;
-      filhoDireita->esquerda = arv;
-      arv->direita = NULL;
-      arv->esquerda = NULL;
-      arv->altura = arv->maxAltura();
-      filhoDireita->altura = filhoDireita->maxAltura() + 1;
-      return filhoDireita;
+    void rotacaoSimplesEsquerda(NoAVL<T>* raiz) {
+      NoAVL<T>* aux;
+      aux = raiz->direita;
+      raiz->direita = aux->esquerda;
+      aux->esquerda = raiz;
+      if (aux->esquerda->esquerda == NULL && aux->esquerda->direita == NULL) {
+        // caso o nó seja uma folha
+        aux->esquerda->altura = 0;
+      } else {
+        aux->esquerda->altura = maxAltura(aux->esquerda) + 1;
+      }
+      aux->altura = maxAltura(aux) + 1;
+      raiz = aux;
     }
 
-    NoAVL<T>* rotacaoSimplesDireita(NoAVL<T>* arv) const {
-      NoAVL<T>* filhoEsquerda = arv->esquerda;
-      filhoEsquerda->direita = arv;
-      arv->direita = NULL;
-      arv->esquerda = NULL;
-      arv->altura = arv->maxAltura();
-      filhoEsquerda->altura = filhoEsquerda->maxAltura() + 1;
-      return filhoEsquerda;
+    void rotacaoSimplesDireita(NoAVL<T>* raiz) {
+      NoAVL* aux;
+      aux = raiz->esquerda;
+      raiz->esquerda = aux->direita;
+      aux->direita = raiz;
+      if (aux->direita->esquerda == NULL && aux->direita->direita == NULL) {
+        // caso o nó seja uma folha
+        aux->direita->altura = 0;
+      } else {
+        aux->direita->altura = maxAltura(aux->direita) + 1;
+      }
+      aux->altura = maxAltura(aux) + 1;
+      raiz = aux;
     }
 
     NoAVL<T>* remover(NoAVL<T>* arv, const T& dado) {
